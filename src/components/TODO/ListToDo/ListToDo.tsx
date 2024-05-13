@@ -29,6 +29,13 @@ function ListToDo() {
       { id: Math.floor(Math.random() * 1000), todo: newTodo, complete: false },
     ]);
   };
+  const handleModifyTodo = (id, modifiedTodo) => {
+    setTodoItems(
+      todoItems.map((item) =>
+        item.id === id ? { ...item, todo: modifiedTodo } : item
+      )
+    );
+  };
   const handleDeleteTodo = (id) => {
     setTodoItems(todoItems.filter((item) => item.id !== id));
   };
@@ -46,7 +53,12 @@ function ListToDo() {
         </header>
 
         {todoItems.map((item) => (
-          <ItemToDo key={item.id} props={item} onDelete={handleDeleteTodo} />
+          <ItemToDo
+            key={item.id}
+            props={item}
+            onDelete={handleDeleteTodo}
+            onModify={(modifiedTodo) => handleModifyTodo(item.id, modifiedTodo)}
+          />
         ))}
       </div>
       <AddToDo onAddTodo={handleAddTodo} />

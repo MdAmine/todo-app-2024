@@ -6,12 +6,17 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import "../ListToDo/ListToDo.css";
-function ItemToDo({ props, onDelete }) {
+function ItemToDo({ props, onDelete, onModify }) {
   const { id, todo } = props;
   const handleDelete = () => {
     onDelete(id);
   };
-
+  const handleModify = () => {
+    const modifiedTodo = prompt("Modify todo:", todo);
+    if (modifiedTodo !== null) {
+      onModify(modifiedTodo);
+    }
+  };
   return (
     <>
       <ul className="list-group todos mx-auto text-light">
@@ -34,6 +39,7 @@ function ItemToDo({ props, onDelete }) {
               }}
               icon={faPenToSquare}
               className="pointer"
+              onClick={handleModify}
             />
             <FontAwesomeIcon
               icon={faTrashAlt}
