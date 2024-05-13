@@ -1,113 +1,75 @@
 import "bootstrap/dist/css/bootstrap.css";
-import FloatingButton from "./components/UI/FloatingButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faPenToSquare,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
+import FloatingButton from "./components/UI/FloatingButton.tsx";
+import AddTodoForm from "./components/AddTodoForm/AddTodoForm.tsx";
+import TodoItem from "./components/TodoItem/TodoItem.tsx";
+import Header from "./components/Header/Header.tsx";
+import {Todo} from "./types";
+import {getTodos} from "./utils/mockData.ts";
+import {useMemo, useState} from "react";
+import LoginForm from "./components/LoginForm/LoginForm.tsx";
 
 function App() {
+  const [isLoggedIn, setLoggedIn] = useState<boolean>(
+    localStorage.getItem('isLoggedIn') == 'true' ?? false
+  )
+  const [todos, setTodos] = useState<Todo[]>(getTodos())
+  const [search, setSearch] = useState<string>('')
+  const searchedTodos = useMemo<Todo[]>(() => {
+    return todos.filter(t => t.name.includes(search))
+  }, [todos, search])
+
+  const handleAddTodo = (todo: Todo) => {
+    todo.id = Math.max(...todos.map(t => t.id)) + 1
+    setTodos(prevState => {
+      return [...prevState, todo]
+    })
+  }
+
+  const handleSearch = (key: string) => {
+    setSearch(key)
+  }
+
+  const handleDeleteTodo = (todoId: number) => {
+    setTodos(prevState => {
+      return prevState.filter(t => t.id !== todoId)
+    })
+  }
+
+  const handleUpdateTodo = (todo: Todo) => {
+    setTodos(prevState => prevState.map(t => {
+      if (t.id === todo.id) {
+        t.name = todo.name
+        t.completed = todo.completed
+      }
+      return t
+    }))
+  }
+
+  const handleLogin = () => {
+    setLoggedIn(true)
+  }
+
+  const handleLogout = () => {
+    setLoggedIn(false)
+  }
+
   return (
-    <>
-      <div className="container">
-        <header className="text-center text-light my-4">
-          <h1 className="mb-5">Todo List</h1>
-          <input
-            type="text"
-            className="form-control m-auto"
-            name="search"
-            placeholder="search todos"
-          />
-        </header>
-
-        <ul className="list-group todos mx-auto text-light">
-          <li
-            className={`list-group-item d-flex justify-content-between align-items-center`}
-          >
-            <span>Read Books</span>
-            <div>
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faCheck}
-                className="pointer"
-              />
-
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faPenToSquare}
-                className="pointer"
-              />
-              <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-            </div>
-          </li>
-        </ul>
-
-        <ul className="list-group todos mx-auto text-light">
-          <li
-            className={`list-group-item d-flex justify-content-between align-items-center`}
-          >
-            <span>Sport</span>
-            <div>
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faCheck}
-                className="pointer"
-              />
-
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faPenToSquare}
-                className="pointer"
-              />
-              <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-            </div>
-          </li>
-        </ul>
-
-        <form className="add text-center my-4">
-          <label htmlFor="add" className="add text-light">
-            Add a new todo:
-          </label>
-          <input
-            type="text"
-            className="form-control m-auto"
-            name="add"
-            id="add"
-          />
-        </form>
-
-        <form className="text-center my-4 text-light">
-          <h1 className="mb-4">Login Form</h1>
-          <input
-            type="text"
-            className={`form-control mb-2`}
-            id="email"
-            placeholder="Email"
-          />
-          <input
-            type="text"
-            className={`form-control mb-3`}
-            id="password"
-            placeholder="Enter your Password"
-          />
-          <button type="submit" className="btn btn-dark">
-            Login
-          </button>
-        </form>
-
-        <FloatingButton />
-      </div>
-    </>
+    <div className="container">
+      {
+        isLoggedIn ? <>
+          <Header onSearch={handleSearch}/>
+          <ul className="list-group todos mx-auto text-light">
+            {searchedTodos.map((todo) => (
+              <TodoItem key={todo.id} todo={todo} onDelete={handleDeleteTodo}
+                        onUpdate={handleUpdateTodo}/>
+            ))}
+          </ul>
+          <AddTodoForm onAddTodo={handleAddTodo}/>
+        </> : <LoginForm onLogin={handleLogin}/>
+      }
+      <FloatingButton onLogout={handleLogout}/>
+    </div>
   );
 }
 

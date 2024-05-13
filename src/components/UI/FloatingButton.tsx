@@ -1,8 +1,8 @@
-import { useState } from "react";
+import {useState} from "react";
 
 import "./FloatingButton.scss";
 
-const FloatingButton = () => {
+const FloatingButton = ({onLogout}: { onLogout: () => void }) => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -12,6 +12,11 @@ const FloatingButton = () => {
   const setUnchecked = () => {
     setChecked(false);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn')
+    onLogout()
+  }
 
   return (
     <div className="buttonContainer" onBlur={setUnchecked}>
@@ -26,7 +31,7 @@ const FloatingButton = () => {
         <ul>
           <span>Todo List</span>
           <span>About</span>
-          <span>Logout</span>
+          <span onClick={handleLogout}>Logout</span>
         </ul>
       </nav>
     </div>
