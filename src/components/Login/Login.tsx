@@ -5,15 +5,16 @@ import "./Login.css";
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage,setErrorMessage]=useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email && password) {
-      props.onLogin();
-    } else {
-      alert("Please fill in both fields");
-    }
-  };
+      e.preventDefault();
+      if (email !== "admin" || password !== "admin") {
+       setErrorMessage("invalid email or password")
+     } else {
+        props.onLogin();
+      }
+    };
 
   return (
     <>
@@ -38,6 +39,7 @@ function Login(props) {
         <button type="submit" className="btn btn-dark">
           Login
         </button>
+        {errorMessage && <p>{errorMessage}</p>}
       </form>
     </>
   );
