@@ -28,6 +28,7 @@ const TodoItem = (props) => {
               }}
               icon={faPenToSquare}
               className="pointer"
+              onClick={() => props.onUpdate(props.item.id)}
             />
             <FontAwesomeIcon icon={faTrashAlt} className="pointer" onClick={() => props.onDelete(props.item.id)}/>
           </div>

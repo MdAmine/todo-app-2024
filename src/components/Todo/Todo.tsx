@@ -18,6 +18,9 @@ const handleAdd=(todo) =>{
 const deleteItem = (id) => {
   setTodoItems(TodoItems.filter(item => item.id !== id));
 }
+const updateItem = (id) => {
+  setTodoItems(TodoItems.map(item => item.id === id ? {...item, todo: prompt("edit to do ",item.todo) || item.todo }: item));
+}
     return (
     <>
       <div className="container">
@@ -31,7 +34,7 @@ const deleteItem = (id) => {
           />
         </header>
         {TodoItems.map((item) => (
-        <TodoItem key={item.id} item={item} onDelete={deleteItem}/>
+        <TodoItem key={item.id} item={item} onDelete={deleteItem} onUpdate={updateItem}/>
       ))}
         <TodoAdd onAdd={handleAdd} />
       </div>
