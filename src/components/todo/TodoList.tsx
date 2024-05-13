@@ -22,6 +22,14 @@ const TodoList: React.FC = () => {
       )
     );
   };
+  const onEditTodo = (id: string) => {
+    const updatedTodos: Todo[] = todos.map((todo) =>
+      todo.id === id
+        ? { ...todo, title: prompt("edit todo's title", todo.title) || "" }
+        : todo
+    );
+    setTodos(updatedTodos);
+  };
 
   return (
     <>
@@ -32,6 +40,7 @@ const TodoList: React.FC = () => {
           todo={todo}
           onDelete={onDeleteTodo}
           onComplete={onCompleteTodo}
+          onEdit={onEditTodo}
         />
       ))}
       <AddTodoForm onAdd={onAddTodo} />

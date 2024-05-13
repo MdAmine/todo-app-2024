@@ -11,9 +11,15 @@ interface TodoItemProps {
   todo: Todo;
   onDelete: (id: string) => void;
   onComplete: (id: string) => void;
+  onEdit: (id: string) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete, onComplete }) => {
+const TodoItem: React.FC<TodoItemProps> = ({
+  todo,
+  onDelete,
+  onComplete,
+  onEdit,
+}) => {
   return (
     <ul className="list-group todos mx-auto text-light">
       <li
@@ -36,6 +42,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete, onComplete }) => {
             }}
             icon={faPenToSquare}
             className="pointer"
+            onClick={() => onEdit(todo.id)}
           />
           <FontAwesomeIcon
             icon={faTrashAlt}
