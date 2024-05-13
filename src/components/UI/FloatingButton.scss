@@ -65,7 +65,7 @@ $light-purple: #c784dd;
     flex-direction: column;
   }
 
-  span {
+  button {
     text-align: center;
     margin: 10px 0;
     color: $purple;
@@ -75,6 +75,8 @@ $light-purple: #c784dd;
     letter-spacing: 1px;
     font-size: 14px;
     cursor: pointer;
+    border: $light-purple;
+    background-color: transparent;
 
     &:hover {
       color: $light-purple;
