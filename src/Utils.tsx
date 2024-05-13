@@ -1,7 +1,7 @@
-function Utils() {    
-    const generateId = () => Math.floor(Math.random() * 1000000);
+  
+   export const generateId = () => Math.floor(Math.random() * 1000000);
     
-    let TodoItems = [
+    let initTodoItems = [
       {
         id: generateId(),
         todo: "Learn React",
@@ -18,8 +18,5 @@ function Utils() {
         completed:false
       }
     ];
-  
-    return TodoItems;  
-  }
-  
-  export default Utils;
+
+  export default initTodoItems;

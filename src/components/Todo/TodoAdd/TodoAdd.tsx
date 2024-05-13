@@ -1,11 +1,20 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./TodoAdd.css";
+import { useState } from "react";
 
-function TodoAdd() {
+function TodoAdd(props) {
+
+  const[inputValue,setInputValue]=useState("");
+
+  const handleAdd = (event) =>{
+    event.preventDefault();
+    props.onAdd(inputValue);
+    setInputValue("");
+  }
 
   return (
     <>
-     <form className="add text-center my-4">
+     <form className="add text-center my-4" onSubmit={handleAdd}>
           <label htmlFor="add" className="add text-light">
             Add a new todo:
           </label>
@@ -14,6 +23,8 @@ function TodoAdd() {
             className="form-control m-auto"
             name="add"
             id="add"
+            value={inputValue}
+            onChange={(e)=>setInputValue(e.target.value)}
           />
         </form>
     </>

@@ -2,12 +2,19 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./Todo.css";
 import TodoAdd from "./TodoAdd/TodoAdd";
 import TodoItem from "./TodoItem/TodoItem";
-import Utils from "../../Utils";
+import  initTodoItems, { generateId } from "../../Utils";
+import { useState } from "react";
 
 
 function Todo() {
-
-  const TodoItems = Utils();
+const[TodoItems,setTodoItems]= useState(initTodoItems);
+const handleAdd=(todo) =>{
+  setTodoItems([...TodoItems,{
+    id:generateId(),
+    todo:todo,
+    completed:false
+  }]);
+}
     return (
     <>
       <div className="container">
@@ -23,7 +30,7 @@ function Todo() {
         {TodoItems.map((item) => (
         <TodoItem key={item.id} item={item} />
       ))}
-        <TodoAdd/>
+        <TodoAdd onAdd={handleAdd} />
       </div>
     </>
   );

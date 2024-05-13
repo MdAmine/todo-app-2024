@@ -11,6 +11,9 @@ function App() {
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
+  const handleLogout = () =>{
+    setIsLoggedIn(false);
+  }
 
   return (
     <div className="container">
@@ -21,7 +24,7 @@ function App() {
       ) : (
         <Login onLogin={handleLogin} />
       )}
-      <FloatingButton />
+      <FloatingButton logout={handleLogout}/>
     </div>
   );
 }
