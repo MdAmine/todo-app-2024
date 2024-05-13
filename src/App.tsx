@@ -6,18 +6,18 @@ import Login from "./components/login/Login.tsx";
 import {useState} from "react";
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLogedIn, setIsLogedIn] = useState(false);
     const login = () => {
-        setIsLoggedIn(true);
+        setIsLogedIn(true);
     }
     const logout = () => {
-        setIsLoggedIn(false);
+        setIsLogedIn(false);
     };
     return (
         <>
             <div className="container">
-                {isLoggedIn ? <Todo/> : <Login onLoggin={login}/>}
-                <FloatingButton onLoggout={logout}/>
+                {isLogedIn ? <Todo/> : <Login onLogin={login}/>}
+                <FloatingButton onLogout={logout}/>
             </div>
         </>
     );

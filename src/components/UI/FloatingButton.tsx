@@ -26,7 +26,7 @@ const FloatingButton = (props) => {
         <ul>
           <span>Todo List</span>
           <span>About</span>
-          <span onClick={props.onLoggout}>Logout</span>
+          <span onClick={props.onLogout}>Logout</span>
         </ul>
       </nav>
     </div>
