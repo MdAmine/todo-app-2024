@@ -3,9 +3,16 @@ import Add from "./Add/Add";
 import Item from "./Item/Item";
 
 function Todo() {
-
+    
     const generatedId = () => Math.floor(Math.random() * 100);
 
+    const addItem = (item) => {
+        todoItems.push({
+            id: generatedId(),
+            todo: item,
+            complete: false,
+        })
+    };
     let todoItems = [
         {
             id: generatedId(),
@@ -45,7 +52,7 @@ function Todo() {
 
         
 
-        <Add />
+        <Add handleAddItem={addItem}/>
     </>)
 }
 export default Todo;

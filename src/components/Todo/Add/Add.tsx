@@ -1,4 +1,13 @@
-function Add(){
+import { useState } from "react";
+
+function Add(props){
+
+  
+  const addItemToList = (e) => {
+    {props.handleAddItem(e.target.value)}
+  };
+  
+
     return(<>
     <form className="add text-center my-4">
           <label htmlFor="add" className="add text-light">
@@ -9,6 +18,7 @@ function Add(){
             className="form-control m-auto"
             name="add"
             id="add"
+            onClick={()=>addItemToList(e)}
           />
         </form>
     </>);
