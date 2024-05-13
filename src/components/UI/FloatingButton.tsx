@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import "./FloatingButton.scss";
 
-const FloatingButton = () => {
+const FloatingButton = ({ isLoggedIn, setIsLoggedIn }) => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -11,6 +11,10 @@ const FloatingButton = () => {
 
   const setUnchecked = () => {
     setChecked(false);
+  };
+  const logoutHandler = () => {
+    //localStorage.clear("isLoggedIn");
+    setIsLoggedIn(false);
   };
 
   return (
@@ -26,7 +30,7 @@ const FloatingButton = () => {
         <ul>
           <span>Todo List</span>
           <span>About</span>
-          <span>Logout</span>
+          <span onClick={logoutHandler}>Logout</span>
         </ul>
       </nav>
     </div>

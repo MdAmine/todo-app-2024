@@ -1,0 +1,14 @@
+.todos {
+    --bs-list-group-border-color: none;
+    margin-bottom: 3px;
+  }
+  li.list-group-item {
+    background-color: #423a6f;
+    color: #f8f9fa;
+  }
+  .pointer {
+    cursor: pointer;
+  }
+  .item-complete {
+    background-color: #3c3b45 !important;
+  }
