@@ -1,8 +1,10 @@
 import { useState } from "react";
 
 import "./FloatingButton.scss";
+import Login from "../Login/Login";
 
-const FloatingButton = () => {
+const FloatingButton = (props) => {
+ const {logoutHandler}=props;
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -12,7 +14,7 @@ const FloatingButton = () => {
   const setUnchecked = () => {
     setChecked(false);
   };
-
+ 
   return (
     <div className="buttonContainer" onBlur={setUnchecked}>
       <input
@@ -26,10 +28,10 @@ const FloatingButton = () => {
         <ul>
           <span>Todo List</span>
           <span>About</span>
-          <span>Logout</span>
-        </ul>
+          <span  onClick={logoutHandler}>Logout</span> </ul>
       </nav>
     </div>
+   
   );
 };
 export default FloatingButton;
