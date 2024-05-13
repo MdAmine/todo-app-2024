@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import AddToDo from "./AddToDo";
 import ToDoItem from "./ToDoItem";
 const generateId=()=>Math.floor(Math.random()* 100) + 0;
@@ -22,8 +23,17 @@ const items=[
 ]
 
 
+
 function ToDo(){
-     
+    const [elements,setElements]=useState(items);
+    function addItem(value:string){
+        setElements([...elements,{
+            id:generateId(),
+            todo:value,
+            complete:false
+        }] ) 
+
+    }
 return (
     <>
     <header className="text-center text-light my-4">
@@ -36,14 +46,14 @@ return (
           />
         </header>
         {
-            items.map((item)=>{
+            elements.map((item)=>{
                 return(
                     <ToDoItem  key={item.id} itemTitle={item.todo}/>
                 )
             }
 
             )}
-            <AddToDo/>
+            <AddToDo add={addItem}/>
 
     </>
 );
