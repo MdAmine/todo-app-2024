@@ -29,7 +29,7 @@ const TodoItem = (props) => {
               icon={faPenToSquare}
               className="pointer"
             />
-            <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
+            <FontAwesomeIcon icon={faTrashAlt} className="pointer" onClick={() => props.onDelete(props.item.id)}/>
           </div>
         </li>
       </ul>

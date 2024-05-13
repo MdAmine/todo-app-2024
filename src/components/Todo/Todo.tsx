@@ -15,6 +15,9 @@ const handleAdd=(todo) =>{
     completed:false
   }]);
 }
+const deleteItem = (id) => {
+  setTodoItems(TodoItems.filter(item => item.id !== id));
+}
     return (
     <>
       <div className="container">
@@ -28,7 +31,7 @@ const handleAdd=(todo) =>{
           />
         </header>
         {TodoItems.map((item) => (
-        <TodoItem key={item.id} item={item} />
+        <TodoItem key={item.id} item={item} onDelete={deleteItem}/>
       ))}
         <TodoAdd onAdd={handleAdd} />
       </div>
