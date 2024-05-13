@@ -1,35 +1,43 @@
-import { useState } from "react";
+import {useState} from "react";
 
 import "./FloatingButton.scss";
 
-const FloatingButton = () => {
-  const [checked, setChecked] = useState(false);
+interface FloatingButtonProps {
+    logoutHandler: () => void;
+}
 
-  const handleClick = () => {
-    setChecked(!checked);
-  };
+const FloatingButton = ({logoutHandler}: FloatingButtonProps) => {
+    const [checked, setChecked] = useState(false);
 
-  const setUnchecked = () => {
-    setChecked(false);
-  };
+    const handleClick = () => {
+        setChecked(!checked);
+    };
 
-  return (
-    <div className="buttonContainer" onBlur={setUnchecked}>
-      <input
-        type="checkbox"
-        id="toggle"
-        className={checked ? "checked" : ""}
-        onClick={handleClick}
-      />
-      <label className="button" htmlFor="toggle"></label>
-      <nav className="nav">
-        <ul>
-          <span>Todo List</span>
-          <span>About</span>
-          <span>Logout</span>
-        </ul>
-      </nav>
-    </div>
-  );
+    const setUnchecked = () => {
+        setChecked(false);
+    };
+
+    const onLogout = () => {
+        logoutHandler();
+    }
+
+    return (
+        <div className="buttonContainer" onBlur={setUnchecked}>
+            <input
+                type="checkbox"
+                id="toggle"
+                className={checked ? "checked" : ""}
+                onClick={handleClick}
+            />
+            <label className="button" htmlFor="toggle"></label>
+            <nav className="nav">
+                <ul>
+                    <span>Todo List</span>
+                    <span>About</span>
+                    <button onClick={onLogout}>Logout</button>
+                </ul>
+            </nav>
+        </div>
+    );
 };
 export default FloatingButton;
