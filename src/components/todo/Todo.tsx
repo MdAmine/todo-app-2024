@@ -8,9 +8,24 @@ const Todo = () => {
 
     const [todoItems, setTodoItems] = useState(initialTodoItems);
 
+    const deleteItem = (id) => {
+        const newItems = todoItems.filter((item) => item.id !== id);
+        setTodoItems(newItems);
+    }
+    const editItem = (id) => {
+        const newTitle = prompt("Edit item");
+        if (newTitle) {
+            setTodoItems(prevItems =>
+                prevItems.map(item =>
+                    item.id === id ? {...item, title: newTitle} : item
+                )
+            );
+        }
+    }
+
     const todoItemsMap = todoItems.map((item) => {
         return (
-            <TodoItem key={item.id} title={item.title}/>
+            <TodoItem key={item.id} item={item} onDeleteItem={deleteItem} editItem={editItem}/>
         );
     })
     const addTodoItem = (title) => {

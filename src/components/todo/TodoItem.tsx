@@ -8,7 +8,7 @@ const TodoItem = (props) => {
                 <li
                     className={`list-group-item d-flex justify-content-between align-items-center`}
                 >
-                    <span>{props.title}</span>
+                    <span>{props.item.title}</span>
                     <div>
                         <FontAwesomeIcon
                             style={{
@@ -24,8 +24,13 @@ const TodoItem = (props) => {
                             }}
                             icon={faPenToSquare}
                             className="pointer"
+                            onClick={() => props.editItem(props.item.id)}
                         />
-                        <FontAwesomeIcon icon={faTrashAlt} className="pointer"/>
+                        <FontAwesomeIcon
+                            icon={faTrashAlt}
+                            className="pointer"
+                            onClick={() => props.onDeleteItem(props.item.id)}
+                        />
                     </div>
                 </li>
             </ul>
