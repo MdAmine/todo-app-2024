@@ -1,18 +1,10 @@
 
+import { useState } from "react";
 import Add from "./Add/Add";
 import Item from "./Item/Item";
 
 function Todo() {
-    
     const generatedId = () => Math.floor(Math.random() * 100);
-
-    const addItem = (item) => {
-        todoItems.push({
-            id: generatedId(),
-            todo: item,
-            complete: false,
-        })
-    };
     let todoItems = [
         {
             id: generatedId(),
@@ -34,6 +26,18 @@ function Todo() {
         }
     ];
 
+    const [todos,setTodos]=useState(todoItems)
+    const addItem = (item) => {
+    
+       setTodos((prev)=> [...prev,{
+        id: generatedId(),
+        todo: item,
+        complete: false,
+
+    }])
+    };
+   
+
 
     return (<>
         <header className="text-center text-light my-4">
@@ -46,7 +50,7 @@ function Todo() {
             />
         </header>
 
-        {todoItems.map((item) => (
+        {todos.map((item) => (
             <Item key={item.id} item={item} />
         ))}
 

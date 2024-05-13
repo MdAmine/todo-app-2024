@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 function Add(props){
 
-  
-  const addItemToList = (e) => {
-    {props.handleAddItem(e.target.value)}
+ const [newTodo, setNewTodo] = useState('');
+
+  const handleInputChange = (event) => {
+    setNewTodo(event.target.value);
+  };
+
+  const addItemToList = (event:FormEvent) => {
+    event.preventDefault()
+    props.handleAddItem(newTodo)
+    setNewTodo('');
   };
   
 
     return(<>
-    <form className="add text-center my-4">
+    <form className="add text-center my-4" onSubmit={addItemToList}>
           <label htmlFor="add" className="add text-light">
             Add a new todo:
           </label>
@@ -18,8 +25,11 @@ function Add(props){
             className="form-control m-auto"
             name="add"
             id="add"
-            onClick={()=>addItemToList(e)}
+            value={newTodo}
+            onChange={handleInputChange}
+            
           />
+          
         </form>
     </>);
 }
