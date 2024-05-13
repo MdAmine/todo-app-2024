@@ -45,7 +45,7 @@ function Todo() {
         setTodo([...todo, newTask]);
         setNewTaskTitle("");
       } catch (error) {
-        console.error("Error adding task:", error);
+        console.error("Error adding tasks:", error);
       }
     }
   };
