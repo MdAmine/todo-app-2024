@@ -2,11 +2,7 @@ import { useState } from "react";
 
 import "./FloatingButton.scss";
 
-interface FloatingButtonProps {
-  logout: () => void;
-}
-
-const FloatingButton: React.FC<FloatingButtonProps> = ({ logout }) => {
+const FloatingButton: React.FC = () => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -15,6 +11,11 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ logout }) => {
 
   const setUnchecked = () => {
     setChecked(false);
+  };
+
+  const logout = () => {
+    localStorage.setItem("user", "null");
+    localStorage.setItem("isLoggedIn", "false");
   };
 
   return (

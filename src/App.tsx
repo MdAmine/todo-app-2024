@@ -6,25 +6,15 @@ import TodoList from "./components/todo/TodoList";
 import FloatingButton from "./components/UI/FloatingButton";
 
 const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(
+  const isLoggedIn = React.useState<boolean>(
     localStorage.getItem("isLoggedIn") === "true"
-  );
-
-  const handleLogin = () => {
-    localStorage.setItem("isLoggedIn", "true");
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    localStorage.setItem("isLoggedIn", "false");
-    setIsLoggedIn(false);
-  };
+  )[0];
 
   return (
     <>
       <div className="container">
-        {isLoggedIn ? <TodoList /> : <Login login={handleLogin} />}
-        <FloatingButton logout={handleLogout} />
+        {isLoggedIn ? <TodoList /> : <Login />}
+        <FloatingButton />
       </div>
     </>
   );
