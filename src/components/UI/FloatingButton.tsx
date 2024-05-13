@@ -2,7 +2,10 @@ import { useState } from "react";
 
 import "./FloatingButton.scss";
 
-const FloatingButton = () => {
+interface FloatingButtonProps {
+  handleLogout: () => void;
+}
+const FloatingButton: React.FC<FloatingButtonProps> = ({ handleLogout }) => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -26,7 +29,7 @@ const FloatingButton = () => {
         <ul>
           <span>Todo List</span>
           <span>About</span>
-          <span>Logout</span>
+          <span onClick={handleLogout}>Logout</span>
         </ul>
       </nav>
     </div>
