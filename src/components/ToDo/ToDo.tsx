@@ -1,7 +1,7 @@
 
+import AddToDo from "./AddToDo";
 import ToDoItem from "./ToDoItem";
-const generateId=()=>Math.floor(Math.random()
-* 100) + 0;
+const generateId=()=>Math.floor(Math.random()* 100) + 0;
 const items=[
     {
         id: generateId(),
@@ -20,8 +20,10 @@ const items=[
     }
 
 ]
+
+
 function ToDo(){
-   
+     
 return (
     <>
     <header className="text-center text-light my-4">
@@ -41,6 +43,7 @@ return (
             }
 
             )}
+            <AddToDo/>
 
     </>
 );

@@ -17,14 +17,18 @@ function App() {
   function callback(){
     setLoggedIn(true)
   }
-  if(!isLoggedin)
+  function call(){
+    setLoggedIn(false)
+  }
+  if(!isLoggedin 
+  )
     return (<> <div className="container"><Login handleCallback={callback}/></div> </>)
-  else
+  else 
   return (
     <>
       <div className="container"> 
-      <ToDo/>
-      <FloatingButton />
+      <ToDo />
+      <FloatingButton handleCallback={call}/>
       </div>
     </>
   );
