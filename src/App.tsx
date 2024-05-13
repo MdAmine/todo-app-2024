@@ -17,12 +17,17 @@ function App() {
     }
   }
 
+  const logout = () => {
+    localStorage.setItem('isLoggedIn', false);
+      setIsLoggedIn(false);
+  }
+
   return (
     <>
       <div className="container">
         {isLoggedIn ? (
           <>
-            <FloatingButton />
+            <FloatingButton onLogout={logout} />
             <TodoList />
           </>
         ) : (

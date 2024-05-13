@@ -8,8 +8,19 @@ export function TodoList(){
 
     const [todoItemsHere, setTodoItemsHere] = useState(todoItems);
 
-    const addTodo = (value) => {
-        setTodoItemsHere([...todoItemsHere, value]);
+    const addTodo = (todo) => {
+        if (!todoItemsHere.includes(todo)) {
+            setTodoItemsHere([...todoItemsHere, todo]);
+        } else {
+            alert("Value already exists in todo list!");
+        }
+    }
+
+    const deleteTodo = (id) =>{
+        const newTodoItems = todoItemsHere.filter((todo)=>{
+            return todo.id !== id;
+        });
+        setTodoItemsHere([...newTodoItems]);
     }
 
 
@@ -25,7 +36,7 @@ export function TodoList(){
                 />
             </header>
             {todoItemsHere.map((todo)=>{
-                return <TodoItem key={todo.id} todo={todo}>{todo.title}</TodoItem>
+                return <TodoItem key={todo.id} todo={todo} deleteTodoFromList={deleteTodo}>{todo.title}</TodoItem>
             })}
 
             <AddTodo addTodoToList={addTodo}  />

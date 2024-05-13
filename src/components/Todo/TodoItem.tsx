@@ -2,7 +2,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faPenToSquare, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import './TodoItem.css'
 
-export function TodoItem({todo, children}){
+export function TodoItem({ todo, children, deleteTodoFromList }) {
+
+    const handleDelete = () => {
+        deleteTodoFromList(todo.id);
+    };
 
     return (
         <ul className="list-group todos mx-auto text-light">
@@ -26,7 +30,7 @@ export function TodoItem({todo, children}){
                         icon={faPenToSquare}
                         className="pointer"
                     />
-                    <FontAwesomeIcon icon={faTrashAlt} className="pointer"/>
+                    <FontAwesomeIcon onClick={handleDelete} icon={faTrashAlt} className="pointer"/>
                 </div>
             </li>
         </ul>

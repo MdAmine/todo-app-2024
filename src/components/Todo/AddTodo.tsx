@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { generateId } from "../../Utils";
 
 export function AddTodo({ addTodoToList }) {

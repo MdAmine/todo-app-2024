@@ -8,12 +8,10 @@ export function Login({ onLogin }) {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      // Perform basic validation
       if (!email.trim() || !password.trim()) {
         setError("Please fill in all fields.");
         return;
       }
-      // Simulate login - replace this with actual login logic
       if (email === "karim@karim.com" && password === "karim") {
         onLogin(true);
         localStorage.setItem("isLoggedIn", true);
