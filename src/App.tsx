@@ -10,11 +10,14 @@ function App() {
     const login = () => {
         setIsLoggedIn(true);
     }
+    const logout = () => {
+        setIsLoggedIn(false);
+    };
     return (
         <>
             <div className="container">
                 {isLoggedIn ? <Todo/> : <Login onLoggin={login}/>}
-                <FloatingButton/>
+                <FloatingButton onLoggout={logout}/>
             </div>
         </>
     );

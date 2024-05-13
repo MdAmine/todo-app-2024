@@ -1,14 +1,24 @@
 import TodoAdd from "./TodoAdd.tsx";
 import "./todo.css";
 import TodoItem from "./TodoItem.tsx";
-import todoItems from "../Utils.tsx";
+import initialTodoItems, {generateId} from "../Utils.tsx";
+import {useState} from "react";
 
 const Todo = () => {
+
+    const [todoItems, setTodoItems] = useState(initialTodoItems);
+
     const todoItemsMap = todoItems.map((item) => {
         return (
             <TodoItem key={item.id} title={item.title}/>
         );
     })
+    const addTodoItem = (title) => {
+        setTodoItems(prevItems => [
+            ...prevItems,
+            {id: generateId(), title: title, completed: false}
+        ]);
+    };
     return (
         <>
             <header className="text-center text-light my-4">
@@ -21,7 +31,7 @@ const Todo = () => {
                 />
             </header>
             {todoItemsMap}
-            <TodoAdd/>
+            <TodoAdd onAdd={addTodoItem}/>
 
         </>
     );
