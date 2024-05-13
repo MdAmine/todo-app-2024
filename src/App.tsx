@@ -16,23 +16,20 @@ function App() {
 
   useEffect(() => {console.log(isLoged)}, [isLoged])
 
+  if (!isLoged)
+    return <div className="container"><Login onLoged={handleLogIn} /></div>
+  
   return (
     <Routes>
       <Route path="/todo-list" element={
         <div className="container">
-          <Todo />
+           <Todo />
 
           <FloatingButton onLoged={handleLogIn} />
         </div>
       }/>
 
-      <Route path="/login" element={
-        <div className="container">
-          {!isLoged && <Login onLoged={handleLogIn} />}
-        </div>
-      }/>
-
-      <Route path="*" element={<Navigate replace to="/login" />} />
+      <Route path="*" element={<Navigate replace to="/todo-list" />} />
 
       {/* <Route path="/about" Component={About}/> */}
       

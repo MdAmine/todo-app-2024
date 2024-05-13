@@ -20,6 +20,27 @@ input[type="text"]:focus {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+input[type="password"],
+input[type="password"]:focus {
+  color: #fff;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  border: none;
+}
+
+input[type="password"]::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  border: none;
+}
+
+.error {
+  color: rgb(251, 75, 75);
+}
+
 label.add {
   margin-bottom: 15px;
 }
