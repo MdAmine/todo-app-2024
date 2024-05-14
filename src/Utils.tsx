@@ -10,17 +10,17 @@ export const todoItems = [
     },
     {
         id: generateId(),
-        title: 'Reading books',
+        title: 'Music',
         completed: false
     },
     {
         id: generateId(),
-        title: 'Reading books',
+        title: 'Movies',
         completed: false
     },
     {
         id: generateId(),
-        title: 'Reading books',
+        title: 'League of legends',
         completed: false
     }
 ];

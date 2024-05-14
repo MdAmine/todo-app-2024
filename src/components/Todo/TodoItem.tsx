@@ -9,9 +9,9 @@ export function TodoItem({ todo, children, deleteTodoFromList, editTodoFromList 
     };
 
     const handleEdit = () => {
-        const newTodo = prompt("Edit todo", todo.title);
-        if (newTodo) {
-            editTodoFromList(todo.id, newTodo);
+        const editTodo = prompt("Edit todo", todo.title);
+        if (editTodo) {
+            editTodoFromList(todo.id, editTodo);
         }
     };
 

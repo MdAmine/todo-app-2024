@@ -32,6 +32,16 @@ export function TodoList(){
         }));
     }
 
+    const handleSearch = (e) => {    
+        if (e.target.value) {
+            const todosSearch = todoItems.filter((todo) => 
+                todo.title.toLowerCase().includes(e.target.value.toLowerCase())
+            );
+            setTodoItemsHere(todosSearch);
+        } else {
+            setTodoItemsHere(todoItems);
+        }
+    }
 
 
     return (
@@ -43,6 +53,7 @@ export function TodoList(){
                     className="form-control m-auto"
                     name="search"
                     placeholder="search todos"
+                    onChange={handleSearch}
                 />
             </header>
             {todoItemsHere.map((todo)=>{
