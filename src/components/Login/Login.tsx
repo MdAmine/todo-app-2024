@@ -24,7 +24,7 @@ export function Login({ onLogin }) {
       <form className="text-center my-4 text-light" onSubmit={handleSubmit}>
         <h1 className="mb-4">Login Form</h1>
         <input
-          type="email"
+          type="text"
           className="form-control mb-2"
           id="email"
           placeholder="Email"

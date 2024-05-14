@@ -23,6 +23,16 @@ export function TodoList(){
         setTodoItemsHere([...newTodoItems]);
     }
 
+    const editTodo = (id, newTitle) => {
+        setTodoItemsHere(todoItemsHere.map(todo => {
+            if (todo.id === id) {
+                return { ...todo, title: newTitle };
+            }
+            return todo;
+        }));
+    }
+
+
 
     return (
         <>
@@ -36,7 +46,9 @@ export function TodoList(){
                 />
             </header>
             {todoItemsHere.map((todo)=>{
-                return <TodoItem key={todo.id} todo={todo} deleteTodoFromList={deleteTodo}>{todo.title}</TodoItem>
+                return <TodoItem key={todo.id} todo={todo} editTodoFromList={editTodo} deleteTodoFromList={deleteTodo}>
+                    {todo.title}
+                    </TodoItem>
             })}
 
             <AddTodo addTodoToList={addTodo}  />

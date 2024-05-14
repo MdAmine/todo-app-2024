@@ -2,10 +2,17 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faPenToSquare, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import './TodoItem.css'
 
-export function TodoItem({ todo, children, deleteTodoFromList }) {
+export function TodoItem({ todo, children, deleteTodoFromList, editTodoFromList }) {
 
     const handleDelete = () => {
         deleteTodoFromList(todo.id);
+    };
+
+    const handleEdit = () => {
+        const newTodo = prompt("Edit todo", todo.title);
+        if (newTodo) {
+            editTodoFromList(todo.id, newTodo);
+        }
     };
 
     return (
@@ -29,8 +36,13 @@ export function TodoItem({ todo, children, deleteTodoFromList }) {
                         }}
                         icon={faPenToSquare}
                         className="pointer"
+                        onClick={handleEdit}
                     />
-                    <FontAwesomeIcon onClick={handleDelete} icon={faTrashAlt} className="pointer"/>
+                    <FontAwesomeIcon 
+                        onClick={handleDelete} 
+                        icon={faTrashAlt} 
+                        className="pointer"
+                    />
                 </div>
             </li>
         </ul>
