@@ -1,16 +1,19 @@
 import React from "react";
 
-const Login: React.FC = () => {
+type LoginProps = {
+  onLogin: () => void;
+};
+
+const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  console.log(email, password);
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const user = { email, password };
-    console.log(user);
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("user", JSON.stringify(user));
+    onLogin();
   };
   return (
     <form className="text-center my-4 text-light" onSubmit={handleLogin}>

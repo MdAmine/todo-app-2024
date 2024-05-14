@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import "./FloatingButton.scss";
 
-const FloatingButton: React.FC = () => {
+const FloatingButton: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -16,6 +16,7 @@ const FloatingButton: React.FC = () => {
   const logout = () => {
     localStorage.setItem("user", "null");
     localStorage.setItem("isLoggedIn", "false");
+    onLogout();
   };
 
   return (
