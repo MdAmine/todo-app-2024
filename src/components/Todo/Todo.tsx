@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import TodoDone from "./TodoDone";
+import TodoDone from "./TodoItem";
 import axios from "axios";
 
 function Todo() {
   const [todo, setTodo] = useState<TodoItem[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     getTasksAll();
@@ -36,8 +37,8 @@ function Todo() {
       const newTask: TodoItem = {
         id: generateID(),
         title: taskTitle,
-        isDone: false,
         isDeleted: false,
+        isCompleted: false,
       };
 
       try {
@@ -47,6 +48,22 @@ function Todo() {
       } catch (error) {
         console.error("Error adding tasks:", error);
       }
+    }
+  };
+  const handleCheck = async (taskId: number) => {
+    const updatedTodo = todo.map((task) =>
+      task.id === taskId ? { ...task, isCompleted: !task.isCompleted } : task
+    );
+
+    try {
+      await axios.put(`http://localhost:3000/todos/${taskId}`, {
+        ...todo.find((task) => task.id === taskId),
+        isCompleted: !todo.find((task) => task.id === taskId)?.isCompleted,
+      });
+
+      setTodo(updatedTodo);
+    } catch (error) {
+      console.error("Error updating task completion:", error);
     }
   };
 
@@ -60,6 +77,25 @@ function Todo() {
         console.error("task no supprimer", error);
       });
   };
+  const handleUpdateTaskTitle = async (taskId: number, newTitle: string) => {
+    const updatedTodo = todo.map((task) =>
+      task.id === taskId ? { ...task, title: newTitle } : task
+    );
+
+    try {
+      await axios.put(`http://localhost:3000/todos/${taskId}`, {
+        ...todo.find((task) => task.id === taskId),
+        title: newTitle,
+      });
+
+      setTodo(updatedTodo);
+    } catch (error) {
+      console.error("Error updating task title:", error);
+    }
+  };
+  const filteredTodo = todo.filter((task) =>
+    task.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div>
       <div className="container">
@@ -70,10 +106,17 @@ function Todo() {
             className="form-control m-auto"
             name="search"
             placeholder="Search todos"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </header>
 
-        <TodoDone todo={todo} handleDeleteTask={handleDeleteTask} />
+        <TodoDone
+          todo={filteredTodo}
+          handleDeleteTask={handleDeleteTask}
+          handleUpdateTaskTitle={handleUpdateTaskTitle}
+          handleCheck={handleCheck}
+        />
 
         <div className="add text-center my-4">
           <label htmlFor="add" className="text-light">

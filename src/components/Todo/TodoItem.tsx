@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
+  faCheckSquare,
   faPenToSquare,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -9,13 +10,26 @@ import {
 interface TodoDoneProps {
   todo: TodoItem[];
   handleDeleteTask: (taskId: number) => void;
+  handleUpdateTaskTitle: (taskId: number, newTitle: string) => void;
+  handleCheck: (taskId: number) => void;
 }
 
-const TodoDone: React.FC<TodoDoneProps> = ({ todo, handleDeleteTask }) => {
+const TodoItem: React.FC<TodoDoneProps> = ({
+  todo,
+  handleDeleteTask,
+  handleUpdateTaskTitle,
+  handleCheck,
+}) => {
+  const promptForNewTitle = (taskId: number, currentTitle: string) => {
+    const newTitle = window.prompt("Enter new title", currentTitle);
+    if (newTitle !== null) {
+      handleUpdateTaskTitle(taskId, newTitle);
+    }
+  };
   return (
     <>
       {todo && (
-        <div>
+        <div className={`mx-auto text-light`}>
           {todo.map((task) => (
             <div
               key={task.id}
@@ -28,11 +42,10 @@ const TodoDone: React.FC<TodoDoneProps> = ({ todo, handleDeleteTask }) => {
               </div>
               <div>
                 <FontAwesomeIcon
-                  style={{
-                    marginRight: "0.3em",
-                  }}
-                  icon={faCheck}
+                  style={{ marginRight: "0.3em" }}
+                  icon={task.isCompleted ? faCheckSquare : faCheck}
                   className="pointer"
+                  onClick={() => handleCheck(task.id)}
                 />
 
                 <FontAwesomeIcon
@@ -41,6 +54,7 @@ const TodoDone: React.FC<TodoDoneProps> = ({ todo, handleDeleteTask }) => {
                   }}
                   icon={faPenToSquare}
                   className="pointer"
+                  onClick={() => promptForNewTitle(task.id, task.title)}
                 />
                 <FontAwesomeIcon
                   icon={faTrashAlt}
@@ -56,4 +70,4 @@ const TodoDone: React.FC<TodoDoneProps> = ({ todo, handleDeleteTask }) => {
   );
 };
 
-export default TodoDone;
+export default TodoItem;
