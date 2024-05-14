@@ -25,24 +25,37 @@ const TodoList: React.FC = () => {
   const onEditTodo = (id: string) => {
     const updatedTodos: Todo[] = todos.map((todo) =>
       todo.id === id
-        ? { ...todo, title: prompt("edit todo's title", todo.title) || "" }
+        ? {
+            ...todo,
+            title: prompt("edit todo's title", todo.title) || todo.title,
+          }
         : todo
     );
     setTodos(updatedTodos);
   };
+  const onSearchTodo = (keyword: string) => {
+    const filteredTodos: Todo[] = initTodos.filter((todo) =>
+      todo.title.toLowerCase().includes(keyword.toLowerCase())
+    );
+    setTodos(filteredTodos);
+  };
 
   return (
     <>
-      <SearchTodo />
-      {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          onDelete={onDeleteTodo}
-          onComplete={onCompleteTodo}
-          onEdit={onEditTodo}
-        />
-      ))}
+      <SearchTodo onSearch={onSearchTodo} />
+      {todos.length > 0 ? (
+        todos.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onDelete={onDeleteTodo}
+            onComplete={onCompleteTodo}
+            onEdit={onEditTodo}
+          />
+        ))
+      ) : (
+        <h5 className="text-center text-light my-4">No todos found</h5>
+      )}
       <AddTodoForm onAdd={onAddTodo} />
     </>
   );
