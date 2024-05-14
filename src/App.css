@@ -45,3 +45,6 @@ li.list-group-item {
 .selected {
   background-color: #ae9c48 !important;
 }
+.invalid {
+  color: #da4518;
+}
