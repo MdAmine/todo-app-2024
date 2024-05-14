@@ -25,6 +25,9 @@ const updateItem = (id) => {
 const searchResult = TodoItems.filter(item=>
   item.todo.toLowerCase().includes(searchValue.toLowerCase())
 );
+const checkItem = (id) => {
+  setTodoItems(TodoItems.map(item => item.id === id ? {...item, completed: !item.completed} : item));
+}
 
     return (
     <>
@@ -41,7 +44,7 @@ const searchResult = TodoItems.filter(item=>
           />
         </header>
         {searchResult.map((item) => (
-        <TodoItem key={item.id} item={item} onDelete={deleteItem} onUpdate={updateItem}/>
+        <TodoItem key={item.id} item={item} onDelete={deleteItem} onUpdate={updateItem} onCheck={checkItem}/>
       ))}
         <TodoAdd onAdd={handleAdd} />
       </div>
