@@ -13,7 +13,7 @@ const FloatingButton = ({ isLoggedIn, setIsLoggedIn }) => {
     setChecked(false);
   };
   const logoutHandler = () => {
-    //localStorage.clear("isLoggedIn");
+    localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
   };
 

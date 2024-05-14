@@ -1,13 +1,18 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./Login.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Login({ setIsLoggedIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn === "true") {
+      setIsLoggedIn(true);
+    }
+  }, [setIsLoggedIn]);
   const loginHandler = (e) => {
     e.preventDefault();
     if (username === "") {
@@ -23,7 +28,7 @@ function Login({ setIsLoggedIn }) {
     }
 
     if (username !== "" && password !== "") {
-      // localStorage.setItem("isLoggedIn", true);
+      localStorage.setItem("isLoggedIn", "true");
       setIsLoggedIn(true);
     }
   };

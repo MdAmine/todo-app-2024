@@ -1,26 +1,9 @@
 import { useState } from "react";
 import ItemToDo from "../ItemToDo/ItemToDo";
 import AddToDo from "../AddToDo/AddToDo";
-
+import { initialTodos } from "../../../utils.tsx";
 function ListToDo() {
-  const generateId = () => Math.floor(Math.random() * 1000);
-  const [todoItems, setTodoItems] = useState([
-    {
-      id: generateId(),
-      todo: "Read Books",
-      complete: false,
-    },
-    {
-      id: generateId(),
-      todo: "Play Games",
-      complete: false,
-    },
-    {
-      id: generateId(),
-      todo: "Watch Movies",
-      complete: false,
-    },
-  ]);
+  const [todoItems, setTodoItems] = useState(initialTodos);
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleAddTodo = (newTodo) => {
