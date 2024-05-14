@@ -1,27 +1,33 @@
 import { useState } from 'react';
 import './Login.css';
 
+const VALID_EMAIL = "karim@karim.com";
+const VALID_PASSWORD = "karim";
+
 export function Login({ onLogin }) {
     const [formLogin, setFormLogin] = useState({
         email: '',
         password: ''
     });
     const [error, setError] = useState("");
-    const VALID_EMAIL = "karim@karim.com";
-    const VALID_PASSWORD = "karim";
 
+    const validateForm = (email, password) => {
+        if (!email.trim() || !password.trim()) {
+            return "Please fill in all fields.";
+        }
+        if (email !== VALID_EMAIL || password !== VALID_PASSWORD) {
+            return "Invalid email or password.";
+        }
+        return null;
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!formLogin.email.trim() || !formLogin.password.trim()) {
-            setError("Please fill in all fields.");
-            return;
-        }
-
-        if (formLogin.email === VALID_EMAIL && formLogin.password === VALID_PASSWORD) {
-            onLogin(true);
+        const validationError = validateForm(formLogin.email, formLogin.password);
+        if (validationError) {
+            setError(validationError);
         } else {
-            setError("Invalid email or password.");
+            onLogin(true);
         }
     };
 

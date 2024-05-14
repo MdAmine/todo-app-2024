@@ -1,8 +1,9 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import App from './App';
 
-describe('Testing App Component', () => {
+describe('App Component', () => {
   let store = {};
+
   const mockLocalStorage = () => {
     const localStorageMock = {
       getItem: jest.fn((key) => store[key] || null),
@@ -29,20 +30,21 @@ describe('Testing App Component', () => {
 
   afterEach(() => {
     localStorage.clear();
-    cleanup()
+    cleanup();
   });
 
   it('renders App without crashing', () => {
     render(<App />);
+    expect(screen.getByText('Login Form')).toBeInTheDocument();
   });
 
-  it('should render Login Form', () => {
+  it('should render Login Form when not logged in', () => {
     render(<App />);
     const loginh1 = screen.getByText('Login Form');
     expect(loginh1).toBeInTheDocument();
   });
 
-  it('should render FloatingButton and TodoList after Login', async () => {
+  it('should render FloatingButton and TodoList after logging in', async () => {
     localStorage.setItem('isLoggedIn', 'true');
     render(<App />);
     const floatingButton = await screen.findByText('Logout');
@@ -50,5 +52,4 @@ describe('Testing App Component', () => {
     expect(floatingButton).toBeInTheDocument();
     expect(todoList).toBeInTheDocument();
   });
-
 });

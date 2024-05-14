@@ -42,6 +42,7 @@ export function TodoItem({ todo, children, onDelete, onEdit, onCheck }) {
                         />
                     )}
                     <FontAwesomeIcon
+                        title="edit"
                         icon={faPenToSquare}
                         className="pointer"
                         onClick={handleEdit}
