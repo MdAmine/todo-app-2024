@@ -32,6 +32,10 @@ export function TodoList() {
         }
     };
 
+    const handleCheckTodo = (id) => {
+        setTodos(todos.map(todo => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)));
+    }
+
     return (
         <>
             <header className="text-center text-light my-4">
@@ -49,6 +53,7 @@ export function TodoList() {
                     todo={todo}
                     onEdit={handleEditTodo}
                     onDelete={handleDeleteTodo}
+                    onCheck={handleCheckTodo}
                 >
                     {todo.title}
                 </TodoItem>

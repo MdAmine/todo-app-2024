@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faCheck, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import './TodoItem.css';
 
-export function TodoItem({ todo, children, onDelete, onEdit }) {
+export function TodoItem({ todo, children, onDelete, onEdit, onCheck }) {
     
     const handleDelete = () => {
         onDelete(todo.id);
@@ -15,16 +15,32 @@ export function TodoItem({ todo, children, onDelete, onEdit }) {
         }
     };
 
+    const handleCheck = () => {
+        onCheck(todo.id);
+    }
+
     return (
         <ul className="list-group todos mx-auto text-light">
-            <li className="list-group-item d-flex justify-content-between align-items-center">
+            <li className={`list-group-item d-flex justify-content-between align-items-center ${todo.completed ? 'item-complete' : ''}`}>
                 <span>{children}</span>
                 <div className="todo-actions">
-                    <FontAwesomeIcon
-                        icon={faCheck}
-                        className="pointer"
-                        style={{ marginRight: "0.3em" }}
-                    />
+                    {todo.completed ? (
+                        <FontAwesomeIcon
+                            title="unCheck"
+                            icon={faBan}
+                            className="pointer"
+                            onClick={handleCheck}
+                            style={{ marginRight: "0.3em" }}
+                        />
+                    ) : (
+                        <FontAwesomeIcon
+                            title="check"
+                            icon={faCheck}
+                            className="pointer"
+                            onClick={handleCheck}
+                            style={{ marginRight: "0.3em" }}
+                        />
+                    )}
                     <FontAwesomeIcon
                         icon={faPenToSquare}
                         className="pointer"
@@ -32,11 +48,13 @@ export function TodoItem({ todo, children, onDelete, onEdit }) {
                         style={{ marginRight: "0.3em" }}
                     />
                     <FontAwesomeIcon
+                        title="delete"
                         icon={faTrashAlt}
                         className="pointer"
                         onClick={handleDelete}
                     />
                 </div>
+
             </li>
         </ul>
     );

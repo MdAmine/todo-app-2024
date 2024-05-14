@@ -16,7 +16,7 @@ export const todoItems = [
     {
         id: generateId(),
         title: 'Movies',
-        completed: false
+        completed: true
     },
     {
         id: generateId(),
