@@ -2,13 +2,15 @@ import { faCheck, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TodoItem from "./TodoItem/TodoItem";
 import todoItems, { generatedId } from "../Utils";
-import Add from "./Add/add";
+import Add from "./Add/Add";
 import { useEffect, useState } from "react";
 
 const Todo= () => {
     const [todos, setTodos] = useState(todoItems);
+    const [searchQuery, setSearchQuery] = useState("");
+
    
-    function addNewTodoItem(title) {
+    function addNewTodoItem(title: any) {
         const newItem = {
             id: generatedId(),
             todo: title,
@@ -28,6 +30,14 @@ const Todo= () => {
         const updatedTodos = todos.filter(item => item.id !== id);
         setTodos(updatedTodos);
     };
+    function handleSearchChange(event) {
+        setSearchQuery(event.target.value);
+        console.log(event.target.value);
+    }
+
+    const filteredTodos = todos.filter(item =>
+        typeof item.todo === "string" && item.todo.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     return(
         <>
          <header className="text-center text-light my-4">
@@ -37,18 +47,19 @@ const Todo= () => {
             className="form-control m-auto"
             name="search"
             placeholder="search todos"
+            value={searchQuery}
+            onChange={handleSearchChange}
           />
         </header>
-      
-          
                 <ul className="list-group todos mx-auto text-light">
-
-                {todos.map((item)=>(
-
-                    <TodoItem key={item.id}  item={item} 
-                    updateTodoItem={updateTodoItem} 
-                    deleteTodoItem={deleteTodoItem}/> 
-                ))}
+                {filteredTodos.map((item) => (
+    <TodoItem
+        key={item.id}
+        item={item}
+        updateTodoItem={updateTodoItem}
+        deleteTodoItem={deleteTodoItem}
+    />
+))}
             </ul>
             <Add addNewTodoItem={addNewTodoItem} />
             </>  
