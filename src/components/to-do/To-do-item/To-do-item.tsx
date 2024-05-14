@@ -17,6 +17,7 @@ function ToDoItem({item, deleteToDo, editToDo, completeTask}) {
                         }}
                         icon={faCheck}
                         className="pointer"
+                        title="complete"
                         onClick={() => completeTask(item.id)}
                     />
 
@@ -26,9 +27,11 @@ function ToDoItem({item, deleteToDo, editToDo, completeTask}) {
                         }}
                         icon={faPenToSquare}
                         className="pointer"
+                        title="edit"
                         onClick={() => editToDo(item.id)}
                     />
-                    <FontAwesomeIcon icon={faTrashAlt} className="pointer" onClick={() => deleteToDo(item.id)}/>
+                    <FontAwesomeIcon icon={faTrashAlt} className="pointer" title="delete"
+                                     onClick={() => deleteToDo(item.id)}/>
                 </div>
             </li>
         </ul>
