@@ -4,6 +4,7 @@ import Add from "./Add/Add";
 import Item from "./Item/Item";
 
 function Todo() {
+    const [searchTerm, setSearchTerm] = useState('');
     const generatedId = () => Math.floor(Math.random() * 100);
     let todoItems = [
         {
@@ -42,6 +43,22 @@ function Todo() {
         setTodos(list);
     }
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+      };
+
+    // const search = () => {
+    //     const filteredItems = todos.filter(item =>
+    //         item.todo.toLowerCase().includes(searchTerm.toLowerCase())
+    //       );  
+    //     setTodos(filteredItems);
+    //   };  
+    let   filteredItems = todos ;
+          filteredItems = todos.filter(item =>
+            item.todo.toLowerCase().includes(searchTerm.toLowerCase())
+              ); 
+      
+    
     return (<>
         <header className="text-center text-light my-4">
             <h1 className="mb-5">Todo List</h1>
@@ -50,10 +67,13 @@ function Todo() {
                 className="form-control m-auto"
                 name="search"
                 placeholder="search todos"
+                value={searchTerm}
+                onChange={handleSearch}
+                // onKeyUp={search}
             />
         </header>
 
-        {todos.map((item) => (
+        {filteredItems.map((item) => (
             <Item key={item.id} item={item} list={todos} handleCallbackList={initList}/>
         ))}
 
