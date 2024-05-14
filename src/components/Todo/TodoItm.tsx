@@ -3,11 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const TodoItm = (props) => {
-    // Fonction pour gérer la suppression de l'élément
+   
     const handleDelete = () => {
         props.onDelete(props.item.id);
     };
+  
 
+    const handleUpdate = () => {
+        const newTodo = prompt("Update todo item:", props.item.todo);
+        if (newTodo !== null && newTodo.trim() !== "") {
+            props.onUpdate(props.item.id, newTodo);
+        }
+    };
+
+    
     return (
         <ul className="list-group todos mx-auto text-light">
             
@@ -30,6 +39,8 @@ const TodoItm = (props) => {
                             }}
                             icon={faPenToSquare}
                             className="pointer"
+                             onClick={handleUpdate}
+
                         />
                         <FontAwesomeIcon 
                             icon={faTrashAlt} 

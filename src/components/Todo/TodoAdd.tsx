@@ -2,17 +2,13 @@ import React, { useState } from "react";
 import "../../App.css";
 
 function TodoAdd({ onAdd }) {
-    const [newTodo, setNewTodo] = useState(""); // État local pour suivre le nouvel élément à ajouter
 
-    // Fonction pour gérer la soumission du formulaire d'ajout
+    const [newTodo, setNewTodo] = useState(""); 
     const handleSubmit = (e) => {
-        e.preventDefault(); // Empêcher le comportement par défaut du formulaire
+        e.preventDefault(); 
 
-        // Vérifier si le nouvel élément n'est pas vide
         if (newTodo.trim() !== "") {
-            // Appeler la fonction onAdd pour ajouter le nouvel élément
             onAdd(newTodo);
-            // Réinitialiser le champ de saisie
             setNewTodo("");
         }
     };
