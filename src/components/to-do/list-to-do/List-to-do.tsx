@@ -56,7 +56,11 @@ function ListToDo() {
     );
 
     const completeTask = (id) => {
-        setItems(items.map(item => item.id === id ? {...item, completed: !item.completed} : item));
+        setItems(prevItems =>
+            prevItems.map(item =>
+                item.id === id ? {...item, completed: !item.completed} : item
+            )
+        );
     };
     return (
         <div className="container">
