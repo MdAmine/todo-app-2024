@@ -29,6 +29,16 @@ function ListToDo() {
         };
         setItems([...items, newItem]);
     }
+
+    const deleteToDo = (id) => {
+        setItems(items.filter(item => item.id !== id));
+    };
+    const editToDo = (id) => {
+        const newName = prompt("Enter the new name:");
+        if (newName) {
+            setItems(items.map(item => item.id === id ? {...item, name: newName} : item));
+        }
+    };
     return (
         <div className="container">
             <header className="text-center text-light my-4">
@@ -41,7 +51,7 @@ function ListToDo() {
                 />
             </header>
             {items.map((item) => (
-                <ToDoItem key={item.id} item={item}/>
+                <ToDoItem key={item.id} item={item} deleteToDo={deleteToDo}  editToDo={editToDo}/>
             ))}
             <AddToDo addTodo={addToDo}/>
         </div>

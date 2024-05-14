@@ -1,7 +1,7 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faPenToSquare, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 
-function ToDoItem({item}) {
+function ToDoItem({item, deleteToDo, editToDo}) {
     return (
         <ul className="list-group todos mx-auto text-light">
             <li
@@ -23,8 +23,9 @@ function ToDoItem({item}) {
                         }}
                         icon={faPenToSquare}
                         className="pointer"
+                        onClick={() => editToDo(item.id)}
                     />
-                    <FontAwesomeIcon icon={faTrashAlt} className="pointer"/>
+                    <FontAwesomeIcon icon={faTrashAlt} className="pointer" onClick={() => deleteToDo(item.id)}/>
                 </div>
             </li>
         </ul>
