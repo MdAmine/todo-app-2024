@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
+import {useEffect, useState} from "react";
 import ListToDo from "./components/to-do/list-to-do/List-to-do.tsx";
 import FloatingButton from "./components/UI/FloatingButton.tsx";
 import Login from "./components/login/Login.tsx";
-import {useEffect, useState} from "react";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,12 +25,16 @@ function App() {
     };
     return (
         <>
-            {isLoggedIn ? <><ListToDo/> <FloatingButton onLogout={handleLogout}/></> : (
+            {isLoggedIn ?
+                <>
+                    <ListToDo/>
+                    <FloatingButton onLogout={handleLogout}/>
+                </> :
                 <>
                     <Login onLogin={handleLogin}/>
 
                 </>
-            )}
+            }
 
 
         </>
