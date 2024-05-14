@@ -49,6 +49,10 @@ function ListToDo() {
     const filteredItems = items.filter(item =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    const completeTask = (id) => {
+        setItems(items.map(item => item.id === id ? {...item, completed: !item.completed} : item));
+    };
     return (
         <div className="container">
             <header className="text-center text-light my-4">
@@ -63,7 +67,8 @@ function ListToDo() {
                 />
             </header>
             {filteredItems.map((item) => (
-                <ToDoItem key={item.id} item={item} deleteToDo={deleteToDo} editToDo={editToDo}/>
+                <ToDoItem key={item.id} item={item} deleteToDo={deleteToDo} editToDo={editToDo}
+                          completeTask={completeTask}/>
             ))}
             <AddToDo addTodo={addToDo}/>
         </div>
