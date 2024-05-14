@@ -5,21 +5,8 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Todo } from "../../types/todo";
 
-interface TodoItemProps {
-  todo: Todo;
-  onDelete: (id: string) => void;
-  onComplete: (id: string) => void;
-  onEdit: (id: string) => void;
-}
-
-const TodoItem: React.FC<TodoItemProps> = ({
-  todo,
-  onDelete,
-  onComplete,
-  onEdit,
-}) => {
+const TodoItem = ({ todo, onDelete, onComplete, onEdit }) => {
   const renderPriorityIcon = () => {
     if (todo.priority === "P0") {
       return null;

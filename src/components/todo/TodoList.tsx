@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { initTodos, Todo } from "../../types/todo";
+import { useEffect, useState } from "react";
 import AddTodoForm from "./AddTodoForm";
 import FilterTodo from "./FilterTodo";
 import SearchTodo from "./SearchTodo";
 import TodoItem from "./TodoItem";
+import { initTodos } from "../../types/todo";
 
-const TodoList: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>(initTodos);
-  const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [filterTerm, setFilterTerm] = useState<string>("");
+const TodoList = () => {
+  const [todos, setTodos] = useState(initTodos);
+  const [filteredTodos, setFilteredTodos] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterTerm, setFilterTerm] = useState("");
 
   useEffect(() => {
     filterAndSearchTodos(searchTerm, filterTerm);
   }, [searchTerm, filterTerm, todos]);
 
-  const filterAndSearchTodos = (searchTerm: string, filterTerm: string) => {
+  const filterAndSearchTodos = (searchTerm, filterTerm) => {
     const filteredTodos = todos.filter((todo) => {
       const isSearchMatch = todo.title
         .toLowerCase()
@@ -28,15 +28,15 @@ const TodoList: React.FC = () => {
     setFilteredTodos(filteredTodos);
   };
 
-  const onAddTodo = (todo: Todo): void => {
+  const onAddTodo = (todo) => {
     setTodos((prevTodos) => [...prevTodos, todo]);
   };
 
-  const onDeleteTodo = (id: string): void => {
+  const onDeleteTodo = (id) => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
-  const onCompleteTodo = (id: string): void => {
+  const onCompleteTodo = (id) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
         todo.id === id ? { ...todo, complete: !todo.complete } : todo
@@ -44,9 +44,9 @@ const TodoList: React.FC = () => {
     );
   };
 
-  const onEditTodo = (id: string) => {
+  const onEditTodo = (id) => {
     setTodos((prevTodos) => {
-      const updatedTodos: Todo[] = prevTodos.map((todo) =>
+      const updatedTodos = prevTodos.map((todo) =>
         todo.id === id
           ? {
               ...todo,
@@ -58,11 +58,11 @@ const TodoList: React.FC = () => {
     });
   };
 
-  const onSearchTodo = (keyword: string) => {
+  const onSearchTodo = (keyword) => {
     setSearchTerm(keyword);
   };
 
-  const onFilterTodo = (priority: string) => {
+  const onFilterTodo = (priority) => {
     setFilterTerm(priority);
   };
 

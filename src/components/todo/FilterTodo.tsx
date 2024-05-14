@@ -1,21 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { priorityColors } from "../../types/todo";
 
-interface FilterTodoProps {
-  onFilter: (priority: string) => void;
-}
+const FilterTodo = ({ onFilter }) => {
+  const [selectedPriority, setSelectedPriority] = useState("all");
 
-const FilterTodo: React.FC<FilterTodoProps> = ({ onFilter }) => {
-  const [selectedPriority, setSelectedPriority] = useState<string>("all");
-
-  const priorityColors = {
-    all: "primary",
-    P1: "success",
-    P2: "warning",
-    P3: "danger",
-    P4: "secondary",
-  };
-
-  const handlePriorityChange = (priority: string) => {
+  const handlePriorityChange = (priority) => {
     console.log(priority);
     setSelectedPriority(priority);
     onFilter(priority);

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import "./FloatingButton.scss";
 
-const FloatingButton: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
+const FloatingButton = ({ onLogout }) => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {

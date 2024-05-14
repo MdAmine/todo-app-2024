@@ -1,15 +1,11 @@
-import React from "react";
-import { initTodo, Todo } from "../../types/todo";
+import { useState } from "react";
+import { initTodo } from "../../types/todo";
 import "./AddTodoForm.css";
 
-interface AddTodoFormProps {
-  onAdd: (todo: Todo) => void;
-}
+const AddTodoForm = ({ onAdd }) => {
+  const [todo, setTodo] = useState(initTodo);
 
-const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAdd }) => {
-  const [todo, setTodo] = React.useState<Todo>(initTodo);
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(todo);
     onAdd(todo);

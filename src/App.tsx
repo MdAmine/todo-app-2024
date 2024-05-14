@@ -1,12 +1,12 @@
 import "bootstrap/dist/css/bootstrap.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Login from "./components/login/Login";
 import TodoList from "./components/todo/TodoList";
 import FloatingButton from "./components/UI/FloatingButton";
 
-const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("isLoggedIn") === "true"
   );
 

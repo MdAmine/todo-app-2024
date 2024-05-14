@@ -1,11 +1,6 @@
-import React from "react";
 import "./SearchTodo.css";
 
-interface SearchTodoProps {
-  onSearch: (value: string) => void;
-}
-
-const searchTodo: React.FC<SearchTodoProps> = ({ onSearch }) => {
+const searchTodo = ({ onSearch }) => {
   return (
     <header className="text-center text-light my-4">
       <h1 className="mb-5">Todo List</h1>
