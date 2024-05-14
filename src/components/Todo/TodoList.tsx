@@ -1,48 +1,36 @@
-import './TodoList.css'
-import {AddTodo} from "./AddTodo.tsx";
-import {TodoItem} from "./TodoItem.tsx";
-import { todoItems } from '../../Utils.tsx';
+import './TodoList.css';
+import { AddTodo } from "./AddTodo.tsx";
+import { TodoItem } from "./TodoItem.tsx";
+import { todoItems as initialTodoItems } from '../../Utils.tsx';
 import { useState } from 'react';
 
-export function TodoList(){
+export function TodoList() {
+    const [todos, setTodos] = useState(initialTodoItems);
 
-    const [todoItemsHere, setTodoItemsHere] = useState(todoItems);
-
-    const addTodo = (todo) => {
-        if (!todoItemsHere.includes(todo)) {
-            setTodoItemsHere([...todoItemsHere, todo]);
+    const handleAddTodo = (newTodo) => {
+        if (!todos.some(todo => todo.id === newTodo.id)) {
+            setTodos([...todos, newTodo]);
         } else {
-            alert("Value already exists in todo list!");
+            alert("Todo item already exists!");
         }
-    }
+    };
 
-    const deleteTodo = (id) =>{
-        const newTodoItems = todoItemsHere.filter((todo)=>{
-            return todo.id !== id;
-        });
-        setTodoItemsHere([...newTodoItems]);
-    }
+    const handleDeleteTodo = (id) => {
+        setTodos(todos.filter(todo => todo.id !== id));
+    };
 
-    const editTodo = (id, newTitle) => {
-        setTodoItemsHere(todoItemsHere.map(todo => {
-            if (todo.id === id) {
-                return { ...todo, title: newTitle };
-            }
-            return todo;
-        }));
-    }
+    const handleEditTodo = (id, newTitle) => {
+        setTodos(todos.map(todo => (todo.id === id ? { ...todo, title: newTitle } : todo)));
+    };
 
-    const handleSearch = (e) => {    
-        if (e.target.value) {
-            const todosSearch = todoItems.filter((todo) => 
-                todo.title.toLowerCase().includes(e.target.value.toLowerCase())
-            );
-            setTodoItemsHere(todosSearch);
+    const handleSearchTodos = (event) => {
+        const searchQuery = event.target.value.toLowerCase();
+        if (searchQuery) {
+            setTodos(initialTodoItems.filter(todo => todo.title.toLowerCase().includes(searchQuery)));
         } else {
-            setTodoItemsHere(todoItems);
+            setTodos(initialTodoItems);
         }
-    }
-
+    };
 
     return (
         <>
@@ -51,19 +39,21 @@ export function TodoList(){
                 <input
                     type="text"
                     className="form-control m-auto"
-                    name="search"
-                    placeholder="search todos"
-                    onChange={handleSearch}
+                    placeholder="Search todos"
+                    onChange={handleSearchTodos}
                 />
             </header>
-            {todoItemsHere.map((todo)=>{
-                return <TodoItem key={todo.id} todo={todo} editTodoFromList={editTodo} deleteTodoFromList={deleteTodo}>
+            {todos.map(todo => (
+                <TodoItem
+                    key={todo.id}
+                    todo={todo}
+                    onEdit={handleEditTodo}
+                    onDelete={handleDeleteTodo}
+                >
                     {todo.title}
-                    </TodoItem>
-            })}
-
-            <AddTodo addTodoToList={addTodo}  />
+                </TodoItem>
+            ))}
+            <AddTodo onAdd={handleAddTodo} />
         </>
-
     );
 }

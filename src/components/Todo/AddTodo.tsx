@@ -1,21 +1,24 @@
 import { useState } from "react";
 import { generateId } from "../../Utils";
 
-export function AddTodo({ addTodoToList }) {
-    
+export function AddTodo({ onAdd }) {
     const [title, setTitle] = useState('');
 
-    const handleAddTodo = (e) => {
+    const handleFormSubmit = (e) => {
         e.preventDefault();
+        addTodo();
     };
 
     const addTodo = () => {
-        const todo = {
+        if (title.trim() === '') return;
+
+        const newTodo = {
             id: generateId(),
-            title: title,
-            completed: false
+            title,
+            completed: false,
         };
-        addTodoToList(todo);
+        
+        onAdd(newTodo);
         setTitle('');
     };
 
@@ -25,23 +28,24 @@ export function AddTodo({ addTodoToList }) {
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
+            e.preventDefault();
             addTodo();
         }
     };
 
     return (
-        <form className="add text-center my-4" onSubmit={handleAddTodo}>
-            <label htmlFor="add" className="add text-light">
+        <form className="add text-center my-4" onSubmit={handleFormSubmit}>
+            <label htmlFor="add-todo" className="text-light">
                 Add a new todo:
             </label>
             <input
                 type="text"
                 className="form-control m-auto"
-                name="add"
-                id="add"
+                id="add-todo"
                 value={title}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyPress}
+                placeholder="Enter your todo"
             />
         </form>
     );
