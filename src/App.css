@@ -1,13 +1,16 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 
 body {
-  background-color: #352f5b;
+  background-color: #423a6f;
   font-family: "Roboto", sans-serif;
 }
 
 .container {
   max-width: 450px;
   margin-top: 10%;
+  background-color: #423a6f;
+
+
 }
 
 
