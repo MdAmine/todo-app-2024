@@ -39,6 +39,7 @@ function TodoItem({todo, onDelete, onUpdate}: {
           icon={(todo.completed) ? faCheck : faXmark}
           onClick={handleCheck}
           className="pointer"
+          aria-label='check-btn'
         />
         <FontAwesomeIcon
           style={{
@@ -47,9 +48,11 @@ function TodoItem({todo, onDelete, onUpdate}: {
           icon={faPenToSquare}
           className="pointer"
           onClick={handleUpdate}
+          aria-label='update-btn'
         />
         <FontAwesomeIcon icon={faTrashAlt} className="pointer"
-                         onClick={() => onDelete(todo.id)}/>
+                         onClick={() => onDelete(todo.id)}
+                         aria-label='delete-btn'/>
       </div>
     </li>
   )
