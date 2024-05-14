@@ -8,6 +8,7 @@ import { useState } from "react";
 
 function Todo() {
 const[TodoItems,setTodoItems]= useState(initTodoItems);
+const[searchValue,setSearchValue]= useState("");
 const handleAdd=(todo) =>{
   setTodoItems([...TodoItems,{
     id:generateId(),
@@ -21,6 +22,10 @@ const deleteItem = (id) => {
 const updateItem = (id) => {
   setTodoItems(TodoItems.map(item => item.id === id ? {...item, todo: prompt("edit to do ",item.todo) || item.todo }: item));
 }
+const searchResult = TodoItems.filter(item=>
+  item.todo.toLowerCase().includes(searchValue.toLowerCase())
+);
+
     return (
     <>
       <div className="container">
@@ -31,9 +36,11 @@ const updateItem = (id) => {
             className="form-control m-auto"
             name="search"
             placeholder="search todos"
+            value={searchValue}
+            onChange={(e)=>setSearchValue(e.target.value)}
           />
         </header>
-        {TodoItems.map((item) => (
+        {searchResult.map((item) => (
         <TodoItem key={item.id} item={item} onDelete={deleteItem} onUpdate={updateItem}/>
       ))}
         <TodoAdd onAdd={handleAdd} />
