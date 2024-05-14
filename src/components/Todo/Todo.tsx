@@ -27,6 +27,7 @@ function Todo() {
     ];
 
     const [todos,setTodos]=useState(todoItems)
+
     const addItem = (item) => {
     
        setTodos((prev)=> [...prev,{
@@ -37,7 +38,9 @@ function Todo() {
     }])
     };
    
-
+    function initList(list) {
+        setTodos(list);
+    }
 
     return (<>
         <header className="text-center text-light my-4">
@@ -51,7 +54,7 @@ function Todo() {
         </header>
 
         {todos.map((item) => (
-            <Item key={item.id} item={item} />
+            <Item key={item.id} item={item} list={todos} handleCallbackList={initList}/>
         ))}
 
         

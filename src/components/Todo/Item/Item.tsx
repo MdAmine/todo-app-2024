@@ -1,10 +1,28 @@
 import { faCheck, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
 function Item(props) {
 
-    // return (<h2>hello </h2>)
+    const handleDelete = (idToDelete) => {
 
+        const updatedTodos = props.list.filter(item => item.id !== idToDelete);
+        props.handleCallbackList(updatedTodos);
+    };
+
+
+    const handleEdit = (item) => {
+        const newValue = window.prompt("Edit todo item:", item.todo);
+        if (newValue !== null) {
+            const updatedItems = props.list.map(todo => {
+                if (todo.id === item.id) {
+                    return { ...todo, todo: newValue };
+                }
+                return todo;
+            });
+            props.handleCallbackList(updatedItems);
+        }
+    };
 
     return (<>
         <ul className="list-group todos mx-auto text-light">
@@ -27,8 +45,9 @@ function Item(props) {
                         }}
                         icon={faPenToSquare}
                         className="pointer"
+                        onClick={() => handleEdit(props.item)}
                     />
-                    <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
+                    <FontAwesomeIcon icon={faTrashAlt} className="pointer" onClick={() => handleDelete(props.item.id)} />
                 </div>
             </li>
         </ul>
