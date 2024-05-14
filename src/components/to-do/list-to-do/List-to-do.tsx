@@ -21,6 +21,8 @@ function ListToDo() {
             completed: false
         },
     ]);
+    const [searchQuery, setSearchQuery] = useState("");
+
     const addToDo = (name) => {
         const newItem = {
             id: genereteId(),
@@ -39,6 +41,14 @@ function ListToDo() {
             setItems(items.map(item => item.id === id ? {...item, name: newName} : item));
         }
     };
+
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const filteredItems = items.filter(item =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     return (
         <div className="container">
             <header className="text-center text-light my-4">
@@ -48,10 +58,12 @@ function ListToDo() {
                     className="form-control m-auto"
                     name="search"
                     placeholder="search todos"
+                    value={searchQuery}
+                    onChange={handleSearchChange}
                 />
             </header>
-            {items.map((item) => (
-                <ToDoItem key={item.id} item={item} deleteToDo={deleteToDo}  editToDo={editToDo}/>
+            {filteredItems.map((item) => (
+                <ToDoItem key={item.id} item={item} deleteToDo={deleteToDo} editToDo={editToDo}/>
             ))}
             <AddToDo addTodo={addToDo}/>
         </div>
