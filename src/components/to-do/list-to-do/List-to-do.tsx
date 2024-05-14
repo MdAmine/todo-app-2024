@@ -24,6 +24,11 @@ function ListToDo() {
     const [searchQuery, setSearchQuery] = useState("");
 
     const addToDo = (name) => {
+        const duplicate = items.some(item => item.name.toLowerCase() === name.toLowerCase());
+        if (duplicate) {
+            alert("This task already exists.");
+            return;
+        }
         const newItem = {
             id: genereteId(),
             name: name,
