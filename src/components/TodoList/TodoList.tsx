@@ -9,7 +9,7 @@ function TodoList() {
   const [todos, setTodos] = useState<Todo[]>(getTodos())
   const [search, setSearch] = useState<string>('')
   const searchedTodos = useMemo<Todo[]>(() => {
-    return todos.filter(t => t.name.includes(search))
+    return todos.filter(t => t.name.toLowerCase().includes(search.toLowerCase()))
   }, [todos, search])
 
   const handleAddTodo = (todo: Todo) => {
