@@ -28,12 +28,11 @@ function App() {
     <>
       <div className="container">
 
-        {isLogged && <ToDo/>}
+        {isLogged && <><ToDo /><FloatingButton handleLogout={handleLogout} /></>}
 
 
        {!isLogged && <Login onLogin={handleLogin} />}
 
-        {isLogged && <FloatingButton handleLogout={handleLogout}/>}
       </div>
     </>
   );
