@@ -1,13 +1,18 @@
-import { faCheck, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPenToSquare, faTrashAlt, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 function Item(props) {
-
+    const [status, setStatus] = useState(true);
     const handleDelete = (idToDelete) => {
 
         const updatedTodos = props.list.filter(item => item.id !== idToDelete);
         props.handleCallbackList(updatedTodos);
+    };
+
+    const setSelectedStatus = (status) => {
+
+        setStatus(status);
     };
 
 
@@ -23,22 +28,43 @@ function Item(props) {
             props.handleCallbackList(updatedItems);
         }
     };
+    
 
     return (<>
         <ul className="list-group todos mx-auto text-light">
             <li
-                className={`list-group-item d-flex justify-content-between align-items-center`}
+                className={`list-group-item d-flex justify-content-between align-items-center ${
+                    status ? '' : 'selected'
+                  }`}
             >
                 <span>{props.item.todo}</span>
                 <div>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                         style={{
                             marginRight: "0.3em",
                         }}
                         icon={faCheck}
                         className="pointer"
-                    />
-
+                    /> */}
+                    {status ? (
+                            <FontAwesomeIcon
+                                style={{
+                                    marginRight: "0.3em",
+                                }}
+                                icon={faCheck}
+                                className="pointer"
+                                onClick={() => setSelectedStatus(false)}
+                        />
+                        ) : (
+                            <FontAwesomeIcon
+                                style={{
+                                    marginRight: "0.3em",
+                                }}
+                                icon={faXmark}
+                                className="pointer"
+                                onClick={() => setSelectedStatus(true)}
+                           />
+                        )}
                     <FontAwesomeIcon
                         style={{
                             marginRight: "0.3em",

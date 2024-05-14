@@ -41,3 +41,7 @@ li.list-group-item {
   --bs-list-group-border-color: none;
   margin-bottom: 3px;
 }
+
+.selected {
+  background-color: #ae9c48 !important;
+}
