@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
+  faEye,
   faPenToSquare,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -30,6 +31,12 @@ function ItemToDo({ props, onDelete, onModify }) {
                 marginRight: "0.3em",
               }}
               icon={faCheck}
+              className="pointer"
+            />
+
+            <FontAwesomeIcon
+              style={{ marginRight: "0.3em" }}
+              icon={faEye}
               className="pointer"
             />
 

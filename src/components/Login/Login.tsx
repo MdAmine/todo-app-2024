@@ -8,7 +8,8 @@ function Login({ setIsLoggedIn }) {
   const [usernameError, setUsernameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  const loginHandler = () => {
+  const loginHandler = (e) => {
+    e.preventDefault();
     if (username === "") {
       setUsernameError(true);
     } else {
