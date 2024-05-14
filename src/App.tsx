@@ -11,9 +11,13 @@ function App() {
     const handleLogin = () => {
         setIsLoggedIn(true);
     };
+
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+    }
     return (
         <>
-            {isLoggedIn ? <><ListToDo/> <FloatingButton/></> : (
+            {isLoggedIn ? <><ListToDo/> <FloatingButton onLogout={handleLogout}/></> : (
                 <>
                     <Login onLogin={handleLogin}/>
 
