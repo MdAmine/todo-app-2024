@@ -31,7 +31,6 @@ const FloatingButton = (props) => {
           <span  onClick={logoutHandler}>Logout</span> </ul>
       </nav>
     </div>
-   
   );
 };
 export default FloatingButton;

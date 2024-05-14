@@ -7,8 +7,8 @@ function Add(props)  {
   const handleSubmit = (event) => {
     event.preventDefault();
     props.addNewTodoItem(newTodo);
+    setNewTodo("");
   };
-
   const handleChange = (event)=> {
     setNewTodo(event.target.value);
   };
@@ -25,10 +25,7 @@ function Add(props)  {
         id="add"
         value={newTodo}
         onChange={handleChange}
-      />
-      <button type="submit" className="btn btn-primary mt-3">
-        Add Todo
-      </button>
+      />   
     </form>
   );
 }

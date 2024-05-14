@@ -18,10 +18,9 @@ const App=() => {
   return (   
     <>
       <div className="container">
-      {!isLoggedIn && <Login loggedIn={loginHandler} /> }    
-      {isLoggedIn &&<> <Todo /> <FloatingButton logoutHandler={logoutHandler}/></> } 
         
-      
+      {!isLoggedIn && <Login loggedIn={loginHandler} /> }    
+      {isLoggedIn && <> <Todo /> <FloatingButton logoutHandler={logoutHandler}/></> }   
       </div>
     </>
   );
