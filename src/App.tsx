@@ -1,15 +1,16 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import FloatingButton from "./components/UI/FloatingButton.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import LoginForm from "./components/LoginForm/LoginForm.tsx";
 import TodoList from "./components/TodoList/TodoList.tsx";
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState<boolean>(
-    localStorage.getItem('isLoggedIn') == 'true'
-  )
+  const [isLoggedIn, setLoggedIn] = useState<boolean>(false)
 
+  useEffect(() => {
+    setLoggedIn(localStorage.getItem('isLoggedIn') == 'true')
+  }, []);
 
   const handleLogin = () => {
     setLoggedIn(true)
