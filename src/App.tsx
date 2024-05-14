@@ -3,20 +3,29 @@ import FloatingButton from "./components/UI/FloatingButton";
 import "./App.css";
 import Todo from "./components/todo/Todo.tsx";
 import Login from "./components/login/Login.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function App() {
-    const [isLogedIn, setIsLogedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const loggedIn = localStorage.getItem("isLoggedIn");
+        if (loggedIn === "true") {
+            setIsLoggedIn(true);
+        }
+    }, []);
     const login = () => {
-        setIsLogedIn(true);
+        setIsLoggedIn(true);
+        localStorage.setItem("isLoggedIn","true")
     }
     const logout = () => {
-        setIsLogedIn(false);
+        setIsLoggedIn(false);
+        localStorage.setItem("isLoggedIn","false")
     };
     return (
         <>
             <div className="container">
-                {isLogedIn ? <Todo/> : <Login onLogin={login}/>}
+                {isLoggedIn ? <Todo/> : <Login onLogin={login}/>}
                 <FloatingButton onLogout={logout}/>
             </div>
         </>
