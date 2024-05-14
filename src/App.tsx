@@ -17,13 +17,14 @@ function App() {
 
   }
   function call(){
-    setLoggedIn(false)
+    setLoggedIn(false)  
     localStorage.setItem('connected','false');
 
   }
   if(!isLoggedin 
   )
-    return (<> <div className="container"><Login handleCallback={onLogin}/></div> </>)
+    return (<> 
+    <div className="container"><Login handleCallback={onLogin}/></div> </>)
   else 
   return (
     <>
