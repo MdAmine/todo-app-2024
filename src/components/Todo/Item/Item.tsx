@@ -1,4 +1,4 @@
-import { faCheck, faPenToSquare, faTrashAlt, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faInfoCircle, faPenToSquare, faTrashAlt, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
@@ -39,13 +39,7 @@ function Item(props) {
             >
                 <span>{props.item.todo}</span>
                 <div>
-                    {/* <FontAwesomeIcon
-                        style={{
-                            marginRight: "0.3em",
-                        }}
-                        icon={faCheck}
-                        className="pointer"
-                    /> */}
+                    
                     {status ? (
                             <FontAwesomeIcon
                                 style={{
@@ -65,6 +59,13 @@ function Item(props) {
                                 onClick={() => setSelectedStatus(true)}
                            />
                         )}
+                    <FontAwesomeIcon
+                        style={{
+                            marginRight: "0.3em",
+                        }}
+                        icon={faInfoCircle}
+                        className="pointer"
+                    />
                     <FontAwesomeIcon
                         style={{
                             marginRight: "0.3em",
