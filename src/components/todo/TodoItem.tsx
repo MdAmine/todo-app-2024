@@ -20,12 +20,29 @@ const TodoItem: React.FC<TodoItemProps> = ({
   onComplete,
   onEdit,
 }) => {
+  const renderPriorityIcon = () => {
+    if (todo.priority === "P0") {
+      return null;
+    }
+
+    return (
+      <span className="badge border border-primary text-primary  ">
+        {todo.priority}
+      </span>
+    );
+  };
+
   return (
     <ul className="list-group todos mx-auto text-light">
       <li
-        className={`list-group-item d-flex justify-content-between align-items-center`}
+        className={`list-group-item d-flex justify-content-between align-items-center ${
+          todo.complete ? "center" : "bg-dark"
+        }`}
       >
-        <span>{todo.title}</span>
+        <div className="d-flex justify-content-between align-items-center gap-2">
+          {renderPriorityIcon()}
+          <span>{todo.title}</span>
+        </div>
         <div className="d-flex gap-1">
           <FontAwesomeIcon
             style={{

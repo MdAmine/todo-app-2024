@@ -1,50 +1,77 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { initTodos, Todo } from "../../types/todo";
 import AddTodoForm from "./AddTodoForm";
+import FilterTodo from "./FilterTodo";
 import SearchTodo from "./SearchTodo";
 import TodoItem from "./TodoItem";
 
 const TodoList: React.FC = () => {
-  const [todos, setTodos] = React.useState<Todo[]>(initTodos);
+  const [todos, setTodos] = useState<Todo[]>(initTodos);
+  const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filterTerm, setFilterTerm] = useState<string>("");
+
+  useEffect(() => {
+    filterAndSearchTodos(searchTerm, filterTerm);
+  }, [searchTerm, filterTerm, todos]);
+
+  const filterAndSearchTodos = (searchTerm: string, filterTerm: string) => {
+    const filteredTodos = todos.filter((todo) => {
+      const isSearchMatch = todo.title
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const isFilterMatch =
+        filterTerm === "all" || todo.priority === filterTerm;
+      return isSearchMatch && isFilterMatch;
+    });
+
+    setFilteredTodos(filteredTodos);
+  };
 
   const onAddTodo = (todo: Todo): void => {
-    setTodos([...todos, todo]);
+    setTodos((prevTodos) => [...prevTodos, todo]);
   };
 
   const onDeleteTodo = (id: string): void => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
   const onCompleteTodo = (id: string): void => {
-    setTodos(
-      todos.map((todo) =>
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
         todo.id === id ? { ...todo, complete: !todo.complete } : todo
       )
     );
   };
+
   const onEditTodo = (id: string) => {
-    const updatedTodos: Todo[] = todos.map((todo) =>
-      todo.id === id
-        ? {
-            ...todo,
-            title: prompt("edit todo's title", todo.title) || todo.title,
-          }
-        : todo
-    );
-    setTodos(updatedTodos);
+    setTodos((prevTodos) => {
+      const updatedTodos: Todo[] = prevTodos.map((todo) =>
+        todo.id === id
+          ? {
+              ...todo,
+              title: prompt("edit todo's title", todo.title) || todo.title,
+            }
+          : todo
+      );
+      return updatedTodos;
+    });
   };
+
   const onSearchTodo = (keyword: string) => {
-    const filteredTodos: Todo[] = initTodos.filter((todo) =>
-      todo.title.toLowerCase().includes(keyword.toLowerCase())
-    );
-    setTodos(filteredTodos);
+    setSearchTerm(keyword);
+  };
+
+  const onFilterTodo = (priority: string) => {
+    setFilterTerm(priority);
   };
 
   return (
     <>
       <SearchTodo onSearch={onSearchTodo} />
-      {todos.length > 0 ? (
-        todos.map((todo) => (
+      <FilterTodo onFilter={onFilterTodo} />
+      {filteredTodos.length > 0 || todos.length > 0 ? (
+        (filteredTodos.length > 0 ? filteredTodos : todos).map((todo) => (
           <TodoItem
             key={todo.id}
             todo={todo}
