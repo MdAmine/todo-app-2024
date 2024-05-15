@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 import "./FloatingButton.scss";
 
@@ -28,7 +29,7 @@ const FloatingButton = (props) => {
       <nav className="nav">
         <ul>
           <span>Todo List</span>
-          <span>About</span>
+          <span><Link to={`/about`} className="text-dark"> About </Link></span>
           <span onClick={logoutHandler}>Logout</span>
         </ul>
       </nav>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 function Login(props) {
 
@@ -65,8 +66,9 @@ function Login(props) {
             <span className="invalid">Le mot de passe est requis.</span>
           )}
           <br></br>
+          
           <button type="submit" className="btn btn-dark" onClick={loginHandler} disabled={!isValidEmail || !isValidPassword}>
-            Login
+          <Link to={`/`} className="text-light"> Login </Link>
           </button>
         </form>
     </>);

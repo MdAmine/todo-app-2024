@@ -1,6 +1,7 @@
 import { faCheck, faInfoCircle, faPenToSquare, faTrashAlt, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 function Item(props) {
     const [status, setStatus] = useState(false);
@@ -45,23 +46,18 @@ function Item(props) {
                     !status ? '' : 'selected'
                   }`}
             >
-                  {props.item.priority == "P1" ? ( 
-                    // <button type="button" className="btn btn-danger">P1</button> 
+                  {props.item.priority == "P1" ? (            
                     <span className="badge bg-danger">P1</span>                         
                         ) : (
-                            props.item.priority == "P2" ? ( 
-                                // <button type="button" className="btn btn-warning">P2</button> 
+                            props.item.priority == "P2" ? (                                  
                                 <span className="badge bg-warning text-dark">P2</span>                         
                                     ) : (
                                         props.item.priority == "P3" ? (
-                                            // <button type="button" className="btn btn-primary ">P3</button>
                                             <span className="badge bg-primary">P3</span>
                                          ):(
                                             props.item.priority == "P4" ? (
-                                                // <button type="button" className="btn btn-success ">P4</button>
                                                 <span className="badge bg-success">P4</span>
                                              ):(
-                                                // <button type="button" className="btn btn-danger">P1</button> 
                                                 <span className="badge bg-danger">P1</span> 
                                                )
                                             )
@@ -90,6 +86,7 @@ function Item(props) {
                                 onClick={() => setSelectedStatus(false,props.item)}
                            />
                         )}
+                    <Link to={`/details/${props.item.id}/${props.item.todo}/${props.item.complete}/${props.item.priority}`} className="text-light">
                     <FontAwesomeIcon
                         style={{
                             marginRight: "0.3em",
@@ -97,6 +94,7 @@ function Item(props) {
                         icon={faInfoCircle}
                         className="pointer"
                     />
+                    </Link>
                     <FontAwesomeIcon
                         style={{
                             marginRight: "0.3em",

@@ -35,11 +35,11 @@ function Todo() {
     ];
 
     const [todos, setTodos] = useState(todoItems)
-    let filteredItems = todos;
+    // localStorage.setItem("list",JSON.stringify(todos));
 
     const addItem = (item) => {
 
-
+        
         setTodos((prev) => [...prev, {
             id: generatedId(),
             todo: item,
@@ -47,10 +47,13 @@ function Todo() {
             priority: (priority !== '') ? priority : "P1",
 
         }])
+
+    //   localStorage.setItem("list",JSON.stringify(todos));
     };
 
     function initList(list) {
         setTodos(list);
+        
     }
 
 
@@ -69,7 +72,9 @@ function Todo() {
         setSearchTerm(event.target.value);
     };
 
-
+    // let filteredItems = (localStorage.getItem('list') != "") ? localStorage.getItem('list') : todos;
+    // console.log("list as JSON = " + filteredItems);
+    let filteredItems = todos;
     filteredItems = todos.filter(item =>
         item.todo.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -79,6 +84,8 @@ function Todo() {
             item.todo.toLowerCase().includes(searchTerm.toLowerCase())
         );
     }
+  
+    // localStorage.setItem("list",JSON.stringify(todos));
 
 
 
