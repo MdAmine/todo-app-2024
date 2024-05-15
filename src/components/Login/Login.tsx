@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Login.css';
+import { useNavigate } from 'react-router';
 
 const VALID_EMAIL = "karim@karim.com";
 const VALID_PASSWORD = "karim";
@@ -10,6 +11,8 @@ export function Login({ onLogin }) {
         password: ''
     });
     const [error, setError] = useState("");
+
+    const navigate = useNavigate();
 
     const validateForm = (email, password) => {
         if (!email.trim() || !password.trim()) {
@@ -28,6 +31,7 @@ export function Login({ onLogin }) {
             setError(validationError);
         } else {
             onLogin(true);
+            navigate("/home");
         }
     };
 

@@ -1,44 +1,60 @@
 import "bootstrap/dist/css/bootstrap.css";
-import FloatingButton from "./components/UI/FloatingButton";
 import "./App.css";
-import {TodoList} from "./components/Todo/TodoList.tsx";
-import {Login} from "./components/Login/Login.tsx";
 import { useEffect, useState } from "react";
-
+import { Navigate, Route, Routes } from "react-router-dom";
+import Authentication from "./pages/Authentication";
+import Home from "./pages/Home";
+import About from "./pages/About";
 
 function App() {
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(()=>{
-    localStorage.getItem('isLoggedIn') === 'true' && setIsLoggedIn(true);
-  }, [])
+  useEffect(() => {
+    const loggedInStatus = localStorage.getItem("isLoggedIn") === "true";
+    setIsLoggedIn(loggedInStatus);
+  }, []);
 
-  const login = (value) => {
-    if(value){
-      localStorage.setItem('isLoggedIn', true);
-      setIsLoggedIn(true);
-    }
-  }
+  const handleLogin = (value) => {
+    localStorage.setItem("isLoggedIn", value);
+    setIsLoggedIn(true);
+  };
 
-  const logout = () => {
-    localStorage.setItem('isLoggedIn', false);
-      setIsLoggedIn(false);
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+  };
 
   return (
-    <>
-      <div className="container">
-        {isLoggedIn ? (
-          <>
-            <FloatingButton onLogout={logout} />
-            <TodoList />
-          </>
-        ) : (
-          <Login onLogin={login} />
-        )}
-      </div>
-    </>
+    <div className="container">
+      <Routes>
+        <Route path="/" element={<Navigate to={isLoggedIn ? "/home" : "/login"} />} />
+        <Route 
+          path="/login" 
+          element={
+            isLoggedIn ? <Navigate to="/home" /> : <Authentication onLogin={handleLogin} />
+          } 
+        />
+        <Route
+          path="/home"
+          element={
+            isLoggedIn ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="/todo/:id"
+          element={
+            isLoggedIn ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            isLoggedIn ? <About onLogout={handleLogout} /> : <Navigate to="/login" />
+          }
+        />
+        <Route path="*" element={<Navigate to="/"/>}/>
+      </Routes>
+    </div>
   );
 }
 
