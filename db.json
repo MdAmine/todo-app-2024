@@ -1,0 +1,63 @@
+{
+  "todos": [
+    {
+      "id": "1e4f6364-3e9a-45ab-aecc-88a56e12c805",
+      "title": "Clean the house",
+      "complete": false,
+      "priority": "P2"
+    },
+    {
+      "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "title": "Go for a run",
+      "complete": false,
+      "priority": "P3"
+    },
+    {
+      "id": "c51d4e2f-df38-4eaf-bcdc-5c5e87f64c14",
+      "title": "Finish coding assignment",
+      "complete": false,
+      "priority": "P4"
+    },
+    {
+      "id": "bfa016c7-af76-4f77-a51f-fbc7db5f11e0",
+      "title": "Read a book",
+      "complete": true,
+      "priority": "P3"
+    },
+    {
+      "id": "53ea1544-2552-4850-8eff-1a13838ddd7a",
+      "title": "belcaid",
+      "complete": false,
+      "priority": ""
+    }
+  ],
+  "courses": [
+    {
+      "id": 3,
+      "title": "Angular",
+      "details": "Create First App",
+      "percentComplete": 0,
+      "approved": true,
+      "studentId": "2",
+      "createDate": "2021-01-15T18:18:53.391Z"
+    },
+    {
+      "id": 4,
+      "title": "RxJS",
+      "details": "Learn Basic",
+      "percentComplete": 0,
+      "approved": true,
+      "studentId": "3",
+      "createDate": "2021-01-15T18:19:35.393Z"
+    },
+    {
+      "id": 5,
+      "title": "JavaScript",
+      "details": "Learn Basic",
+      "percentComplete": 5,
+      "approved": true,
+      "studentId": "5",
+      "createDate": "2021-01-15T18:19:53.784Z"
+    }
+  ]
+}
