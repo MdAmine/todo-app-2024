@@ -1,8 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBan, faCheck, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faCheck, faEye, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import './TodoItem.css';
+import { useNavigate } from "react-router";
 
 export function TodoItem({ todo, children, onDelete, onEdit, onCheck }) {
+
+    const navigate = useNavigate();
 
     const handleDelete = () => {
         onDelete(todo.id);
@@ -18,6 +21,11 @@ export function TodoItem({ todo, children, onDelete, onEdit, onCheck }) {
     const handleCheck = () => {
         onCheck(todo.id);
     };
+
+
+    const handleShow = (todo) => {
+        navigate("/todo/" + todo.id, { state: { todo } });
+    }
 
     const getPriorityBadge = (priority) => {
         switch (priority) {
@@ -59,6 +67,13 @@ export function TodoItem({ todo, children, onDelete, onEdit, onCheck }) {
                             style={{ marginRight: "0.3em" }}
                         />
                     )}
+                    <FontAwesomeIcon
+                        title="show"
+                        icon={faEye}
+                        className="pointer"
+                        style={{ marginRight: "0.3em" }}
+                        onClick={() => handleShow(todo)} 
+                    />
                     <FontAwesomeIcon
                         title="edit"
                         icon={faPenToSquare}

@@ -1,11 +1,11 @@
 import { TodoList } from "../components/Todo/TodoList";
 import FloatingButton from "../components/UI/FloatingButton";
 
-export default function Home({ onLogout }) {
+export default function Home({todos, setTodosHome, onLogout }) {
   return (
     <>
       <FloatingButton onLogout={onLogout} />
-      <TodoList />
+      <TodoList setTodosHome={setTodosHome} todosHome={todos} />
     </>
   );
 }

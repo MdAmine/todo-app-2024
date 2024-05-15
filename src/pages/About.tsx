@@ -1,23 +1,7 @@
-import { useEffect, useState } from "react";
 import FloatingButton from "../components/UI/FloatingButton";
 import DevInfo from "../components/DevInfo/DevInfo";
 
 export default function About({onLogout}) {
-    const githubUrl = 'https://api.github.com/users/ELBOUROUMIABDELKARIM';
-    const [user, setUser] = useState(null);
-
-    useEffect(()=>{
-        fetchGithub();
-    }, [])
-
-
-     const fetchGithub = async () => {
-        const response = await fetch(githubUrl);
-        const data = await response.json();
-        const {name, avatar_url , html_url, bio} = data;
-        setUser({name, avatar_url , html_url, bio});
-    }
-
     return (
         <>
             <FloatingButton onLogout={onLogout} />
@@ -36,7 +20,7 @@ export default function About({onLogout}) {
                         <br/>
                         <hr className="custom-hr" />
                         <br/>
-                        <DevInfo user={user} onLogout={onLogout} />
+                        <DevInfo onLogout={onLogout} />
                     </div>
                 </div>
             </div>

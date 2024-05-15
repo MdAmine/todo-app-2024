@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { TodoList } from './TodoList';
-import { todoItems as initialTodoItems } from '../../UtilsTest.tsx';
+import { todoItems as initialTodoItems } from '../../Utils.tsx';
 
 describe('TodoList Component', () => {
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe('TodoList Component', () => {
   });
 
   it('should uncheck a todo item', () => {
-    render(<TodoList  />);
+    render(<TodoList />);
 
     const firstTodoCheckbox = getElementsByTitle('unCheck')[0];
     expect(getElementsByTitle('check').length).toBe(3);

@@ -1,4 +1,5 @@
 import { cleanup, render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 
 describe('App Component', () => {
@@ -33,20 +34,24 @@ describe('App Component', () => {
     cleanup();
   });
 
+  const renderWithRouter = (ui) => {
+    return render(<BrowserRouter>{ui}</BrowserRouter>);
+  };
+
   it('renders App without crashing', () => {
-    render(<App />);
+    renderWithRouter(<App />);
     expect(screen.getByText('Login Form')).toBeInTheDocument();
   });
 
   it('should render Login Form when not logged in', () => {
-    render(<App />);
+    renderWithRouter(<App />);
     const loginh1 = screen.getByText('Login Form');
     expect(loginh1).toBeInTheDocument();
   });
 
   it('should render FloatingButton and TodoList after logging in', async () => {
     localStorage.setItem('isLoggedIn', 'true');
-    render(<App />);
+    renderWithRouter(<App />);
     const floatingButton = await screen.findByText('Logout');
     const todoList = await screen.findByPlaceholderText('Search todos');
     expect(floatingButton).toBeInTheDocument();

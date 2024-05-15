@@ -1,17 +1,17 @@
 import './TodoList.css';
 import { AddTodo } from "./AddTodo.tsx";
 import { TodoItem } from "./TodoItem.tsx";
-import { todoItems as initialTodoItems } from '../../Utils.tsx';
 import { useState } from 'react';
 
-export function TodoList() {
-    const [todos, setTodos] = useState(initialTodoItems);
-    const [filteredTodos, setFilteredTodos] = useState(initialTodoItems);
+export function TodoList({todosHome, setTodosHome}) {
+    const [todos, setTodos] = useState(todosHome);
+    const [filteredTodos, setFilteredTodos] = useState(todosHome);
     const [priority, setPriority] = useState('All');
 
     const handleAddTodo = (newTodo) => {
         if (!todos.some(todo => todo.id === newTodo.id)) {
             const updatedTodos = [...todos, newTodo];
+            setTodosHome(updatedTodos)
             setTodos(updatedTodos);
             setFilteredTodos(updatedTodos);
         } else {
@@ -22,12 +22,14 @@ export function TodoList() {
     const handleDeleteTodo = (id) => {
         const updatedTodos = todos.filter(todo => todo.id !== id);
         setTodos(updatedTodos);
+        setTodosHome(updatedTodos)
         setFilteredTodos(updatedTodos);
     };
 
     const handleEditTodo = (id, newTitle) => {
         const updatedTodos = todos.map(todo => (todo.id === id ? { ...todo, title: newTitle } : todo));
         setTodos(updatedTodos);
+        setTodosHome(updatedTodos)
         setFilteredTodos(updatedTodos);
     };
 
@@ -43,6 +45,7 @@ export function TodoList() {
     const handleCheckTodo = (id) => {
         const updatedTodos = todos.map(todo => (todo.id === id ? { ...todo, completed: !todo.completed } : todo));
         setTodos(updatedTodos);
+        setTodosHome(updatedTodos)
         setFilteredTodos(updatedTodos);
     };
 

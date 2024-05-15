@@ -5,9 +5,12 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Authentication from "./pages/Authentication";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import TodoDetails from "./components/Todo/TodoDetails";
+import { todoItems as initialTodoItems } from './Utils.tsx';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [todos, setTodos] = useState(initialTodoItems);
 
   useEffect(() => {
     const loggedInStatus = localStorage.getItem("isLoggedIn") === "true";
@@ -37,13 +40,13 @@ function App() {
         <Route
           path="/home"
           element={
-            isLoggedIn ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />
+            isLoggedIn ? <Home todos={todos} setTodosHome={setTodos} onLogout={handleLogout} /> : <Navigate to="/login" />
           }
         />
         <Route
           path="/todo/:id"
           element={
-            isLoggedIn ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />
+            isLoggedIn ? <TodoDetails onLogout={handleLogout} /> : <Navigate to="/login" />
           }
         />
         <Route

@@ -1,5 +1,18 @@
-import './DevInfo.css'
-export default function DevInfo({ user , onLogout}) {
+import { useEffect, useState } from 'react';
+import './DevInfo.css';
+import { fetchGithubInfos } from '../../services/api.github';
+
+export default function DevInfo({ onLogout }) {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const getUserInfo = async () => {
+            const data = await fetchGithubInfos();
+            setUser(data);
+        };
+        getUserInfo();
+    }, []);
+
     return (
         <>
             <h2 className="text-center">Developer Infos</h2>
@@ -16,6 +29,5 @@ export default function DevInfo({ user , onLogout}) {
                 </div>
             )}
         </>
-    )
-
+    );
 }
