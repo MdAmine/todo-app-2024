@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { initTodo } from "../../types/todo";
-import "./AddTodoForm.css";
 
 const AddTodoForm = ({ onAdd }) => {
   const [todo, setTodo] = useState(initTodo);
@@ -25,10 +24,12 @@ const AddTodoForm = ({ onAdd }) => {
           className="form-control"
           name="add"
           id="add"
+          placeholder="add new todo"
           required
         />
         <button
           type="submit"
+          date-testid="add-todo-button"
           className="btn btn-outline-primary ml-2"
           style={{ whiteSpace: "nowrap" }}
         >

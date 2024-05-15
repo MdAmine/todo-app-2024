@@ -8,7 +8,7 @@ export const initTodo = {
 };
 
 export const initTodos = [
-    { id: uuidv4(), title: "Buy groceries", complete: false, priority: "P1" },
+    { id: uuidv4(), title: "Buy groceries", complete: true, priority: "P1" },
     { id: uuidv4(), title: "Clean the house", complete: false, priority: "P2" },
     { id: uuidv4(), title: "Go for a run", complete: true, priority: "P3" },
     { id: uuidv4(), title: "Finish coding assignment", complete: false, priority: "P4" },

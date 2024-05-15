@@ -20,7 +20,7 @@ const TodoItem = ({ todo, onDelete, onComplete, onEdit }) => {
   };
 
   return (
-    <ul className="list-group todos mx-auto text-light">
+    <ul className="list-group todos mx-auto text-light" data-testid="todo-item">
       <li
         className={`list-group-item d-flex justify-content-between align-items-center ${
           todo.complete ? "center" : "bg-dark"
@@ -32,12 +32,14 @@ const TodoItem = ({ todo, onDelete, onComplete, onEdit }) => {
         </div>
         <div className="d-flex gap-1">
           <FontAwesomeIcon
+            title={todo.complete ? "complete" : "unComplete"}
             style={{
               marginRight: "0.3em",
             }}
             icon={todo.complete ? faCheck : faXmark}
             className="pointer"
             onClick={() => onComplete(todo.id)}
+            data-testid="complete-button"
           />
 
           <FontAwesomeIcon
@@ -47,11 +49,13 @@ const TodoItem = ({ todo, onDelete, onComplete, onEdit }) => {
             icon={faPenToSquare}
             className="pointer"
             onClick={() => onEdit(todo.id)}
+            data-testid="edit-button"
           />
           <FontAwesomeIcon
             icon={faTrashAlt}
             className="pointer"
             onClick={() => onDelete(todo.id)}
+            data-testid="delete-button"
           />
         </div>
       </li>

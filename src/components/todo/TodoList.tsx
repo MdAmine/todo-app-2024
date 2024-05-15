@@ -56,6 +56,7 @@ const TodoList = () => {
       );
       return updatedTodos;
     });
+    console.log(todos);
   };
 
   const onSearchTodo = (keyword) => {
@@ -74,6 +75,7 @@ const TodoList = () => {
         (filteredTodos.length > 0 ? filteredTodos : todos).map((todo) => (
           <TodoItem
             key={todo.id}
+            data-testid="todo-item"
             todo={todo}
             onDelete={onDeleteTodo}
             onComplete={onCompleteTodo}
