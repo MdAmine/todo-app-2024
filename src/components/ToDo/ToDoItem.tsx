@@ -33,12 +33,13 @@ function ToDoItem(props) {
         <li className={`list-group-item d-flex justify-content-between align-items-center ${isChecked ? 'bg-success' : ''}`}>
             {isEditing ? (
                 <>
-                    <input type="text" value={updatedValue} onChange={handleChange} />
+                    <input type="text" value={updatedValue} onChange={handleChange} placeholder="enter your todo"/>
                     <FontAwesomeIcon
                         style={{ marginRight: "0.3em" }}
                         icon={faCheck}
                         className="pointer"
                         onClick={handleSave}
+                        data-testid="add-button"
                     />
                     <FontAwesomeIcon
                         style={{ marginRight: "0.3em" }}
@@ -56,17 +57,22 @@ function ToDoItem(props) {
                             icon={isChecked ? faClose : faCheck} 
                             className="pointer"
                             onClick={toggleChecked}
+                            data-testid={`checked-button-${props.id}`}
                         />
                         <FontAwesomeIcon
                             style={{ marginRight: "0.3em" }}
                             icon={faPenToSquare}
                             className="pointer"
                             onClick={handleUpdate}
+                            data-testid={`edit-button-${props.id}`}
+
                         />
                         <FontAwesomeIcon
                             icon={faTrashAlt}
                             className="pointer"
-                            onClick={() => props.handleDelete(props.id)}
+                            onClick={() => props.handleDelete(props.id)
+                            }
+                            data-testid={`delete-button-${props.id}`}
                         />
                     </div>
                 </>

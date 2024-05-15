@@ -16,8 +16,10 @@ function AddToDo(props) {
         <input
           type="text"
           className="form-control m-auto"
+          placeholder="enter your todo"
           name="add"
           id="add"
+          data-testid="todo-input"
           value={value} onChange={handleChange}
         />
       </form>
