@@ -2,11 +2,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import React, {useEffect, useState} from "react";
 import ListToDo from "./components/to-do/list-to-do/List-to-do.tsx";
-import FloatingButton from "./components/UI/FloatingButton.tsx";
 import {Route, Routes} from "react-router-dom";
 import Login from "./components/login/Login.tsx";
 import About from "./components/about/About.tsx";
 import Details from "./components/details/Details.tsx";
+import FloatingButton from "./components/UI/FloatingButton.tsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,27 +26,31 @@ function App() {
         setIsLoggedIn(false);
         localStorage.removeItem("isLoggedIn");
     };
-    return (
-        <Routes>
-            <Route
-                path="/"
-                element={
-                    isLoggedIn ?
-                        <>
-                            <ListToDo/>
-                            <FloatingButton onLogout={handleLogout}/>
-                        </>
-                        :
-                        <Login onLogin={handleLogin}/>
-                }
-            />
-            {isLoggedIn && (
-                <>
-                    <Route path="/about" element={<About/>}/>
-                    <Route path="/details/:id" element={<Details/>}/>
-                </>
-            )}
-        </Routes>
+    return (<>
+
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        isLoggedIn ?
+                            <>
+                                <ListToDo/>
+                            </>
+                            :
+                            <Login onLogin={handleLogin}/>
+                    }
+                />
+                {isLoggedIn && (
+                    <>
+                        <Route path="/about" element={<About/>}/>
+                        <Route path="/details/:id" element={<Details/>}/>
+                    </>
+                )}
+            </Routes>
+            {
+                isLoggedIn && <FloatingButton onLogout={handleLogout}/>
+            }
+        </>
     );
 }
 

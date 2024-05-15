@@ -1,9 +1,10 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 function Details() {
     const [item, setItem] = useState(null);
     const {id} = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const storedItems = JSON.parse(localStorage.getItem("todoItems")) || [];
@@ -17,6 +18,9 @@ function Details() {
         return <div>Loading...</div>;
     }
 
+    const handleGoBack = () => {
+        navigate(-1);
+    }
     return (
         <div style={{
             margin: '20px',
@@ -35,6 +39,7 @@ function Details() {
             <div style={{marginBottom: '10px'}}>
                 <strong>Completed:</strong> {item.completed ? 'Yes' : 'No'}
             </div>
+            <button onClick={handleGoBack}>Back</button>
         </div>
     );
 
