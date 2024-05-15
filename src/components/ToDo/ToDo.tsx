@@ -4,21 +4,19 @@ import { generateId, todoItems } from "../../Utils";
 import AddToDo from "./AddToDo";
 import { TodoItem } from "./TodoItem";
 import './todo.css';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
-
 
 export default function ToDo() {
 
     const [searchQuery, setSearchQuery] = useState("");
     const [priority, setPriority] = useState();
     const [todos, setTodos] = useState(todoItems);
+    const [listPriority, setListPriority] = useState([]);
     const addTodo = (title) => {
         const newTodo = {
             id: generateId(),
             title: title,
             complete: false,
-            priority: 'low',
+            priority: priority || 'P1',
         };
         setTodos([...todos, newTodo]);
     };
@@ -70,46 +68,11 @@ export default function ToDo() {
     };
 
 
-    const editPriority = (id, priority) => {
-        const updatedTodos = todos.map(todo => {
-            if (todo.id === id) {
-                todo.priority = priority;
-            }
-            return todo;
-        });
-        setTodos(updatedTodos);
-    };
-
     return (
         <>
             <header className="text-center text-light my-4">
                 <h1 className="mb-5">Todo List</h1>
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                        <button
-                        className="btn btn-sm btn-secondary mr-2"
-                        onClick={() => handleSetPriority("low")}
-                        >
-                        Low
-                        </button>
-                        <button
-                        className="btn btn-sm btn-warning mr-2"
-                        onClick={() => handleSetPriority("medium")}
-                        >
-                        Medium
-                        </button>
-                        <button
-                        className="btn btn-sm btn-danger"
-                        onClick={() => handleSetPriority("high")}
-                        >
-                        High
-                        </button>
-                        <button
-                        className="btn btn-sm btn-info"
-                        onClick={() => handleSetPriority("")}
-                        >
-                        <FontAwesomeIcon icon={faArrowsRotate}></FontAwesomeIcon>
-                        </button>
-                </div>
+                
                 <input
                     type="text"
                     className="form-control m-auto"
@@ -118,11 +81,19 @@ export default function ToDo() {
                     value={searchQuery}
                     onChange={handleSearch}
                 />
+                 
+                <div className="btn-group mt-4" role="group" aria-label="Basic example">
+                    <button type="button" className={`btn btn-outline-dark ${priority === '' ? 'active' : ''}`} onClick={()=>handleSetPriority('')}>All</button>
+                    <button type="button" className={`btn btn-outline-danger ${priority === 'P1' ? 'active' : ''}`} onClick={()=>handleSetPriority('P1')}>P1</button>
+                    <button type="button" className={`btn btn-outline-warning ${priority === 'P2' ? 'active' : ''}`} onClick={()=>handleSetPriority('P2')}>P2</button>
+                    <button type="button" className={`btn btn-outline-primary ${priority === 'P3' ? 'active' : ''}`} onClick={()=>handleSetPriority('P3')}>P3</button>
+                    <button type="button" className={`btn btn-outline-success ${priority === 'P4' ? 'active' : ''}`} onClick={()=>handleSetPriority('P4')}>P4</button>
+                </div>
             </header>
 
 
             {filteredTodos.map((item) => (
-                <TodoItem key={item.id} item={item} onEdit={editTodo} onDelete={handleDeleteTodo} onCheck={handleOnCheck} onEditP={editPriority}></TodoItem>
+                <TodoItem key={item.id} item={item} onEdit={editTodo} onDelete={handleDeleteTodo} onCheck={handleOnCheck}></TodoItem>
             ))}
 
             <AddToDo onAdd={addTodo}></AddToDo>

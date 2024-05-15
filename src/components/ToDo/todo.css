@@ -28,3 +28,8 @@ li.list-group-item {
   --bs-list-group-border-color: none;
   margin-bottom: 3px;
 }
+
+
+.btn{
+  width: 71px;
+}

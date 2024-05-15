@@ -4,12 +4,12 @@ export const todoItems = [
         id: generateId(),
         title: "Read books",
         complete : false ,
-        priority : "high"
+        priority : "P1"
     },
     {
         id: generateId(),
         title: "Read books 2",
         complete : false,
-        priority : "low"
+        priority : "P2"
     },
 ];

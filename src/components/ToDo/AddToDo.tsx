@@ -3,7 +3,7 @@ import { todoItems } from "../../Utils";
 
 
 
-export default function AddToDo({ onAdd }) {
+export default function AddToDo({ onAdd}) {
     const [newTodo, setNewTodo] = useState("");
 
     const handleChange = (e) => {
