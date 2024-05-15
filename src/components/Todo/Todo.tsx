@@ -9,6 +9,8 @@ import { useState } from "react";
 function Todo() {
 const[TodoItems,setTodoItems]= useState(initTodoItems);
 const[searchValue,setSearchValue]= useState("");
+//const [selectedButton, setSelectedButton] = useState<{[key: string]: string}>({});
+const [selectedButton, setSelectedButton] = useState<string>('');
 const handleAdd=(todo) =>{
   setTodoItems([...TodoItems,{
     id:generateId(),
@@ -43,6 +45,44 @@ const checkItem = (id) => {
             onChange={(e)=>setSearchValue(e.target.value)}
           />
         </header>
+  <div className="btn-group d-flex justify-content-center" role="group" aria-label="First group">
+      <button 
+        type="button" 
+        className={`btn ${selectedButton === 'All' ? 'btn-dark' : 'btn-outline-dark'}`} 
+        onClick={() => setSelectedButton(selectedButton === 'All' ? '' : 'All')}
+      >
+        All
+      </button>
+      <button 
+        type="button" 
+        className={`btn ${selectedButton =='P1' ? 'btn-danger' : 'btn-outline-danger'}`}
+        onClick={() => setSelectedButton(selectedButton === 'P1' ? '' : 'P1')}
+      >
+        P1
+      </button>
+      <button 
+        type="button" 
+        className={`btn ${selectedButton =='P2' ? 'btn-warning' : 'btn-outline-warning'}`}
+        onClick={() => setSelectedButton(selectedButton === 'P2' ? '' : 'P2')}
+      >
+        P2
+      </button>
+      <button 
+        type="button" 
+        className={`btn ${selectedButton =='P3' ? 'btn-info' : 'btn-outline-info'}`}
+        onClick={() => setSelectedButton(selectedButton === 'P3' ? '' : 'P3')}
+      >
+        P3
+      </button>
+      <button 
+        type="button" 
+        className={`btn ${selectedButton =='P4' ? 'btn-success' : 'btn-outline-success'}`}
+        onClick={() => setSelectedButton(selectedButton === 'P4' ? '' : 'P4')}
+      >
+        P4
+      </button>
+</div>
+<br></br>
         {searchResult.map((item) => (
         <TodoItem key={item.id} item={item} onDelete={deleteItem} onUpdate={updateItem} onCheck={checkItem}/>
       ))}
