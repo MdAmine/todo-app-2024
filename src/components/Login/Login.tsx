@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
-function Login({ onLogin }) {
+const Login =(props) =>{
+  const {onLogin}=props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-  
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     if (email.trim() !== '' && password.trim() !== '') {
-      onLogin();
+      onLogin(true);
     } else {
       alert('Please fill in both email and password fields.');
     }

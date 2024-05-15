@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import "../../App.css";
 
-function TodoAdd({ onAdd }) {
+const TodoAdd = (props) => {
+    const {onAdd} = props;
+    const {priority} = props;
+
 
     const [newTodo, setNewTodo] = useState(""); 
     const handleSubmit = (e) => {
         e.preventDefault(); 
 
         if (newTodo.trim() !== "") {
-            onAdd(newTodo);
+            onAdd(newTodo, priority); 
             setNewTodo("");
         }
     };
