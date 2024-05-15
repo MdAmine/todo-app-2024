@@ -15,7 +15,10 @@ const TodoItem = (props) => {
     <>
       <ul className="list-group todos mx-auto text-light">
         <li className={`list-group-item d-flex justify-content-between align-items-center`}style={itemStyle}>
-          <span>{props.item.todo}</span>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span className={`badge bg-${getPriorityClass(props.item.priority)}`}style={{ marginRight: '10px' }}>{props.item.priority} </span>
+            <span>{props.item.todo}</span>
+          </div>
           <div >
             <FontAwesomeIcon
               style={{
@@ -41,5 +44,19 @@ const TodoItem = (props) => {
     </>
   );
 }
+export const getPriorityClass = (priority: string) => {
+  switch (priority) {
+    case 'P1':
+      return 'danger';
+    case 'P2':
+      return 'warning';
+    case 'P3':
+      return 'info';
+    case 'P4':
+      return 'secondary';
+    default:
+      return 'dark';
+  }
+};
 
 export default TodoItem;

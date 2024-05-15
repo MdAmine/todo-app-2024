@@ -5,17 +5,20 @@
       {
         id: generateId(),
         todo: "Learn React",
-        completed: false
+        completed: false,
+        priority:'P1'
       },
       {
         id: generateId(),
         todo: "Learn ..",
-        completed: false
+        completed: false,
+        priority:'P2'
       },
       {
         id:generateId(),
         todo:"Learn ..4",
-        completed:false
+        completed:false,
+        priority:'P3'
       }
     ];
 

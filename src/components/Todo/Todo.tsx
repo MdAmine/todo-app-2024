@@ -9,13 +9,13 @@ import { useState } from "react";
 function Todo() {
 const[TodoItems,setTodoItems]= useState(initTodoItems);
 const[searchValue,setSearchValue]= useState("");
-//const [selectedButton, setSelectedButton] = useState<{[key: string]: string}>({});
 const [selectedButton, setSelectedButton] = useState<string>('');
-const handleAdd=(todo) =>{
+const handleAdd=(todo,priority) =>{
   setTodoItems([...TodoItems,{
     id:generateId(),
     todo:todo,
-    completed:false
+    completed:false,
+    priority:priority
   }]);
 }
 const deleteItem = (id) => {
@@ -83,10 +83,15 @@ const checkItem = (id) => {
       </button>
 </div>
 <br></br>
-        {searchResult.map((item) => (
-        <TodoItem key={item.id} item={item} onDelete={deleteItem} onUpdate={updateItem} onCheck={checkItem}/>
-      ))}
-        <TodoAdd onAdd={handleAdd} />
+{searchResult
+  .filter(item => 
+    (selectedButton === 'All' || item.priority === selectedButton) && 
+    (searchValue === '' || item.todo.toLowerCase().includes(searchValue.toLowerCase()))
+  )
+  .map((item) => (
+    <TodoItem key={item.id} item={item} onDelete={deleteItem} onUpdate={updateItem} onCheck={checkItem}/>
+))}
+        <TodoAdd onAdd={handleAdd} selectedButton={selectedButton} />
       </div>
     </>
   );

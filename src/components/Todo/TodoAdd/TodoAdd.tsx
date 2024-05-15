@@ -8,7 +8,7 @@ function TodoAdd(props) {
 
   const handleAdd = (event) =>{
     event.preventDefault();
-    props.onAdd(inputValue);
+    props.onAdd(inputValue,props.selectedButton);
     setInputValue("");
   }
 
