@@ -6,35 +6,51 @@ import { useState } from 'react';
 
 export function TodoList() {
     const [todos, setTodos] = useState(initialTodoItems);
+    const [filteredTodos, setFilteredTodos] = useState(initialTodoItems);
+    const [priority, setPriority] = useState('All');
 
     const handleAddTodo = (newTodo) => {
         if (!todos.some(todo => todo.id === newTodo.id)) {
-            setTodos([...todos, newTodo]);
+            const updatedTodos = [...todos, newTodo];
+            setTodos(updatedTodos);
+            setFilteredTodos(updatedTodos);
         } else {
             alert("Todo item already exists!");
         }
     };
 
     const handleDeleteTodo = (id) => {
-        setTodos(todos.filter(todo => todo.id !== id));
+        const updatedTodos = todos.filter(todo => todo.id !== id);
+        setTodos(updatedTodos);
+        setFilteredTodos(updatedTodos);
     };
 
     const handleEditTodo = (id, newTitle) => {
-        setTodos(todos.map(todo => (todo.id === id ? { ...todo, title: newTitle } : todo)));
+        const updatedTodos = todos.map(todo => (todo.id === id ? { ...todo, title: newTitle } : todo));
+        setTodos(updatedTodos);
+        setFilteredTodos(updatedTodos);
     };
 
     const handleSearchTodos = (event) => {
         const searchQuery = event.target.value.toLowerCase();
         if (searchQuery) {
-            setTodos(initialTodoItems.filter(todo => todo.title.toLowerCase().includes(searchQuery)));
+            setFilteredTodos(todos.filter(todo => todo.title.toLowerCase().includes(searchQuery)));
         } else {
-            setTodos(initialTodoItems);
+            setFilteredTodos(todos);
         }
     };
 
     const handleCheckTodo = (id) => {
-        setTodos(todos.map(todo => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)));
-    }
+        const updatedTodos = todos.map(todo => (todo.id === id ? { ...todo, completed: !todo.completed } : todo));
+        setTodos(updatedTodos);
+        setFilteredTodos(updatedTodos);
+    };
+
+    const handlePriorityFilter = (priority) => {
+        setPriority(priority);
+    };
+
+    const filteredByPriorityTodos = priority === 'All' ? filteredTodos : filteredTodos.filter(todo => todo.priority === priority);
 
     return (
         <>
@@ -47,7 +63,16 @@ export function TodoList() {
                     onChange={handleSearchTodos}
                 />
             </header>
-            {todos.map(todo => (
+            <div className="btn-toolbar justify-content-between mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                <div className="btn-group mx-auto" role="group" aria-label="First group">
+                    <button type="button" className={`btn ${priority === 'All' ? 'btn-dark' : 'btn-outline-dark'}`} onClick={() => handlePriorityFilter('All')}>All</button>
+                    <button type="button" className={`btn ${priority === 'P1' ? 'btn-danger' : 'btn-outline-danger'}`} onClick={() => handlePriorityFilter('P1')}>P1</button>
+                    <button type="button" className={`btn ${priority === 'P2' ? 'btn-warning' : 'btn-outline-warning'}`} onClick={() => handlePriorityFilter('P2')}>P2</button>
+                    <button type="button" className={`btn ${priority === 'P3' ? 'btn-primary' : 'btn-outline-primary'}`} onClick={() => handlePriorityFilter('P3')}>P3</button>
+                    <button type="button" className={`btn ${priority === 'P4' ? 'btn-success' : 'btn-outline-success'}`} onClick={() => handlePriorityFilter('P4')}>P4</button>
+                </div>
+            </div>
+            {filteredByPriorityTodos.map(todo => (
                 <TodoItem
                     key={todo.id}
                     todo={todo}
@@ -58,7 +83,7 @@ export function TodoList() {
                     {todo.title}
                 </TodoItem>
             ))}
-            <AddTodo onAdd={handleAddTodo} />
+            <AddTodo onAdd={handleAddTodo} priority={priority} />
         </>
     );
 }

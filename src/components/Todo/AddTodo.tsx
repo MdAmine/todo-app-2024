@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { generateId } from "../../Utils";
 
-export function AddTodo({ onAdd }) {
+export function AddTodo({ onAdd, priority }) {
     const [title, setTitle] = useState('');
 
     const handleFormSubmit = (e) => {
@@ -12,10 +12,17 @@ export function AddTodo({ onAdd }) {
     const addTodo = () => {
         if (title.trim() === '') return;
 
+        let prio = priority;
+
+        if(priority === 'All'){
+            prio = 'P1'
+        }
+
         const newTodo = {
             id: generateId(),
             title,
             completed: false,
+            priority: prio
         };
         
         onAdd(newTodo);

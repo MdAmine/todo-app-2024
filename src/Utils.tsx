@@ -6,21 +6,25 @@ export const todoItems = [
     {
         id: generateId(),
         title: 'Reading books',
-        completed: false
+        completed: false,
+        priority: 'P1'
     },
     {
         id: generateId(),
         title: 'Music',
-        completed: false
+        completed: false,
+        priority: 'P2'
     },
     {
         id: generateId(),
         title: 'Movies',
-        completed: true
+        completed: true,
+        priority: 'P3'
     },
     {
         id: generateId(),
         title: 'League of legends',
-        completed: false
+        completed: false,
+        priority: 'P4'
     }
 ];
