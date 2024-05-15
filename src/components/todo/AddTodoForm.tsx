@@ -1,14 +1,30 @@
 import { useState } from "react";
-import { initTodo } from "../../types/todo";
+import { v4 as uuidv4 } from "uuid";
 
 const AddTodoForm = ({ onAdd }) => {
-  const [todo, setTodo] = useState(initTodo);
+  const [todo, setTodo] = useState({
+    id: uuidv4(),
+    title: "",
+    complete: false,
+    priority: "",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(todo);
     onAdd(todo);
-    setTodo(initTodo);
+    setTodo({
+      id: uuidv4(),
+      title: "",
+      complete: false,
+      priority: "",
+    });
+  };
+
+  const handleTitleChange = (e) => {
+    setTodo((prevTodo) => ({
+      ...prevTodo,
+      title: e.target.value,
+    }));
   };
 
   return (
@@ -20,7 +36,7 @@ const AddTodoForm = ({ onAdd }) => {
         <input
           type="text"
           value={todo.title}
-          onChange={(e) => setTodo({ ...todo, title: e.target.value })}
+          onChange={handleTitleChange}
           className="form-control"
           name="add"
           id="add"
@@ -29,7 +45,7 @@ const AddTodoForm = ({ onAdd }) => {
         />
         <button
           type="submit"
-          date-testid="add-todo-button"
+          data-testid="add-todo-button"
           className="btn btn-outline-primary ml-2"
           style={{ whiteSpace: "nowrap" }}
         >

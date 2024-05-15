@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   addTodo,
   deleteTodo,
@@ -20,7 +20,6 @@ const TodoList = () => {
     try {
       const data = await getAllTodos(searchTerm, filterTerm);
       setTodos(data);
-      console.log("Todos fetched:", data);
     } catch (error) {
       console.error("Error fetching todos:", error);
       alert("Failed to fetch todos");
@@ -32,53 +31,44 @@ const TodoList = () => {
   }, [fetchTodos]);
 
   const onAddTodo = async (todo) => {
-    try {
-      const newTodo = await addTodo(todo);
-      console.log("New todo added:", newTodo);
-      fetchTodos();
-    } catch (error) {
-      console.error("Error adding todo:", error);
-      alert("Failed to add todo");
-    }
+    const addedTodo = { ...todo, priority: filterTerm ? filterTerm : "P4" };
+
+    await addTodo(addedTodo)
+      .then((newTodo) => {
+        fetchTodos();
+      })
+      .catch((error) => {
+        console.error("Error adding todo:", error);
+        alert("Failed to add todo");
+      });
   };
 
   const onDeleteTodo = async (id) => {
-    try {
-      await deleteTodo(id);
-      console.log("Todo has been deleted");
-      fetchTodos();
-    } catch (error) {
-      console.error("Error deleting todo:", error);
-      alert("Failed to delete todo");
-    }
+    await deleteTodo(id)
+      .then(() => {
+        fetchTodos();
+      })
+      .catch((error) => alert("Failed to delete todo"));
   };
 
   const onCompleteTodo = async (id) => {
-    try {
-      const todo = await getTodoById(id);
-      const updatedTodo = { ...todo, complete: !todo.complete };
-      await updateTodo(updatedTodo);
-      console.log("Todo has been updated");
-      fetchTodos();
-    } catch (error) {
-      console.error("Error updating todo:", error);
-      alert("Failed to update todo");
-    }
+    await getTodoById(id)
+      .then((todo) => {
+        const updatedTodo = { ...todo, complete: !todo.complete };
+        updateTodo(updatedTodo).then(() => fetchTodos());
+      })
+      .catch((error) => alert("Failed to update todo"));
   };
 
   const onEditTodo = async (id) => {
-    try {
-      const todo = await getTodoById(id);
-      const updatedTitle =
-        prompt("Edit todo's title", todo.title) || todo.title;
-      const updatedTodo = { ...todo, title: updatedTitle };
-      await updateTodo(updatedTodo);
-      console.log("Todo has been updated");
-      fetchTodos();
-    } catch (error) {
-      console.error("Error updating todo:", error);
-      alert("Failed to update todo");
-    }
+    await getTodoById(id)
+      .then((todo) => {
+        const updatedTitle =
+          prompt("Edit todo's title", todo.title) || todo.title;
+        const updatedTodo = { ...todo, title: updatedTitle };
+        updateTodo(updatedTodo).then(() => fetchTodos());
+      })
+      .catch((error) => alert("Failed to update todo"));
   };
 
   const onSearchTodo = (keyword) => {
