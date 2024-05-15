@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../service/auth.service";
 
-const Login = ({ onLogin }) => {
+const Login = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
     const user = { email, password };
-    localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("user", JSON.stringify(user));
-    onLogin();
+    loginUser(user);
+    navigate("/todos");
   };
 
   return (

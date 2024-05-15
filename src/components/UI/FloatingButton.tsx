@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
+import { Link, useNavigate } from "react-router-dom";
+import { logoutUser } from "../../service/auth.service";
 import "./FloatingButton.scss";
 
-const FloatingButton = ({ onLogout }) => {
+const FloatingButton = () => {
   const [checked, setChecked] = useState(false);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setChecked(!checked);
@@ -14,9 +17,8 @@ const FloatingButton = ({ onLogout }) => {
   };
 
   const logout = () => {
-    localStorage.setItem("user", "null");
-    localStorage.setItem("isLoggedIn", "false");
-    onLogout();
+    logoutUser();
+    navigate("/login");
   };
 
   return (
@@ -30,8 +32,12 @@ const FloatingButton = ({ onLogout }) => {
       <label className="button" htmlFor="toggle"></label>
       <nav className="nav">
         <ul>
-          <span>Todo List</span>
-          <span>About</span>
+          <span>
+            <Link to={"/todos"}>Todo List</Link>
+          </span>
+          <span>
+            <Link to={"/about"}>About</Link>
+          </span>
           <span onClick={logout}>Logout</span>
         </ul>
       </nav>

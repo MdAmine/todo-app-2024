@@ -1,34 +1,33 @@
 import "bootstrap/dist/css/bootstrap.css";
-import { useEffect, useState } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import Login from "./components/login/Login";
+import TodoDetails from "./components/todo/TodoDetails";
 import TodoList from "./components/todo/TodoList";
 import FloatingButton from "./components/UI/FloatingButton";
+import PrivateRoute from "./PrivateRoute";
+import { isAuthenticated } from "./service/auth.service";
+import About from "./components/about/About";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === "true"
-  );
-
-  useEffect(() => {
-    setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
-  }, []);
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    localStorage.setItem("isLoggedIn", "false");
-  };
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    localStorage.setItem("isLoggedIn", "true");
-  };
-
   return (
-    <div className="container">
-      {isLoggedIn ? <TodoList /> : <Login onLogin={handleLogin} />}
-      <FloatingButton onLogout={handleLogout} />
-    </div>
+    <Router>
+      <div className="container">
+        {isAuthenticated() && <FloatingButton />}
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/todos"
+            element={<PrivateRoute Component={TodoList} />}
+          />
+          <Route
+            path="/todos/:id"
+            element={<PrivateRoute Component={TodoDetails} />}
+          />
+          <Route path="/about" element={<PrivateRoute Component={About} />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
