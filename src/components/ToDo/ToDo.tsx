@@ -10,7 +10,7 @@ export default function ToDo() {
     const [searchQuery, setSearchQuery] = useState("");
     const [priority, setPriority] = useState();
     const [todos, setTodos] = useState(todoItems);
-    const [listPriority, setListPriority] = useState([]);
+    const [listPriority, setListPriority] = useState(['']);
     const addTodo = (title) => {
         const newTodo = {
             id: generateId(),
@@ -26,13 +26,12 @@ export default function ToDo() {
     };
 
 
-    const filteredTodos = todos.filter(todo =>{
-        if (priority) {
-           return todo.priority.includes(priority) && todo.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const filteredTodos = todos.filter(todo => {
+        if (listPriority.length > 0) {
+            return listPriority.includes(todo.priority) && todo.title.toLowerCase().includes(searchQuery.toLowerCase());
         }
-           return todo.title.toLowerCase().includes(searchQuery.toLowerCase())
-        }
-    );
+        return todo.title.toLowerCase().includes(searchQuery.toLowerCase());
+    });
 
     
     
@@ -64,6 +63,13 @@ export default function ToDo() {
 
     const handleSetPriority = (priority) => {
         console.log("priority", priority);
+        if (priority == '') {
+            setListPriority([]);
+        } else if (listPriority.includes(priority)) {
+            setListPriority(listPriority.filter(item => item !== priority));
+        }else {
+            setListPriority([...listPriority, priority]);
+        }
         setPriority(priority);
     };
 
@@ -83,11 +89,11 @@ export default function ToDo() {
                 />
                  
                 <div className="btn-group mt-4" role="group" aria-label="Basic example">
-                    <button type="button" className={`btn btn-outline-dark ${priority === '' ? 'active' : ''}`} onClick={()=>handleSetPriority('')}>All</button>
-                    <button type="button" className={`btn btn-outline-danger ${priority === 'P1' ? 'active' : ''}`} onClick={()=>handleSetPriority('P1')}>P1</button>
-                    <button type="button" className={`btn btn-outline-warning ${priority === 'P2' ? 'active' : ''}`} onClick={()=>handleSetPriority('P2')}>P2</button>
-                    <button type="button" className={`btn btn-outline-primary ${priority === 'P3' ? 'active' : ''}`} onClick={()=>handleSetPriority('P3')}>P3</button>
-                    <button type="button" className={`btn btn-outline-success ${priority === 'P4' ? 'active' : ''}`} onClick={()=>handleSetPriority('P4')}>P4</button>
+                    <button type="button" className={`btn btn-outline-dark ${listPriority.length === 0 ? 'active' : ''}`} onClick={()=>handleSetPriority('')}>All</button>
+                    <button type="button" className={`btn btn-outline-danger ${listPriority.includes('P1') ? 'active' : ''}`} onClick={()=>handleSetPriority('P1')}>P1</button>
+                    <button type="button" className={`btn btn-outline-warning ${listPriority.includes('P2') ? 'active' : ''}`} onClick={()=>handleSetPriority('P2')}>P2</button>
+                    <button type="button" className={`btn btn-outline-primary ${listPriority.includes('P3') ? 'active' : ''}`} onClick={()=>handleSetPriority('P3')}>P3</button>
+                    <button type="button" className={`btn btn-outline-success ${listPriority.includes('P4') ? 'active' : ''}`} onClick={()=>handleSetPriority('P4')}>P4</button>
                 </div>
             </header>
 
