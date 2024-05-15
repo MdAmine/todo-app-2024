@@ -8,6 +8,7 @@ import Login from "./components/Login/Login";
 import TodoDetail from "./components/TODO/DetailToDo/DetailToDo";
 import { initialTodos } from "./utils";
 import DetailToDo from "./components/TODO/DetailToDo/DetailToDo";
+import About from "./components/About/About";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -18,15 +19,55 @@ function App() {
         <Route
           path="/"
           element={
-            isLoggedIn ? <ListToDo /> : <Login setIsLoggedIn={setIsLoggedIn} />
+            isLoggedIn ? (
+              <>
+                <ListToDo />{" "}
+                <FloatingButton
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
+              </>
+            ) : (
+              <Login setIsLoggedIn={setIsLoggedIn} />
+            )
           }
         />
         <Route
           path="/details/:id"
-          element={<DetailToDo todoItems={todoItems} />}
+          element={
+            isLoggedIn ? (
+              <>
+                {" "}
+                <DetailToDo todoItems={todoItems} />
+                <FloatingButton
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
+              </>
+            ) : (
+              <Login setIsLoggedIn={setIsLoggedIn} />
+            )
+          }
+        />
+
+        <Route
+          path="/About"
+          element={
+            isLoggedIn ? (
+              <>
+                {" "}
+                <About setIsLoggedIn={setIsLoggedIn} />{" "}
+                <FloatingButton
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
+              </>
+            ) : (
+              <Login setIsLoggedIn={setIsLoggedIn} />
+            )
+          }
         />
       </Routes>
-      <FloatingButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
     </div>
   );
 }

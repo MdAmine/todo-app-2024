@@ -1,10 +1,11 @@
 import { useState } from "react";
 
 import "./FloatingButton.scss";
+import { useNavigate } from "react-router-dom";
 
 const FloatingButton = ({ isLoggedIn, setIsLoggedIn }) => {
   const [checked, setChecked] = useState(false);
-
+  const navigate = useNavigate();
   const handleClick = () => {
     setChecked(!checked);
   };
@@ -16,7 +17,12 @@ const FloatingButton = ({ isLoggedIn, setIsLoggedIn }) => {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
   };
-
+  const aboutNavigate = () => {
+    navigate("/About");
+  };
+  const todoNavigate = () => {
+    navigate("/");
+  };
   return (
     <div className="buttonContainer" onBlur={setUnchecked}>
       <input
@@ -28,8 +34,8 @@ const FloatingButton = ({ isLoggedIn, setIsLoggedIn }) => {
       <label className="button" htmlFor="toggle"></label>
       <nav className="nav">
         <ul>
-          <span>Todo List</span>
-          <span>About</span>
+          <span onClick={todoNavigate}>Todo List</span>
+          <span onClick={aboutNavigate}>About</span>
           <span onClick={logoutHandler}>Logout</span>
         </ul>
       </nav>

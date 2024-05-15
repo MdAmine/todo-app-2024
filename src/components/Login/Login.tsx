@@ -59,7 +59,12 @@ function Login({ setIsLoggedIn }) {
         {passwordError && (
           <div className="invalid-feedback">Please enter your password</div>
         )}
-        <button type="submit" className="btn btn-dark" onClick={loginHandler}>
+        <button
+          type="submit"
+          className="btn btn-dark"
+          onClick={loginHandler}
+          data-testid="login"
+        >
           Login
         </button>
       </form>

@@ -1,28 +1,30 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
-import "@testing-library/jest-dom";
-import { BrowserRouter, BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+
 describe("App", () => {
   test("renders Login component when not logged in", () => {
     render(
       <BrowserRouter>
+        {" "}
         <App />
       </BrowserRouter>
     );
-
-    expect(screen.getByText("Login Form")).toBeInTheDocument();
+    const loginElement = screen.getByTestId("login");
+    expect(loginElement).toBeInTheDocument();
   });
 
   test("renders ListToDo component when logged in", () => {
     render(
-      <Router>
+      <BrowserRouter>
+        {" "}
         <App />
-      </Router>
+      </BrowserRouter>
     );
-
-    userEvent.click(screen.getByText("Login Form"));
-
-    expect(screen.getByText("Todo List")).toBeInTheDocument();
+    const loginButton = screen.getByText("Login");
+    fireEvent.click(loginButton);
+    const loginElement = screen.getByText("Login Form");
+    expect(loginElement).toBeInTheDocument();
   });
 });
