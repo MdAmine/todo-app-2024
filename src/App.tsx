@@ -4,6 +4,9 @@ import "./App.css";
 import Login from "./components/Login/Login";
 import Todo from "./components/Todo/Todo";
 import { useEffect, useState } from "react";
+import { Router, Route, Routes, BrowserRouter } from "react-router-dom";
+import TodoItem from "./components/Todo/TodoItem/TodoItem";
+import Detail from "./components/Detail/Detail";
 
 const App=() => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,13 +27,29 @@ const App=() => {
     localStorage.setItem("isLoggedIn", false);
     setIsLoggedIn(false);
   };
-  return (   
-    <>
-      <div className="container">      
-      {!isLoggedIn && <Login loggedIn={loginHandler} /> }    
-      {isLoggedIn && <> <Todo /> <FloatingButton logoutHandler={logoutHandler}/></> }   
+  
+  
+  return (
+    <BrowserRouter>
+      <div className="container">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              !isLoggedIn ? (
+                <Login loggedIn={loginHandler} />
+              ) : (
+                <>
+                  <Todo />
+                  <FloatingButton logoutHandler={logoutHandler} />
+                </>
+              )
+            }
+          />
+          <Route path="/detail/:id/:todo/:complete/:priority" element={<Detail />} />
+        </Routes>
       </div>
-    </>
+    </BrowserRouter>
   );
 }
 

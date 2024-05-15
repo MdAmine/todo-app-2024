@@ -32,7 +32,6 @@ const Todo= () => {
     };
     function handleSearchChange(event) {
         setSearchQuery(event.target.value);
-        console.log(event.target.value);
     };
 
     function updateTodoState(id: number, complete: any) {
@@ -43,8 +42,11 @@ const Todo= () => {
     };
     function handlePriorityChange(priority) {
         setSelectedPriority(priority);
-    }
+    };
 
+    function getDetails(){
+
+    };
     const filteredTodos = todos.filter(item => {
         const matchesQuery = typeof item.todo === "string" && item.todo.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesPriority = selectedPriority === "All" || item.priority === selectedPriority;
@@ -65,12 +67,12 @@ const Todo= () => {
             onChange={handleSearchChange}
           />
         </header>
-        <div className="btn-group mb-3" role="group">
-                <button type="button" className="btn btn-primary" onClick={() => handlePriorityChange("All")}>All</button>
-                <button type="button" className="btn btn-secondary" onClick={() => handlePriorityChange("P1")}>P1</button>
-                <button type="button" className="btn btn-success" onClick={() => handlePriorityChange("P2")}>P2</button>
-                <button type="button" className="btn btn-danger" onClick={() => handlePriorityChange("P3")}>P3</button>
-                <button type="button" className="btn btn-warning" onClick={() => handlePriorityChange("P4")}>P4</button>
+        <div className="btn-group mb-3 d-flex justify-content-center" role="group">
+                <button type="button" className="btn btn-primary w-100" onClick={() => handlePriorityChange("All")}>All</button>
+                <button type="button" className="btn btn-secondary w-100" onClick={() => handlePriorityChange("P1")}>P1</button>
+                <button type="button" className="btn btn-success w-100" onClick={() => handlePriorityChange("P2")}>P2</button>
+                <button type="button" className="btn btn-danger w-100" onClick={() => handlePriorityChange("P3")}>P3</button>
+                <button type="button" className="btn btn-warning w-100" onClick={() => handlePriorityChange("P4")}>P4</button>
             </div>
                 <ul className="list-group todos mx-auto text-light">
                 {filteredTodos.map((item) => (
@@ -80,6 +82,7 @@ const Todo= () => {
         updateTodoItem={updateTodoItem}
         deleteTodoItem={deleteTodoItem}
         updateTodoState={updateTodoState}
+        getDetails={getDetails}
     />
 ))}
             </ul>

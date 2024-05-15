@@ -1,5 +1,7 @@
-import { faCheck, faCircle, faEyeSlash, faPenToSquare, faSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faCircle, faEye, faEyeSlash, faPenToSquare, faSquare, faTimes, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link, Navigate, Route, Routes } from "react-router-dom";
+import Detail from "../../Detail/Detail";
 
 
 const TodoItem = (props) => {
@@ -18,6 +20,10 @@ const TodoItem = (props) => {
         props.updateTodoState(props.item.id, props.item.complete= !props.item.complete );
         console.log(props.item.complete);
     };
+    const handleDetail = () => {
+        // Rediriger vers la page de détails avec les paramètres de l'élément ToDo
+        window.location.href = `/details/${props.item.id}/${props.item.todo}/${props.item.complete}/${props.item.priority}`;
+    };
     const priorityColors = {
         P1: 'primary',
         P2: 'success',
@@ -32,10 +38,17 @@ const TodoItem = (props) => {
                 <div>
                 <FontAwesomeIcon
                         style={{ marginRight: "0.3em" }}
-                        icon={props.item.complete ? faCheck : faEyeSlash}
+                        icon={props.item.complete ? faCheck : faTimes}
                         className={"pointer"}
                         onClick={handleToggleComplete}
                     />
+                <Link to={`/detail/${props.item.id}/${props.item.todo}/${props.item.complete}/${props.item.priority}`}>
+                    <FontAwesomeIcon
+                        style={{ marginRight: "0.3em" }}
+                        icon={faEye}
+                        className={"pointer"}
+                    />
+                    </Link>
                     <FontAwesomeIcon
                         style={{ marginRight: "0.3em" }}
                         icon={faPenToSquare}
@@ -44,8 +57,9 @@ const TodoItem = (props) => {
                     <FontAwesomeIcon icon={faTrashAlt}
                         className="pointer"
                         onClick={handleDelete} />
-                </div>
-            </li></>      
+                </div>     
+            </li>
+            </>      
     )
 }
 
