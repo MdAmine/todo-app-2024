@@ -3,18 +3,22 @@ import {Priority, Todo} from "../../types";
 
 function AddTodoForm({onAddTodo, priority}: {
   onAddTodo: (todo: Todo) => void,
-  priority: Priority,
+  priority: Priority | null,
 }) {
   const input = useRef<HTMLInputElement | null>(null)
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
-    onAddTodo({
-      id: 0,
-      name: input.current!.value,
-      completed: false,
-      priority
-    })
-    input.current!.value = ''
+    if (priority) {
+      onAddTodo({
+        id: 0,
+        name: input.current!.value,
+        completed: false,
+        priority
+      })
+      input.current!.value = ''
+    } else {
+      alert('Please select a priority!')
+    }
   }
 
   return (

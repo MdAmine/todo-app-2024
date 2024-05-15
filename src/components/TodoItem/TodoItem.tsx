@@ -1,6 +1,7 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faPenToSquare, faTrashAlt, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {Todo} from "../../types";
+import TodoPriorityBadge from "../TodoPriorityBadge/TodoPriorityBadge.tsx";
 
 function TodoItem({todo, onDelete, onUpdate}: {
   todo: Todo,
@@ -28,7 +29,9 @@ function TodoItem({todo, onDelete, onUpdate}: {
     <li
       className={`list-group-item d-flex justify-content-between align-items-center ${(todo.completed) ? null : 'item-complete'}`}
     >
-      <span>{todo.name}</span>
+      <span>
+        <TodoPriorityBadge priority={todo.priority}/>&nbsp;{todo.name}
+      </span>
       <div>
         <FontAwesomeIcon
           style={{

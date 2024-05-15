@@ -4,15 +4,16 @@ import AddTodoForm from "../AddTodoForm/AddTodoForm.tsx";
 import {useMemo, useState} from "react";
 import {Priority, Todo} from "../../types";
 import {getTodos} from "../../utils/mockData.ts";
+import TodoPrioritySearchButton from "../TodoPrioritySearchButton/TodoPrioritySearchButton.tsx";
 
 function TodoList() {
   const [todos, setTodos] = useState<Todo[]>(getTodos())
   const [search, setSearch] = useState<string>('')
-  const [priority, setPriority] = useState<Priority>(Priority.ALL)
+  const [priority, setPriority] = useState<Priority | null>(null)
   const searchedTodos = useMemo<Todo[]>(() => {
     return todos.filter(t => {
-      return t.name.toLowerCase().includes(search.toLowerCase()) &&
-        t.priority === priority
+      return (priority === null && t.name.toLowerCase().includes(search.toLowerCase())) ||
+        (t.priority === priority && t.name.toLowerCase().includes(search.toLowerCase()))
     })
   }, [todos, search, priority])
 
@@ -47,26 +48,11 @@ function TodoList() {
     <Header onSearch={handleSearch}/>
     <div className='d-flex justify-content-center mb-3'>
       <div className="btn-group">
-        <button type="button" className={`btn btn-outline-dark ${(priority === Priority.ALL ? 'active' : null)}`}
-                onClick={() => setPriority(Priority.ALL)}>
-          ALL
-        </button>
-        <button type="button" className={`btn btn-outline-danger ${(priority === Priority.P1 ? 'active' : null)}`}
-                onClick={() => setPriority(Priority.P1)}>
-          P1
-        </button>
-        <button type="button" className={`btn btn-outline-warning ${(priority === Priority.P2 ? 'active' : null)}`}
-                onClick={() => setPriority(Priority.P2)}>
-          P2
-        </button>
-        <button type="button" className={`btn btn-outline-info ${(priority === Priority.P3 ? 'active' : null)}`}
-                onClick={() => setPriority(Priority.P3)}>
-          P3
-        </button>
-        <button type="button" className={`btn btn-outline-success ${(priority === Priority.P4 ? 'active' : null)}`}
-                onClick={() => setPriority(Priority.P4)}>
-          P4
-        </button>
+        <TodoPrioritySearchButton currentPriority={priority} priority={null} setPriority={setPriority}/>
+        <TodoPrioritySearchButton currentPriority={priority} priority={Priority.P1} setPriority={setPriority}/>
+        <TodoPrioritySearchButton currentPriority={priority} priority={Priority.P2} setPriority={setPriority}/>
+        <TodoPrioritySearchButton currentPriority={priority} priority={Priority.P3} setPriority={setPriority}/>
+        <TodoPrioritySearchButton currentPriority={priority} priority={Priority.P4} setPriority={setPriority}/>
       </div>
     </div>
     <ul className="list-group todos mx-auto text-light" aria-label='todos-list'>
