@@ -1,0 +1,7 @@
+{
+  "presets": [
+    "@babel/preset-env",    // Pour la prise en charge de ES6/ESNext
+    "@babel/preset-react",  // Pour la prise en charge de JSX (React)
+    "@babel/preset-typescript"  // Pour la prise en charge de TypeScript
+  ]
+}

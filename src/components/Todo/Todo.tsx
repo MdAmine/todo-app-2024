@@ -59,6 +59,7 @@ function Todo() {
       .delete(`http://localhost:3000/todos/${taskId}`)
       .then((res) => {
         setTodo((prevTodo) => prevTodo.filter((task) => task.id !== taskId));
+        console.log(res);
       })
       .catch((error) => {
         console.error("Error deleting task:", error);
