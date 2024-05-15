@@ -6,6 +6,7 @@ import {
   faPenToSquare,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const getPriorityButtonClass = (priority: string): string => {
   switch (priority) {
@@ -60,7 +61,12 @@ const TodoItem: React.FC<TodoDoneProps> = ({
               </div>
               <div className="data">
                 <div className="today">
-                  <h4>{task.title}</h4>
+                  <Link
+                    to={`/detail/${task.id}`}
+                    style={{ color: "white", textDecoration: "none" }}
+                  >
+                    <h4>{task.title}</h4>
+                  </Link>
                 </div>
               </div>
               <div>
