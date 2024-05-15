@@ -1,7 +1,8 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faPenToSquare, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
 
-function ToDoItem({item, deleteToDo, editToDo, completeTask}) {
+function ToDoItem({item, deleteToDo, editToDo, completeTask, onItemClick}) {
     return (
         <ul className="list-group todos mx-auto text-light">
             <li
@@ -40,6 +41,9 @@ function ToDoItem({item, deleteToDo, editToDo, completeTask}) {
                     />
                     <FontAwesomeIcon icon={faTrashAlt} className="pointer" title="delete"
                                      onClick={() => deleteToDo(item.id)}/>
+                    <div>
+                        <Link to={`/details/${item.id}`}>View Details</Link>
+                    </div>
                 </div>
             </li>
         </ul>

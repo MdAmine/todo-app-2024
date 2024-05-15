@@ -6,6 +6,7 @@ import FloatingButton from "./components/UI/FloatingButton.tsx";
 import {Route, Routes} from "react-router-dom";
 import Login from "./components/login/Login.tsx";
 import About from "./components/about/About.tsx";
+import Details from "./components/details/Details.tsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,9 +41,11 @@ function App() {
                 }
             />
             {isLoggedIn && (
-                <Route path="/about" element={<About/>}/>
+                <>
+                    <Route path="/about" element={<About/>}/>
+                    <Route path="/details/:id" element={<Details/>}/>
+                </>
             )}
-
         </Routes>
     );
 }

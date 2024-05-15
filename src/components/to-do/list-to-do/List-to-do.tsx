@@ -1,7 +1,8 @@
 import AddToDo from "../add-to-do/Add-To-Do.tsx";
 import ToDoItem from "../To-do-item/To-do-item.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Priority from "../priority-item/Priority-item.tsx";
+import {useNavigate} from "react-router-dom";
 
 function ListToDo() {
     const genereteId = () => Math.floor(Math.random() * 1000000);
@@ -28,7 +29,8 @@ function ListToDo() {
     ]);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedPriority, setSelectedPriority] = useState("All");
-
+    const [selectedItem, setSelectedItem] = useState(null);
+    const navigate = useNavigate();
     const addToDo = (name) => {
         const duplicate = items.some(item => item.name.toLowerCase() === name.toLowerCase());
         if (duplicate) {
@@ -41,16 +43,25 @@ function ListToDo() {
             completed: false,
             priority: selectedPriority
         };
-        setItems([...items, newItem]);
+        const updatedItems = [...items, newItem];
+        setItems(updatedItems);
+        localStorage.setItem('todoItems', JSON.stringify(updatedItems));
     };
 
     const deleteToDo = (id) => {
-        setItems(items.filter(item => item.id !== id));
+        const updatedItems = items.filter(item => item.id !== id);
+        setItems(updatedItems);
+        localStorage.setItem('todoItems', JSON.stringify(updatedItems));
     };
+
     const editToDo = (id) => {
         const newName = prompt("Enter the new name:");
         if (newName) {
-            setItems(items.map(item => item.id === id ? {...item, name: newName} : item));
+            const updatedItems = items.map(item =>
+                item.id === id ? {...item, name: newName} : item
+            );
+            setItems(updatedItems);
+            localStorage.setItem('todoItems', JSON.stringify(updatedItems));
         }
     };
 
@@ -60,11 +71,11 @@ function ListToDo() {
 
 
     const completeTask = (id) => {
-        setItems(prevItems =>
-            prevItems.map(item =>
-                item.id === id ? {...item, completed: !item.completed} : item
-            )
+        const updatedItems = items.map(item =>
+            item.id === id ? {...item, completed: !item.completed} : item
         );
+        setItems(updatedItems);
+        localStorage.setItem('todoItems', JSON.stringify(updatedItems));
     };
 
     const filteredItems = items.filter(item =>
@@ -75,6 +86,17 @@ function ListToDo() {
     const handlePriorityClick = (priority) => {
         setSelectedPriority(priority);
     };
+
+    const handleItemClick = (item) => {
+        setSelectedItem(item);
+        navigate(`/details/${item.id}`);
+    };
+
+    useEffect(() => {
+        const storedItems = JSON.parse(localStorage.getItem('todoItems')) || [];
+        setItems(storedItems);
+    }, []);
+
     return (
         <div className="container">
             <header className="text-center text-light my-4">
@@ -97,7 +119,7 @@ function ListToDo() {
             </div>
             {filteredItems.map((item) => (
                 <ToDoItem key={item.id} item={item} deleteToDo={deleteToDo} editToDo={editToDo}
-                          completeTask={completeTask}/>
+                          completeTask={completeTask} onItemClick={() => handleItemClick(item)}/>
             ))}
             <AddToDo addTodo={addToDo}/>
         </div>
