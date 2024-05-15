@@ -16,7 +16,7 @@ function LoginForm({onLogin}: { onLogin: () => void }) {
   }
 
   return (<>
-    <form className="text-center my-4 text-light" onSubmit={handleSubmit}>
+    <form className="text-center my-4 text-light" onSubmit={handleSubmit} aria-label='login-form'>
       <h1 className="mb-4">Login Form</h1>
       <input
         ref={emailInput}

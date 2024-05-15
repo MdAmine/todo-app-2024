@@ -41,7 +41,7 @@ function TodoList() {
 
   return (<>
     <Header onSearch={handleSearch}/>
-    <ul className="list-group todos mx-auto text-light">
+    <ul className="list-group todos mx-auto text-light" aria-label='todos-list'>
       {searchedTodos.map((todo) => (
         <TodoItem key={todo.id} todo={todo} onDelete={handleDeleteTodo}
                   onUpdate={handleUpdateTodo}/>

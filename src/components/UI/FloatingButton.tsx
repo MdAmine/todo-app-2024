@@ -31,7 +31,7 @@ const FloatingButton = ({onLogout}: { onLogout: () => void }) => {
         <ul>
           <span>Todo List</span>
           <span>About</span>
-          <span onClick={handleLogout}>Logout</span>
+          <span onClick={handleLogout} aria-label='logout-btn'>Logout</span>
         </ul>
       </nav>
     </div>
