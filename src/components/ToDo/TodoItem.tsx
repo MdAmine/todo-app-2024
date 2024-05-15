@@ -1,7 +1,11 @@
-import { faCheck, faP, faPenToSquare, faRepeat, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
+import { faCheck,  faPenToSquare, faRepeat, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
+import { faEye } from "@fortawesome/free-solid-svg-icons/faEye";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useNavigate } from "react-router-dom";
 
 export const TodoItem = (props) => {
+
+    const navigate = useNavigate();
 
     const handleDelete = () => {
         props.onDelete(props.item.id);
@@ -55,6 +59,17 @@ export const TodoItem = (props) => {
 
                         className="pointer"
                         onClick={handleEdit}
+                    />
+
+                    <FontAwesomeIcon
+                        style={{
+                            marginRight: "0.3em",
+                        }}
+                        icon={faEye}
+
+                        className="pointer"
+                        onClick={() => navigate(`/todo/${props.item.id}`)}
+
                     />
                     <FontAwesomeIcon 
                         icon={faTrashAlt} 

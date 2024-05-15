@@ -10,7 +10,7 @@ export default function ToDo() {
     const [searchQuery, setSearchQuery] = useState("");
     const [priority, setPriority] = useState();
     const [todos, setTodos] = useState(todoItems);
-    const [listPriority, setListPriority] = useState(['']);
+    const [listPriority, setListPriority] = useState([]);
     const addTodo = (title) => {
         const newTodo = {
             id: generateId(),
