@@ -32,9 +32,9 @@ const FloatingButton = ({logoutHandler}: FloatingButtonProps) => {
             <label className="button" htmlFor="toggle"></label>
             <nav className="nav">
                 <ul>
-                    <span>Todo List</span>
+                    <span>Todos</span>
                     <span>About</span>
-                    <button onClick={onLogout}>Logout</button>
+                    <span onClick={onLogout}>Logout</span>
                 </ul>
             </nav>
         </div>

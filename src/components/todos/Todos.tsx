@@ -1,22 +1,23 @@
 import {TodoItem} from "./TodoItem.tsx";
 import {todomocks} from "../../mocks/todomocks.ts";
-import React from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {Todo} from "../../types/todo.ts";
 import {TodoAdd} from "./TodoAdd.tsx";
 
 export const Todos = () => {
-    const [todos, setTodos] = React.useState<Todo[]>(todomocks);
+    const storedTodos = localStorage.getItem('todos');
+    const [todos, setTodos] = useState<Todo[]>(storedTodos ? JSON.parse(storedTodos) : todomocks);
+    const [searchTerm, setSearchTerm] = useState('');
 
-    const searchTodoHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
-        setTodos(todomocks.filter((todo) => todo.title.includes(e.target.value)));
-    }
+    const searchTodoHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value.toLowerCase());
+    }, []);
 
-    const onDeleted = (id: number) => {
+    const onDeleted = useCallback((id: number) => {
         setTodos(todos.filter((todo) => todo.id !== id));
-    }
+    }, [todos]);
 
-    const onCompleted = (id: number) => {
+    const onCompleted = useCallback((id: number) => {
         setTodos(todos.map((todo) => {
             if (todo.id === id) {
                 return {
@@ -26,19 +27,23 @@ export const Todos = () => {
             }
             return todo;
         }));
-    }
-    const onAdd = (todo: Todo) => {
-        setTodos((prev) => [...prev, todo]);
-    }
+    }, [todos]);
 
-    const onEdit = (todo: Todo) => {
-        setTodos(todos.map((t) => {
-            if (t.id === todo.id) {
-                return todo;
-            }
-            return t;
-        }));
-    }
+    const onAdd = useCallback((todo: Todo) => {
+        setTodos((prev) => [...prev, todo]);
+    }, []);
+
+    const onEdit = useCallback((updatedTodo: Todo) => {
+        setTodos(todos.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo)));
+    }, [todos]);
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos]);
+
+    const filteredTodos = useMemo(() => todos.filter((todo) => todo.title
+        .toLowerCase()
+        .includes(searchTerm)), [todos, searchTerm]);
 
     return (
         <div>
@@ -54,7 +59,7 @@ export const Todos = () => {
             </header>
 
             <ul className="list-group todos mx-auto text-light">
-                {todos.map((todo) => (
+                {filteredTodos.map((todo) => (
                     <TodoItem todo={todo} key={todo.id} onDeleted={onDeleted} onCompleted={onCompleted}
                               onEdit={onEdit}/>
                 ))}

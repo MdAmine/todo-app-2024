@@ -2,7 +2,7 @@ import {faCheck, faPenToSquare, faTrashAlt, faXmark} from "@fortawesome/free-sol
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Todo} from "../../types/todo.ts";
 
-interface TodoItemProps {
+export interface TodoItemProps {
     todo: Todo;
     key: number;
     onDeleted: (id: number) => void;
@@ -18,7 +18,6 @@ export const TodoItem = (props: TodoItemProps) => {
 
     }
     const editTodoHandler = () => {
-        console.log(props.todo.id);
         const newTitle = prompt("Enter new title", props.todo.title);
         if (newTitle) {
             props.onEdit({
@@ -39,6 +38,7 @@ export const TodoItem = (props: TodoItemProps) => {
             <span>{props.todo.title}</span>
             <div>
                 <FontAwesomeIcon
+                    data-testid="completed-icon"
                     style={{
                         marginRight: "0.3em",
                     }}
@@ -48,6 +48,7 @@ export const TodoItem = (props: TodoItemProps) => {
                 />
 
                 <FontAwesomeIcon
+                    data-testid="edit-icon"
                     style={{
                         marginRight: "0.3em",
                     }}
@@ -57,6 +58,7 @@ export const TodoItem = (props: TodoItemProps) => {
                 />
                 <FontAwesomeIcon
                     icon={faTrashAlt}
+                    data-testid="delete-icon"
                     className="pointer"
                     onClick={deleteTodoHandler}
                 />

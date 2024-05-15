@@ -7,7 +7,7 @@ export const TodoAdd = ({onAdd}: { onAdd: (todo: Todo) => void }) => {
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault()
         onAdd({
-            id: Math.floor(Math.random() * 1000),
+            id: Math.floor(Math.random() * 1001),
             title: input.current!.value,
             completed: false
         })
