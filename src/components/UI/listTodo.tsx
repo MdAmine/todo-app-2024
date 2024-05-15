@@ -64,7 +64,6 @@ const ListTodo = () => {
         const updatedTodos = todos.map(todo => {
             if (todo.id === id) {
                 todo.completed = !todo.completed;
-                alert("Todo completed")
             }
             return todo;
         });

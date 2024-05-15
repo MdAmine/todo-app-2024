@@ -2,18 +2,27 @@ import "bootstrap/dist/css/bootstrap.css";
 import FloatingButton from "./components/UI/FloatingButton";
 import "./App.css";
 import ListTodo from "./components/UI/listTodo.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Login from "./components/UI/login.tsx";
 
 function App() {
 
     const [isLogged, setIsLogged] = useState(false);
 
+    useEffect(() => {
+        const loggedInStatus = localStorage.getItem('isLogged');
+        if (loggedInStatus === 'true') {
+            setIsLogged(true);
+        }
+    }, []);
+
     const handleLogin = () => {
+        localStorage.setItem('isLogged', 'true');
         setIsLogged(true);
     }
 
     const handleLogout = () => {
+        localStorage.setItem('isLogged', 'false');
         setIsLogged(false);
     }
 

@@ -36,6 +36,7 @@ const ItemTodo = ({todo , onDelete , onEdit , onChecked}) => {
                         icon={!todo.completed ? faCheck : faCircleXmark}
                         className={`pointer`}
                         onClick={handleChecked}
+                        aria-label={!todo.completed ? "check" : "uncheck"}
                     />
 
                     <FontAwesomeIcon
@@ -45,11 +46,13 @@ const ItemTodo = ({todo , onDelete , onEdit , onChecked}) => {
                         icon={faPenToSquare}
                         className="pointer"
                         onClick={handleEdit}
+                        aria-label={"edit"}
                     />
                     <FontAwesomeIcon
                         icon={faTrashAlt}
                         className="pointer"
                         onClick={handleDelete}
+                        aria-label="delete"
                     />
                 </div>
             </li>
