@@ -6,10 +6,11 @@ import Detail from "./components/Todo/Detail";
 import { useState } from "react";
 import FloatingButton from "./components/UI/FloatingButton";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import About from "./components/About/About";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === "false"
+    localStorage.getItem("isLoggedIn") === "true"
   );
 
   const handleLogin = () => {
@@ -40,6 +41,7 @@ function App() {
             }
           />
           <Route path="/detail/:id" element={<Detail />} />
+          <Route path="about" element={<About handleLogout={handleLogout} />} />
         </Routes>
       </div>
     </BrowserRouter>

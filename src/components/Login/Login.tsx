@@ -23,7 +23,6 @@ const Login: React.FC<LoginProps> = ({ handleLogin }) => {
       setError("Password must be at least 6 characters long");
       return;
     }
-
     handleLogin(email, password);
   };
 
