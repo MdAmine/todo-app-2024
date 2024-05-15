@@ -7,20 +7,26 @@ function ToDo() {
         {
             id: 1,
             todo: "Read Books",
-            complete: false
+            complete: false,
+            priority:'P1'
         },
         {
             id: 2,
             todo: "Practice sport",
-            complete: false
+            complete: false,
+            priority:'P1'
+
         },
         {
             id: 3,
             todo: "Clean house",
-            complete: false
+            complete: false,
+            priority:'P3'
+
         }
     ]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [priority,setPriority]=useState('All');
 
     const generateId = () => Math.floor(Math.random() * 100) + 0;
 
@@ -28,9 +34,11 @@ function ToDo() {
         const newItem = {
             id: generateId(),
             todo: value,
-            complete: false
+            complete: false,
+            priority:priority
         };
         setElements([...elements, newItem]);
+        console.log(newItem)
     }
 
     function deleteItem(id) {
@@ -48,12 +56,16 @@ function ToDo() {
         setElements(updatedElements);
     }
 
-    const filteredElements = elements.filter(item =>
+    var filteredElements = elements.filter(item =>
         item.todo.toLowerCase().includes(searchQuery.toLowerCase())
     );
-
+    if (priority !== 'All') {
+        filteredElements = filteredElements.filter(item => item.priority === priority);
+    }
+     
     return (
         <>
+
             <header className="text-center text-light my-4">
                 <h1 className="mb-5">Todo List</h1>
                 <input
@@ -65,9 +77,20 @@ function ToDo() {
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
             </header>
+            <div className="text-center">
+            <div className="btn-group" role="group" aria-label="Basic example">
+                <button type="button" className="btn btn-dark btn-lg" onClick={()=>setPriority('All')}>All</button>
+                <button type="button" className="btn btn-outline-danger btn-lg" onClick={()=>{setPriority('P1')}}>P1</button>
+                <button type="button" className="btn btn-outline-warning btn-lg" onClick={()=>setPriority('P2')}>P2</button>
+                <button type="button" className="btn btn-outline-primary btn-lg" onClick={()=>setPriority('P3')}>P3</button>
+                <button type="button" className="btn btn-outline-success btn-lg" onClick={()=>setPriority('P4')}>P4</button>
+            </div>
+            </div>
+            <br/>  
+
             <ul className="list-group todos mx-auto text-light">
                 {filteredElements.map(item => (
-                    <ToDoItem key={item.id} id={item.id} itemTitle={item.todo} handleDelete={deleteItem} handleUpdate={updateItem} />
+                    <ToDoItem key={item.id} id={item.id} itemTitle={item.todo} priority={item.priority} handleDelete={deleteItem} handleUpdate={updateItem} />
                 ))}
             </ul>
             <AddToDo add={addItem} />

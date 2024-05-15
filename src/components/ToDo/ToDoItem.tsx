@@ -28,6 +28,20 @@ function ToDoItem(props) {
     function toggleChecked() {
         setIsChecked(!isChecked);
     }
+    function getSeverity(priority){
+        switch (priority) {
+            case 'P1':
+                return 'danger'
+            case 'P2':
+                return 'warning'
+            case 'P3':
+                return 'primary'
+            case 'P4':
+                return 'success'
+            default:
+                break;
+        }
+    }
 
     return (
         <li className={`list-group-item d-flex justify-content-between align-items-center ${isChecked ? 'bg-success' : ''}`}>
@@ -50,6 +64,7 @@ function ToDoItem(props) {
                 </>
             ) : (
                 <>
+                    <span className={`badge bg-${getSeverity(props.priority)}`}>{props.priority}</span>
                     <span>{props.itemTitle}</span>
                     <div>
                         <FontAwesomeIcon

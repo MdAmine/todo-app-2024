@@ -9,6 +9,7 @@ function AddToDo(props) {
 
   return (
     <>
+    
       <form className="add text-center my-4" onSubmit={(event)=>{event.preventDefault();props.add(value); setValue('');}}>
         <label htmlFor="add" className="add text-light">
           Add a new todo:
