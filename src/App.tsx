@@ -9,10 +9,12 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = () => {
+    localStorage.setItem("isLoggin", true);
     setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
+    localStorage.setItem("isLoggin", false);
     setIsLoggedIn(false);
   };
 

@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import TodoDone from "./TodoItem";
 import axios from "axios";
+import Priority from "./Priority/Priority";
 
 function Todo() {
   const [todo, setTodo] = useState<TodoItem[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterType, setFilterType] = useState("all");
 
   useEffect(() => {
     getTasksAll();
@@ -39,6 +41,7 @@ function Todo() {
         title: taskTitle,
         isDeleted: false,
         isCompleted: false,
+        priority: filterType === "all" ? "P1" : filterType,
       };
 
       try {
@@ -50,6 +53,18 @@ function Todo() {
       }
     }
   };
+
+  const handleDeleteTask = (taskId: number) => {
+    axios
+      .delete(`http://localhost:3000/todos/${taskId}`)
+      .then((res) => {
+        setTodo((prevTodo) => prevTodo.filter((task) => task.id !== taskId));
+      })
+      .catch((error) => {
+        console.error("Error deleting task:", error);
+      });
+  };
+
   const handleCheck = async (taskId: number) => {
     const updatedTodo = todo.map((task) =>
       task.id === taskId ? { ...task, isCompleted: !task.isCompleted } : task
@@ -67,16 +82,6 @@ function Todo() {
     }
   };
 
-  const handleDeleteTask = (taskId: number) => {
-    axios
-      .delete(`http://localhost:3000/todos/${taskId}`)
-      .then((res) => {
-        setTodo((prevTodo) => prevTodo.filter((task) => task.id !== taskId));
-      })
-      .catch((error) => {
-        console.error("task no supprimer", error);
-      });
-  };
   const handleUpdateTaskTitle = async (taskId: number, newTitle: string) => {
     const updatedTodo = todo.map((task) =>
       task.id === taskId ? { ...task, title: newTitle } : task
@@ -93,9 +98,18 @@ function Todo() {
       console.error("Error updating task title:", error);
     }
   };
-  const filteredTodo = todo.filter((task) =>
-    task.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+
+  const filteredTodo = todo.filter((task) => {
+    if (filterType === "all") {
+      return task.title.toLowerCase().includes(searchTerm.toLowerCase());
+    } else {
+      return (
+        task.priority === filterType &&
+        task.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+  });
+
   return (
     <div>
       <div className="container">
@@ -110,7 +124,7 @@ function Todo() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </header>
-
+        <Priority setFilterType={setFilterType} />
         <TodoDone
           todo={filteredTodo}
           handleDeleteTask={handleDeleteTask}

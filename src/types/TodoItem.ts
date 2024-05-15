@@ -3,4 +3,5 @@ interface TodoItem {
   title: string;
   isDeleted: boolean;
   isCompleted: boolean;
+  priority: string;
 }
