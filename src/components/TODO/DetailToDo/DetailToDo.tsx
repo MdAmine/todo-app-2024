@@ -1,24 +1,28 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function TodoDetail({ todoItems }) {
+const DetailToDo = ({ todoItems }) => {
   const { id } = useParams();
-
-  const todoItem = todoItems.find((item) => item.id === parseInt(id ?? ""));
-
+  const todo = todoItems.find((item) => item.id === parseInt(id));
+  const navigate = useNavigate();
+  if (!todo) {
+    return <div>Todo not found!</div>;
+  }
+  const handleReturn = () => {
+    navigate("/");
+  };
   return (
-    <div>
-      <h2>Todo Detail</h2>
-      {todoItem ? (
-        <div>
-          <h3>{todoItem.todo}</h3>
-          <p>Complete: {todoItem.complete ? "Yes" : "No"}</p>
-        </div>
-      ) : (
-        <p>Todo not found</p>
-      )}
+    <div className="d-flex justify-content-center">
+      <div className="text-center">
+        <h1 className="text-white">ID: {todo.id}</h1>
+        <h2 className="text-white">TODO: {todo.todo}</h2>
+        <p className="text-white">Completed: {todo.complete ? "Yes" : "No"}</p>
+        <button className="btn btn-primary" onClick={handleReturn}>
+          Back
+        </button>
+      </div>
     </div>
   );
-}
+};
 
-export default TodoDetail;
+export default DetailToDo;

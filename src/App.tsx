@@ -7,11 +7,11 @@ import ListToDo from "./components/TODO/ListToDo/ListToDo";
 import Login from "./components/Login/Login";
 import TodoDetail from "./components/TODO/DetailToDo/DetailToDo";
 import { initialTodos } from "./utils";
+import DetailToDo from "./components/TODO/DetailToDo/DetailToDo";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [todoItems, setTodoItems] = useState(initialTodos);
-
   return (
     <div className="container">
       <Routes>
@@ -22,8 +22,8 @@ function App() {
           }
         />
         <Route
-          path="/todo/:id"
-          element={<TodoDetail todoItems={todoItems} />}
+          path="/details/:id"
+          element={<DetailToDo todoItems={todoItems} />}
         />
       </Routes>
       <FloatingButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />

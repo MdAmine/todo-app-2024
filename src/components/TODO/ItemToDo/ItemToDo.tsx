@@ -6,15 +6,14 @@ import {
   faCheck,
   faEye,
   faPenToSquare,
-  faTimes,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import "../ListToDo/ListToDo.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 function ItemToDo({ props, onDelete, onModify }) {
-  const { id, todo } = props;
-  const [completed, setCompleted] = useState(false);
+  const { id, todo, complete } = props;
+  const [completed, setCompleted] = useState(complete);
 
   const handleToggleComplete = () => {
     setCompleted(!completed);
