@@ -6,7 +6,7 @@ import  initTodoItems, { generateId } from "../../Utils";
 import { useState } from "react";
 
 
-function Todo() {
+function Todo(props) {
 const[TodoItems,setTodoItems]= useState(initTodoItems);
 const[searchValue,setSearchValue]= useState("");
 const [selectedButton, setSelectedButton] = useState<string>('');
@@ -29,6 +29,8 @@ const searchResult = TodoItems.filter(item=>
 );
 const checkItem = (id) => {
   setTodoItems(TodoItems.map(item => item.id === id ? {...item, completed: !item.completed} : item));
+}
+const handleView = (id) => {
 }
 
     return (
@@ -89,7 +91,7 @@ const checkItem = (id) => {
     (searchValue === '' || item.todo.toLowerCase().includes(searchValue.toLowerCase()))
   )
   .map((item) => (
-    <TodoItem key={item.id} item={item} onDelete={deleteItem} onUpdate={updateItem} onCheck={checkItem}/>
+    <TodoItem key={item.id} item={item} onDelete={deleteItem} onUpdate={updateItem} onCheck={checkItem} onView={handleView}/>
 ))}
         <TodoAdd onAdd={handleAdd} selectedButton={selectedButton} />
       </div>

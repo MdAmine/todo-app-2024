@@ -1,7 +1,9 @@
 import "bootstrap/dist/css/bootstrap.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {useNavigate } from 'react-router-dom';
 import {
   faCheck,
+  faEye,
   faPenToSquare,
   faSquare,
   faTrashAlt,
@@ -11,6 +13,7 @@ import "./TodoItem.css";
 const TodoItem = (props) => {
   const itemStyle = props.item.completed ?{backgroundColor:'grey'} :{};
   const icon = props.item.completed ? faCheck : faSquare;
+  const navigate = useNavigate();
   return (
     <>
       <ul className="list-group todos mx-auto text-light">
@@ -38,12 +41,16 @@ const TodoItem = (props) => {
               onClick={() => props.onUpdate(props.item.id)}
             />
             <FontAwesomeIcon icon={faTrashAlt} className="pointer" onClick={() => props.onDelete(props.item.id)}/>
-          </div>
-        </li>
-      </ul>
-    </>
-  );
-}
+                        <FontAwesomeIcon icon={faEye} className="pointer" onClick = {() => {
+                            props.onView(props.item.id);
+                            navigate(`/details/${props.item.id}`);
+                        }}/>
+                      </div>
+                    </li>
+                  </ul>
+                </>
+              );
+            }
 export const getPriorityClass = (priority: string) => {
   switch (priority) {
     case 'P1':
