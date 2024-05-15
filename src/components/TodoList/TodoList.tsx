@@ -1,13 +1,14 @@
 import Header from "../Header/Header.tsx";
 import TodoItem from "../TodoItem/TodoItem.tsx";
 import AddTodoForm from "../AddTodoForm/AddTodoForm.tsx";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {Priority, Todo} from "../../types";
-import {getTodos} from "../../utils/mockData.ts";
 import TodoPrioritySearchButton from "../TodoPrioritySearchButton/TodoPrioritySearchButton.tsx";
 
 function TodoList() {
-  const [todos, setTodos] = useState<Todo[]>(getTodos())
+  const [todos, setTodos] = useState<Todo[]>(
+    JSON.parse(localStorage.getItem('todos') ?? '[]')
+  )
   const [search, setSearch] = useState<string>('')
   const [priority, setPriority] = useState<Priority | null>(null)
   const searchedTodos = useMemo<Todo[]>(() => {
@@ -16,9 +17,12 @@ function TodoList() {
         (t.priority === priority && t.name.toLowerCase().includes(search.toLowerCase()))
     })
   }, [todos, search, priority])
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos]);
 
   const handleAddTodo = (todo: Todo) => {
-    todo.id = Math.max(...todos.map(t => t.id)) + 1
+    todo.id = (todos.length === 0) ? 1 : Math.max(...todos.map(t => t.id)) + 1
     setTodos(prevState => {
       return [...prevState, todo]
     })

@@ -4,6 +4,7 @@ import About from "../components/About/About.tsx";
 import {createContext, useEffect, useState} from "react";
 import {AuthContextProps} from "../types";
 import Layout from "../components/Layout/Layout.tsx";
+import TodoItemView from "../components/TodoItemView/TodoItemView.tsx";
 
 export const AuthContext = createContext<AuthContextProps | null>(null);
 
@@ -30,6 +31,7 @@ function RouterOutlet() {
         <Routes>
           <Route path='' element={<Layout/>}>
             <Route index element={<App/>}/>
+            <Route path='todos/:todoId' element={<TodoItemView/>}/>
             <Route path='about' element={<About/>}/>
           </Route>
         </Routes>
