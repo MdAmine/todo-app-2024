@@ -1,5 +1,6 @@
 import {
   faCheck,
+  faEye,
   faPenToSquare,
   faTrashAlt,
   faXmark,
@@ -22,46 +23,53 @@ const TodoItem = ({ todo, onDelete, onComplete, onEdit }) => {
 
   return (
     <ul className="list-group todos mx-auto text-light" data-testid="todo-item">
-      <Link to={`/todos/${todo.id}`}>
-        <li
-          className={`list-group-item d-flex justify-content-between align-items-center ${
-            todo.complete ? "center" : "bg-dark"
-          }`}
-        >
-          <div className="d-flex justify-content-between align-items-center gap-2">
-            {renderPriorityIcon()}
-            <span>{todo.title}</span>
-          </div>
-          <div className="d-flex gap-1">
+      <li
+        className={`list-group-item d-flex justify-content-between align-items-center ${
+          todo.complete ? "center" : "bg-dark"
+        }`}
+      >
+        <div className="d-flex justify-content-between align-items-center gap-2">
+          {renderPriorityIcon()}
+          <span>{todo.title}</span>
+        </div>
+        <div className="d-flex gap-1">
+          <Link to={`/todos/${todo.id}`}>
             <FontAwesomeIcon
-              title={todo.complete ? "complete" : "unComplete"}
               style={{
                 marginRight: "0.3em",
               }}
-              icon={todo.complete ? faCheck : faXmark}
+              icon={faEye}
               className="pointer"
-              onClick={() => onComplete(todo.id)}
-              data-testid="complete-button"
             />
+          </Link>
+          <FontAwesomeIcon
+            title={todo.complete ? "complete" : "unComplete"}
+            style={{
+              marginRight: "0.3em",
+            }}
+            icon={todo.complete ? faCheck : faXmark}
+            className="pointer"
+            onClick={() => onComplete(todo.id)}
+            data-testid="complete-button"
+          />
 
-            <FontAwesomeIcon
-              style={{
-                marginRight: "0.3em",
-              }}
-              icon={faPenToSquare}
-              className="pointer"
-              onClick={() => onEdit(todo.id)}
-              data-testid="edit-button"
-            />
-            <FontAwesomeIcon
-              icon={faTrashAlt}
-              className="pointer"
-              onClick={() => onDelete(todo.id)}
-              data-testid="delete-button"
-            />
-          </div>
-        </li>
-      </Link>
+          <FontAwesomeIcon
+            style={{
+              marginRight: "0.3em",
+            }}
+            icon={faPenToSquare}
+            className="pointer"
+            onClick={() => onEdit(todo.id)}
+            data-testid="edit-button"
+          />
+          <FontAwesomeIcon
+            icon={faTrashAlt}
+            className="pointer"
+            onClick={() => onDelete(todo.id)}
+            data-testid="delete-button"
+          />
+        </div>
+      </li>
     </ul>
   );
 };

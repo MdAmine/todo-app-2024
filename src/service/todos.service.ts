@@ -1,8 +1,7 @@
-const BASE_URL = 'http://localhost:3001';
-
+const BASE_URL = import.meta.env.VITE_BASE_URLs;
 
 async function getAllTodos(searchTerm = "", filterTerm = "") {
-    const response = await fetch(`${BASE_URL}/todos?title_like=${searchTerm}&priority=${filterTerm}`);
+    const response = await fetch(`${BASE_URL}/todos?title_like=${searchTerm}&priority_like=${filterTerm}`);
     if (!response.ok) {
         throw new Error('Failed to fetch todos');
     }

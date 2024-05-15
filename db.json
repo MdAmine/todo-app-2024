@@ -9,26 +9,32 @@
     {
       "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
       "title": "Go for a run",
-      "complete": false,
+      "complete": true,
       "priority": "P3"
     },
     {
       "id": "c51d4e2f-df38-4eaf-bcdc-5c5e87f64c14",
       "title": "Finish coding assignment",
-      "complete": false,
+      "complete": true,
       "priority": "P4"
     },
     {
       "id": "bfa016c7-af76-4f77-a51f-fbc7db5f11e0",
       "title": "Read a book",
-      "complete": true,
+      "complete": false,
       "priority": "P3"
     },
     {
-      "id": "53ea1544-2552-4850-8eff-1a13838ddd7a",
-      "title": "belcaid",
-      "complete": false,
-      "priority": ""
+      "id": "d8b7e9a2-6d4f-4a6e-9e9c-3e1e8d7c2f0a",
+      "title": "Buy groceries",
+      "complete": true,
+      "priority": "P2"
+    },
+    {
+      "id": "e9f6a8b3-2c1d-4e7f-9e8a-1b0d3c4f5a6e",
+      "title": "Call mom",
+      "complete": true,
+      "priority": "P3"
     }
   ]
 }
