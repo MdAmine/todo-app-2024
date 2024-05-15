@@ -1,14 +1,18 @@
 import {FormEvent, useRef} from "react";
-import {Todo} from "../../types";
+import {Priority, Todo} from "../../types";
 
-function AddTodoForm({onAddTodo}: { onAddTodo: (todo: Todo) => void }) {
+function AddTodoForm({onAddTodo, priority}: {
+  onAddTodo: (todo: Todo) => void,
+  priority: Priority,
+}) {
   const input = useRef<HTMLInputElement | null>(null)
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     onAddTodo({
       id: 0,
       name: input.current!.value,
-      completed: false
+      completed: false,
+      priority
     })
     input.current!.value = ''
   }

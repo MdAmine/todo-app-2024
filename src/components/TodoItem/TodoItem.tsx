@@ -11,17 +11,15 @@ function TodoItem({todo, onDelete, onUpdate}: {
     const newName = prompt('Todo name', todo.name)
     if (newName) {
       onUpdate({
-        id: todo.id,
+        ...todo,
         name: newName,
-        completed: todo.completed,
       })
     }
   }
 
   const handleCheck = () => {
     onUpdate({
-      id: todo.id,
-      name: todo.name,
+      ...todo,
       completed: !todo.completed,
     })
   }
