@@ -56,7 +56,6 @@ function TodoItem({todo, onDelete, onUpdate}: {
           icon={faClipboard}
           onClick={handleView}
           className="pointer"
-          aria-label='check-btn'
         />
         <FontAwesomeIcon
           style={{
