@@ -13,6 +13,7 @@ const Priority: React.FC<PriorityProps> = ({color, text, onClick}) => {
             transition: 'background-color 0.3s',
             padding: '10px',
             margin: '5px',
+            height: '45px',
             borderRadius: '5px',
             minWidth: '70px',
             textAlign: 'center',

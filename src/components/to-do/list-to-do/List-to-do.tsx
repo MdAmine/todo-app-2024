@@ -42,7 +42,7 @@ function ListToDo() {
             priority: selectedPriority
         };
         setItems([...items, newItem]);
-    }
+    };
 
     const deleteToDo = (id) => {
         setItems(items.filter(item => item.id !== id));
@@ -69,7 +69,7 @@ function ListToDo() {
 
     const filteredItems = items.filter(item =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        (selectedPriority === "All" || item.priority === selectedPriority)
+        (selectedPriority === "All" || (item.priority === selectedPriority && item.name.toLowerCase().includes(searchQuery.toLowerCase())))
     );
 
     const handlePriorityClick = (priority) => {
@@ -90,7 +90,7 @@ function ListToDo() {
             </header>
             <div style={{display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap'}}>
                 <Priority color="gray" text="All" onClick={() => handlePriorityClick("All")}/>
-                <Priority color="orange" text="P1" onClick={() => handlePriorityClick("P1")}/>
+                <Priority color="red" text="P1" onClick={() => handlePriorityClick("P1")}/>
                 <Priority color="yellow" text="P2" onClick={() => handlePriorityClick("P2")}/>
                 <Priority color="green" text="P3" onClick={() => handlePriorityClick("P3")}/>
                 <Priority color="blue" text="P4" onClick={() => handlePriorityClick("P4")}/>

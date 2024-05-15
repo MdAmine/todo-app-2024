@@ -7,7 +7,15 @@ function ToDoItem({item, deleteToDo, editToDo, completeTask}) {
             <li
                 className={`list-group-item d-flex justify-content-between align-items-center`}
             >
-                 <span style={{textDecoration: item.completed ? 'line-through' : 'none'}}>
+                <span style={{
+                    marginRight: '10px',
+                    backgroundColor: getPriorityColor(item.priority),
+                    padding: '2px 5px',
+                    borderRadius: '3px'
+                }}>
+                    {item.priority}
+                </span>
+                <span style={{textDecoration: item.completed ? 'line-through' : 'none'}}>
                     {item.name}
                 </span>
                 <div>
@@ -36,6 +44,21 @@ function ToDoItem({item, deleteToDo, editToDo, completeTask}) {
             </li>
         </ul>
     );
+}
+
+function getPriorityColor(priority) {
+    switch (priority) {
+        case 'P1':
+            return 'red';
+        case 'P2':
+            return 'yellow';
+        case 'P3':
+            return 'green';
+        case 'P4':
+            return 'blue';
+        default:
+            return 'gray';
+    }
 }
 
 export default ToDoItem
