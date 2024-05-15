@@ -3,16 +3,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 function Item(props) {
-    const [status, setStatus] = useState(true);
+    const [status, setStatus] = useState(false);
     const handleDelete = (idToDelete) => {
 
         const updatedTodos = props.list.filter(item => item.id !== idToDelete);
         props.handleCallbackList(updatedTodos);
     };
 
-    const setSelectedStatus = (status) => {
-
+    const setSelectedStatus = (status,item) => {
+        console.log("list avant : " + JSON.stringify(props.list))
         setStatus(status);
+        const updatedItems = props.list.map(todo => {
+            if (todo.id === item.id) {
+                return { ...todo, complete: status };
+            }
+            return todo;
+        });
+        props.handleCallbackList(updatedItems);
+        console.log("list apres : " + JSON.stringify(updatedItems))
     };
 
 
@@ -34,20 +42,43 @@ function Item(props) {
         <ul className="list-group todos mx-auto text-light">
             <li
                 className={`list-group-item d-flex justify-content-between align-items-center ${
-                    status ? '' : 'selected'
+                    !status ? '' : 'selected'
                   }`}
             >
+                  {props.item.priority == "P1" ? ( 
+                    // <button type="button" className="btn btn-danger">P1</button> 
+                    <span className="badge bg-danger">P1</span>                         
+                        ) : (
+                            props.item.priority == "P2" ? ( 
+                                // <button type="button" className="btn btn-warning">P2</button> 
+                                <span className="badge bg-warning text-dark">P2</span>                         
+                                    ) : (
+                                        props.item.priority == "P3" ? (
+                                            // <button type="button" className="btn btn-primary ">P3</button>
+                                            <span className="badge bg-primary">P3</span>
+                                         ):(
+                                            props.item.priority == "P4" ? (
+                                                // <button type="button" className="btn btn-success ">P4</button>
+                                                <span className="badge bg-success">P4</span>
+                                             ):(
+                                                // <button type="button" className="btn btn-danger">P1</button> 
+                                                <span className="badge bg-danger">P1</span> 
+                                               )
+                                            )
+                                        )
+                      
+                            )}     
                 <span>{props.item.todo}</span>
                 <div>
                     
-                    {status ? (
+                    {!status ? (
                             <FontAwesomeIcon
                                 style={{
                                     marginRight: "0.3em",
                                 }}
                                 icon={faCheck}
                                 className="pointer"
-                                onClick={() => setSelectedStatus(false)}
+                                onClick={() => setSelectedStatus(true,props.item)}
                         />
                         ) : (
                             <FontAwesomeIcon
@@ -56,7 +87,7 @@ function Item(props) {
                                 }}
                                 icon={faXmark}
                                 className="pointer"
-                                onClick={() => setSelectedStatus(true)}
+                                onClick={() => setSelectedStatus(false,props.item)}
                            />
                         )}
                     <FontAwesomeIcon
