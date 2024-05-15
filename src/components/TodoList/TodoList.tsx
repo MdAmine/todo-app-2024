@@ -44,7 +44,7 @@ function TodoList() {
     }))
   }
 
-  return (<>
+  return (<div className='container'>
     <Header onSearch={handleSearch}/>
     <div className='d-flex justify-content-center mb-3'>
       <div className="btn-group">
@@ -62,7 +62,7 @@ function TodoList() {
       ))}
     </ul>
     <AddTodoForm onAddTodo={handleAddTodo} priority={priority}/>
-  </>)
+  </div>)
 }
 
 export default TodoList

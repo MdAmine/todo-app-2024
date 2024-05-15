@@ -1,9 +1,13 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 
 import "./FloatingButton.scss";
+import {Link, useNavigate} from "react-router-dom";
+import {AuthContext} from "../../routes/RouterOutlet.tsx";
 
-const FloatingButton = ({onLogout}: { onLogout: () => void }) => {
+const FloatingButton = () => {
   const [checked, setChecked] = useState(false);
+  const {setLoggedOut} = useContext(AuthContext)!;
+  const navigate = useNavigate()
 
   const handleClick = () => {
     setChecked(!checked);
@@ -14,8 +18,8 @@ const FloatingButton = ({onLogout}: { onLogout: () => void }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn')
-    onLogout()
+    setLoggedOut()
+    navigate('/')
   }
 
   return (
@@ -28,9 +32,9 @@ const FloatingButton = ({onLogout}: { onLogout: () => void }) => {
       />
       <label className="button" htmlFor="toggle"></label>
       <nav className="nav">
-        <ul>
-          <span>Todo List</span>
-          <span>About</span>
+        <ul className='mt-3'>
+          <Link to='' className='text-center'>Todo List</Link>
+          <Link to='about' className='text-center'>About</Link>
           <span onClick={handleLogout} aria-label='logout-btn'>Logout</span>
         </ul>
       </nav>

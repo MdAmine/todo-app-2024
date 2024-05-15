@@ -11,3 +11,17 @@ export enum Priority {
   P3 = 'P3',
   P4 = 'P4',
 }
+
+export interface AuthContextProps {
+  isLoggedIn: boolean,
+  setLoggedIn: () => void,
+  setLoggedOut: () => void,
+}
+
+export interface GithubUser {
+  avatarUrl: string,
+  bio: string,
+  login: string,
+  name: string,
+  htmlUrl: string,
+}

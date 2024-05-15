@@ -1,33 +1,22 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
-import FloatingButton from "./components/UI/FloatingButton.tsx";
-import {useEffect, useState} from "react";
+import {useContext} from "react";
 import LoginForm from "./components/LoginForm/LoginForm.tsx";
 import TodoList from "./components/TodoList/TodoList.tsx";
+import {AuthContext} from "./routes/RouterOutlet.tsx";
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState<boolean>(false)
+  const {isLoggedIn} = useContext(AuthContext)!;
 
-  useEffect(() => {
-    setLoggedIn(localStorage.getItem('isLoggedIn') == 'true')
-  }, []);
-
-  const handleLogin = () => {
-    setLoggedIn(true)
-  }
-
-  const handleLogout = () => {
-    setLoggedIn(false)
+  if (isLoggedIn) {
+    return (
+      <TodoList/>
+    )
   }
 
   return (
-    <div className="container">
-      {
-        isLoggedIn ? <TodoList/> : <LoginForm onLogin={handleLogin}/>
-      }
-      <FloatingButton onLogout={handleLogout}/>
-    </div>
-  );
+    <LoginForm/>
+  )
 }
 
 export default App;

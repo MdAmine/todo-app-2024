@@ -1,21 +1,22 @@
-import {FormEvent, useRef, useState} from "react";
+import {FormEvent, useContext, useRef, useState} from "react";
+import {AuthContext} from "../../routes/RouterOutlet.tsx";
 
-function LoginForm({onLogin}: { onLogin: () => void }) {
+function LoginForm() {
   const emailInput = useRef<HTMLInputElement | null>(null)
   const passwordInput = useRef<HTMLInputElement | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const {setLoggedIn} = useContext(AuthContext)!
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     if (emailInput.current!.value.length > 0 && passwordInput.current!.value.length > 0) {
-      localStorage.setItem('isLoggedIn', 'true')
-      onLogin()
+      setLoggedIn()
     } else {
       setError('Form invalid')
     }
   }
 
-  return (<>
+  return (<div className='container'>
     <form className="text-center my-4 text-light" onSubmit={handleSubmit} aria-label='login-form'>
       <h1 className="mb-4">Login Form</h1>
       <input
@@ -37,7 +38,7 @@ function LoginForm({onLogin}: { onLogin: () => void }) {
         Login
       </button>
     </form>
-  </>)
+  </div>)
 }
 
 export default LoginForm
