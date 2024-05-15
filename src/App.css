@@ -50,3 +50,33 @@ li.list-group-item {
 .cl-white {
   color: white
 }
+.about{
+  color: white;
+  margin-top: -50px;
+}
+.col p {
+  margin-bottom: 16px;
+}
+.about h2{
+  margin-bottom: 1.5rem;
+}
+.about .custom-hr {
+  width: 100%;
+  border: 1px solid rgb(255, 255, 255);
+  margin-top: 20px;
+}
+.github-user img {
+  max-height: 100px;
+  margin-right: 20px;
+}
+.github-user div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.github-user  p{
+  margin: 0;
+}
+.btn-secondary{
+  width: 80px;
+}

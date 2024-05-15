@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import "./FloatingButton.scss";
+import { Link } from "react-router-dom";
 
 const FloatingButton = (props) => {
   const [checked, setChecked] = useState(false);
@@ -24,8 +25,8 @@ const FloatingButton = (props) => {
       <label className="button" htmlFor="toggle"></label>
       <nav className="nav">
         <ul>
-          <span>Todo List</span>
-          <span>About</span>
+          <Link className="span" to='todo'>Todo List</Link>
+          <Link className="span" to='about'>About</Link>
           <span onClick={props.handleLogout}>Logout</span>
         </ul>
       </nav>
