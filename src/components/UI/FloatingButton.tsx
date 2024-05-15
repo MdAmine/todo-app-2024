@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import "./FloatingButton.scss";
 import Login from "../Login/Login";
+import { Link } from "react-router-dom";
 
 const FloatingButton = (props) => {
  const {logoutHandler}=props;
@@ -27,7 +28,7 @@ const FloatingButton = (props) => {
       <nav className="nav">
         <ul>
           <span>Todo List</span>
-          <span>About</span>
+          <Link to="/about"><span>About</span></Link>
           <span  onClick={logoutHandler}>Logout</span> </ul>
       </nav>
     </div>

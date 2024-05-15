@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { Router, Route, Routes, BrowserRouter } from "react-router-dom";
 import TodoItem from "./components/Todo/TodoItem/TodoItem";
 import Detail from "./components/Detail/Detail";
+import FetchedData from "./components/About/fetchedData";
+import About from "./components/About/About";
 
 const App=() => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -47,6 +49,8 @@ const App=() => {
             }
           />
           <Route path="/detail/:id/:todo/:complete/:priority" element={<Detail />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </BrowserRouter>

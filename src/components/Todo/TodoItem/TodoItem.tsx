@@ -1,4 +1,4 @@
-import { faCheck, faCircle, faEye, faEyeSlash, faPenToSquare, faSquare, faTimes, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faCheck, faCircle, faEye, faEyeSlash, faPenToSquare, faSquare, faTimes, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, Navigate, Route, Routes } from "react-router-dom";
 import Detail from "../../Detail/Detail";
@@ -20,10 +20,7 @@ const TodoItem = (props) => {
         props.updateTodoState(props.item.id, props.item.complete= !props.item.complete );
         console.log(props.item.complete);
     };
-    const handleDetail = () => {
-        // Rediriger vers la page de détails avec les paramètres de l'élément ToDo
-        window.location.href = `/details/${props.item.id}/${props.item.todo}/${props.item.complete}/${props.item.priority}`;
-    };
+   
     const priorityColors = {
         P1: 'primary',
         P2: 'success',
@@ -38,7 +35,7 @@ const TodoItem = (props) => {
                 <div>
                 <FontAwesomeIcon
                         style={{ marginRight: "0.3em" }}
-                        icon={props.item.complete ? faCheck : faTimes}
+                        icon={props.item.complete ? faCheck : faBan}
                         className={"pointer"}
                         onClick={handleToggleComplete}
                     />
