@@ -49,7 +49,7 @@ const TodoItm = (props) => {
                             onClick={handleToggleComplete}
                         />
                          
-                    {/* <Link to={`/todo/${props.item.id}`}> */}
+                    <Link to={`/todo/${props.item.id}/${props.item.todo}/${props.item.completed}/${props.item.priority}`}>
                         <FontAwesomeIcon 
                         style={{
                             marginRight: "0.3em",
@@ -57,7 +57,7 @@ const TodoItm = (props) => {
                             icon={faEye} 
                             className="pointer" 
                         />
-                    {/* </Link> */}
+                    </Link>
                         <FontAwesomeIcon
                             style={{
                                 marginRight: "0.3em",
