@@ -25,7 +25,7 @@ const Login = ({onLogin}) => {
     };
 
     function handleLoginClick() {
-        if (!emailError && !passwordError) {
+        if (!emailError && !passwordError && email && password) {
             onLogin();
         }
 

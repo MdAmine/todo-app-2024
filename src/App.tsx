@@ -4,6 +4,9 @@ import "./App.css";
 import ListTodo from "./components/UI/listTodo.tsx";
 import {useEffect, useState} from "react";
 import Login from "./components/UI/login.tsx";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import TodoDetails from "./components/UI/todoDetails.tsx";
+import About from "./components/UI/about.tsx";
 
 function App() {
 
@@ -26,25 +29,18 @@ function App() {
         setIsLogged(false);
     }
 
-    if (!isLogged) {
-        return (
+    return (
+        <BrowserRouter>
             <div className="container">
-                <Login onLogin={handleLogin}/>
+                <Routes>
+                    <Route path="/" element={isLogged ? <ListTodo /> : <Login onLogin={handleLogin} />} />
+                    <Route path="/todo/:id" element={<TodoDetails/>} />
+                    <Route path="/about" element={<About onLogout={handleLogout} />} />
+                </Routes>
+                {isLogged && <FloatingButton onLogout={handleLogout} />}
             </div>
-        )
-    } else {
-        return (
-            <>
-                <div className="container">
-
-                    <ListTodo />
-
-                    <FloatingButton onLogout={handleLogout}/>
-                </div>
-            </>
-        );
-
-    }
+        </BrowserRouter>
+    );
 }
 
 export default App;
