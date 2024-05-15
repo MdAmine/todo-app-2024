@@ -1,6 +1,7 @@
-import {fireEvent, render, screen} from "@testing-library/react";
+import {act, fireEvent, render, screen} from "@testing-library/react";
 import App from "./App.tsx";
 import ItemTodo from "./components/UI/itemTodo.tsx";
+import DeveloperInfo from "./components/UI/developerInfo.tsx";
 
 
 describe('App Component', () => {
@@ -62,4 +63,29 @@ describe("todo item action buttons", () => {
         fireEvent.click(uncheckButton);
         expect(mockOnChecked).toHaveBeenCalledWith(completedTodo.id);
     });
+});
+
+
+test('Fetch Developer Info', async () => {
+    window.fetch = jest.fn();
+    window.fetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+            name: 'John Doe',
+            avatar_url: 'https://example.com/avatar.jpg',
+            bio: 'Software Engineer',
+            html_url: 'https://github.com/johndoe'
+        }),
+    });
+
+    render(<DeveloperInfo onLogout={undefined} />);
+
+    await act(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+    });
+
+    expect(screen.getByText(/Developer Infos/i)).toBeInTheDocument();
+    expect(screen.getByText(/John Doe/i)).toBeInTheDocument();
+    expect(screen.getByText(/Software Engineer/i)).toBeInTheDocument();
+    expect(screen.getByText(/Profile/i)).toBeInTheDocument();
 });

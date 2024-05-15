@@ -1,9 +1,11 @@
 import {faCheck, faCircleXmark, faEye, faPenToSquare, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 
 const ItemTodo = ({todo , onDelete , onEdit , onChecked}) => {
+
+    const navigate = useNavigate();
 
     const handleDelete = () => {
         onDelete(todo.id);
@@ -47,16 +49,15 @@ const ItemTodo = ({todo , onDelete , onEdit , onChecked}) => {
                         aria-label={!todo.completed ? "check" : "uncheck"}
                     />
 
-                    <Link to={`/todo/${todo.id}`}>
-                        <FontAwesomeIcon
-                            style={{
-                                marginRight: "0.3em",
-                            }}
-                            icon={faEye}
-                            className="pointer"
-                            aria-label={"details"}
-                        ></FontAwesomeIcon>
-                    </Link>
+                    <FontAwesomeIcon
+                        style={{
+                            marginRight: "0.3em",
+                        }}
+                        onClick={() => { navigate(`/todo/${todo.id}`) }}
+                        icon={faEye}
+                        className="pointer"
+                        aria-label={"details"}
+                    ></FontAwesomeIcon>
 
                     <FontAwesomeIcon
                         style={{
