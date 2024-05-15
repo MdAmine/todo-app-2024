@@ -3,11 +3,14 @@ import todoItems, { addNewTodoItem, generatedId } from "../../Utils";
 
 function Add(props)  {
   const [newTodo, setNewTodo] = useState("");
+  const [priority, setPriority] = useState("");
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.addNewTodoItem(newTodo);
+    props.addNewTodoItem(newTodo,priority);
     setNewTodo("");
+    setPriority("");
   };
   const handleChange = (event)=> {
     setNewTodo(event.target.value);
@@ -26,6 +29,7 @@ function Add(props)  {
         value={newTodo}
         onChange={handleChange}
       />   
+      
     </form>
   );
 }

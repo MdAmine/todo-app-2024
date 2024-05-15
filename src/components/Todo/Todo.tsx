@@ -8,18 +8,18 @@ import { useEffect, useState } from "react";
 const Todo= () => {
     const [todos, setTodos] = useState(todoItems);
     const [searchQuery, setSearchQuery] = useState("");
+    const [selectedPriority, setSelectedPriority] = useState("All");
 
-   
-    function addNewTodoItem(title: any) {
+    function addNewTodoItem(title) {
         const newItem = {
             id: generatedId(),
             todo: title,
             complete: false,
+            priority: selectedPriority,
         };
-        console.log(newItem);
-    setTodos(prevTodos => [...prevTodos, newItem]);
-
-    };
+        setTodos(prevTodos => [...prevTodos, newItem]);
+        
+    }
     function updateTodoItem(id: number, newTitle: any) {
         const updatedTodos = todos.map(item => 
             item.id === id ? { ...item, todo: newTitle } : item
@@ -33,11 +33,25 @@ const Todo= () => {
     function handleSearchChange(event) {
         setSearchQuery(event.target.value);
         console.log(event.target.value);
+    };
+
+    function updateTodoState(id: number, complete: any) {
+        const updatedTodosstatus = todos.map(item => 
+            item.id === id ? { ...item, complete: complete} : item
+        );
+        setTodos(updatedTodosstatus);
+    };
+    function handlePriorityChange(priority) {
+        setSelectedPriority(priority);
     }
 
-    const filteredTodos = todos.filter(item =>
-        typeof item.todo === "string" && item.todo.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredTodos = todos.filter(item => {
+        const matchesQuery = typeof item.todo === "string" && item.todo.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesPriority = selectedPriority === "All" || item.priority === selectedPriority;
+        return matchesQuery && matchesPriority;
+    });
+    
+    
     return(
         <>
          <header className="text-center text-light my-4">
@@ -51,6 +65,13 @@ const Todo= () => {
             onChange={handleSearchChange}
           />
         </header>
+        <div className="btn-group mb-3" role="group">
+                <button type="button" className="btn btn-primary" onClick={() => handlePriorityChange("All")}>All</button>
+                <button type="button" className="btn btn-secondary" onClick={() => handlePriorityChange("P1")}>P1</button>
+                <button type="button" className="btn btn-success" onClick={() => handlePriorityChange("P2")}>P2</button>
+                <button type="button" className="btn btn-danger" onClick={() => handlePriorityChange("P3")}>P3</button>
+                <button type="button" className="btn btn-warning" onClick={() => handlePriorityChange("P4")}>P4</button>
+            </div>
                 <ul className="list-group todos mx-auto text-light">
                 {filteredTodos.map((item) => (
     <TodoItem
@@ -58,10 +79,11 @@ const Todo= () => {
         item={item}
         updateTodoItem={updateTodoItem}
         deleteTodoItem={deleteTodoItem}
+        updateTodoState={updateTodoState}
     />
 ))}
             </ul>
-            <Add addNewTodoItem={addNewTodoItem} />
+            <Add addNewTodoItem={addNewTodoItem} selectedPriority={selectedPriority}/>
             </>  
     )
 }
