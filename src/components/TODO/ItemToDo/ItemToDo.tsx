@@ -12,7 +12,7 @@ import "../ListToDo/ListToDo.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 function ItemToDo({ props, onDelete, onModify }) {
-  const { id, todo, complete } = props;
+  const { id, todo, complete, priority } = props;
   const [completed, setCompleted] = useState(complete);
 
   const handleToggleComplete = () => {
@@ -27,6 +27,12 @@ function ItemToDo({ props, onDelete, onModify }) {
       onModify(modifiedTodo);
     }
   };
+  const priorityColors = {
+    P1: "danger",
+    P2: "warning",
+    P3: "primary",
+    P4: "info",
+  };
   return (
     <>
       <ul className="list-group todos mx-auto text-light">
@@ -35,6 +41,10 @@ function ItemToDo({ props, onDelete, onModify }) {
             completed ? "completed" : ""
           }`}
         >
+          <span className={`badge text-bg-${priorityColors[priority]} mr-2`}>
+            {priority}
+          </span>
+
           <span>{props.todo}</span>
           <div>
             <FontAwesomeIcon
@@ -47,7 +57,7 @@ function ItemToDo({ props, onDelete, onModify }) {
             />
             <Link to={`/details/${id}`}>
               <FontAwesomeIcon
-                style={{ marginRight: "0.3em" }}
+                style={{ marginRight: "0.3em", color: "white" }}
                 icon={faEye}
                 className="pointer"
               />

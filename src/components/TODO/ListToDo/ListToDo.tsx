@@ -5,14 +5,31 @@ import { initialTodos } from "../../../utils.tsx";
 function ListToDo() {
   const [todoItems, setTodoItems] = useState(initialTodos);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [filterByPriority, setFilterByPriority] = useState(null);
+  const [activeFilter, setActiveFilter] = useState(null);
   const handleAddTodo = (newTodo) => {
+    let priority;
+
+    if (filterByPriority !== null) {
+      priority = filterByPriority;
+    } else {
+      priority = "P1";
+    }
     setTodoItems([
       ...todoItems,
-      { id: Math.floor(Math.random() * 1000), todo: newTodo, complete: false },
+      {
+        id: Math.floor(Math.random() * 1000),
+        todo: newTodo,
+        priority: priority.toString(),
+        complete: false,
+      },
     ]);
   };
 
+  const handlePriorityFilter = (priority) => {
+    setFilterByPriority(priority);
+    setActiveFilter(priority);
+  };
   const handleModifyTodo = (id, modifiedTodo) => {
     setTodoItems(
       todoItems.map((item) =>
@@ -28,6 +45,9 @@ function ListToDo() {
   const filteredTodoItems = todoItems.filter((item) =>
     item.todo.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  const priorityFilteredItems = filterByPriority
+    ? filteredTodoItems.filter((item) => item.priority === filterByPriority)
+    : filteredTodoItems;
 
   return (
     <>
@@ -44,8 +64,39 @@ function ListToDo() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </header>
-
-        {filteredTodoItems.map((item) => (
+        <header className="text-center text-light my-4">
+          <button
+            type="button"
+            className="btn btn-dark px-4 mx-1"
+            onClick={() => {
+              setFilterByPriority(null);
+              setActiveFilter(null);
+            }}
+          >
+            All
+          </button>
+          {[1, 2, 3, 4].map((priority) => (
+            <button
+              key={priority}
+              type="button"
+              className={`btn btn-outline-${
+                priority === activeFilter
+                  ? "light"
+                  : priority === 1
+                  ? "danger"
+                  : priority === 2
+                  ? "warning"
+                  : priority === 3
+                  ? "primary"
+                  : "info"
+              } px-4 mx-1`}
+              onClick={() => handlePriorityFilter(`P${priority}`)}
+            >
+              P{priority}
+            </button>
+          ))}
+        </header>
+        {priorityFilteredItems.map((item) => (
           <ItemToDo
             key={item.id}
             props={item}
