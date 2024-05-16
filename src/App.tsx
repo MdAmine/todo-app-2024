@@ -32,13 +32,6 @@ function App() {
     <>
       <div className="container">
 
-
-        {/* {isLoggedIn ? (
-          <Todo />
-
-        ) : (
-          <Login handleCallback={loginHandler} />
-        )} */}
         <Routes>
           <Route path="/about" element={<About />} />
           <Route path="/details/:id/:todo/:complete/:priority" element={<Details />} />
