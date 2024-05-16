@@ -7,6 +7,7 @@ import Login from "./components/login/Login.tsx";
 import About from "./components/about/About.tsx";
 import Details from "./components/details/Details.tsx";
 import FloatingButton from "./components/UI/FloatingButton.tsx";
+import AuthProvider from "./components/context/Context.tsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,18 +27,19 @@ function App() {
         setIsLoggedIn(false);
         localStorage.removeItem("isLoggedIn");
     };
-    return (<>
-
+    return (
+        <AuthProvider>
             <Routes>
                 <Route
                     path="/"
                     element={
-                        isLoggedIn ?
+                        isLoggedIn ? (
                             <>
                                 <ListToDo/>
                             </>
-                            :
+                        ) : (
                             <Login onLogin={handleLogin}/>
+                        )
                     }
                 />
                 {isLoggedIn && (
@@ -47,10 +49,8 @@ function App() {
                     </>
                 )}
             </Routes>
-            {
-                isLoggedIn && <FloatingButton onLogout={handleLogout}/>
-            }
-        </>
+            {isLoggedIn && <FloatingButton onLogout={handleLogout}/>}
+        </AuthProvider>
     );
 }
 

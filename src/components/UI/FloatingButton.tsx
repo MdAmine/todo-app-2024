@@ -1,11 +1,12 @@
-import {useState} from "react";
+import React, {useContext, useState} from "react";
 
 import "./FloatingButton.scss";
 import {Link} from "react-router-dom";
+import {AuthContext} from "../context/Context.tsx";
 
 const FloatingButton = ({onLogout}) => {
     const [checked, setChecked] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(true);
+    const {loggedIn, logout} = useContext(AuthContext);
     const handleClick = () => {
         setChecked(!checked);
     };
@@ -15,7 +16,6 @@ const FloatingButton = ({onLogout}) => {
     };
 
     const onSubmit = (event) => {
-        setLoggedIn(true);
         onLogout();
     }
     return (
