@@ -8,24 +8,10 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { TodoDetail } from "./components/ToDo/TodoDetail";
 import About from "./components/about/About";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
-  const navigate = useNavigate();
-
-  const [isLogged, setIsLogged] = useState(
-    localStorage.getItem("isLogged") === "true"
-  );
-
-  const handleLogin = () => {
-    localStorage.setItem("isLogged", "true");
-    setIsLogged(true);
-    navigate("/todo");
-  };
-
-  const handleLogout = () => {
-    localStorage.setItem("isLogged", "false");
-    setIsLogged(false);
-  };
+  const { isLogged, handleLogin, handleLogout } = useAuth();
 
   
 

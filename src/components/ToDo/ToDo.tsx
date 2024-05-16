@@ -4,6 +4,7 @@ import { generateId, todoItems } from "../../Utils";
 import AddToDo from "./AddToDo";
 import { TodoItem } from "./TodoItem";
 import './todo.css';
+import { useAuth } from "../../context/AuthContext";
 
 export default function ToDo() {
 
@@ -11,6 +12,9 @@ export default function ToDo() {
     const [priority, setPriority] = useState();
     const [todos, setTodos] = useState(todoItems);
     const [listPriority, setListPriority] = useState([]);
+
+    const { login , isLogged } = useAuth();
+
     const addTodo = (title) => {
         const newTodo = {
             id: generateId(),
@@ -33,6 +37,8 @@ export default function ToDo() {
         return todo.title.toLowerCase().includes(searchQuery.toLowerCase());
     });
 
+    console.log("login = ",login);
+    console.log("isLogged = ",isLogged);
     
     
     const editTodo = (id, title) => {

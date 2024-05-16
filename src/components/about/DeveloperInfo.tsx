@@ -1,7 +1,9 @@
 import {useEffect, useState} from "react";
+import { useAuth } from "../../context/AuthContext";
 
-const DeveloperInfo = ({onLogout}) => {
+const DeveloperInfo = () => {
     const [developerInfo, setDeveloperInfo] = useState(null);
+    const {handleLogout} = useAuth();
 
     useEffect(() => {
         const fetchDeveloperInfo = async () => {
@@ -30,7 +32,7 @@ const DeveloperInfo = ({onLogout}) => {
                         <p>{developerInfo.bio}</p>
                         <p style={{ display: 'flex', alignItems: 'center' }}>Profile : <a style={{fontSize:'12px'}} href={developerInfo.html_url} target="_blank" rel="noopener noreferrer">{developerInfo.html_url}</a>
                         </p>
-                        <button className="btn btn-secondary btn-sm" onClick={onLogout}>Logout</button>
+                        <button className="btn btn-secondary btn-sm" onClick={handleLogout}>Logout</button>
                     </div>
                 </div>
             )}

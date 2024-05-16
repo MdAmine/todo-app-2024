@@ -1,11 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import DeveloperInfo from "./DeveloperInfo.tsx";
-const About = ({onLogout}) => {
+const About = () => {
     const navigate = useNavigate()
-    const handleLogout = () => {
-        onLogout();
-        navigate('/');
-    };
     const handleBack = () => navigate(-1);
     return (
         <>
@@ -24,7 +20,7 @@ const About = ({onLogout}) => {
                         <br/>
                         <hr className="custom-hr" />
                         <br/>
-                        <DeveloperInfo onLogout={handleLogout} />
+                        <DeveloperInfo />
                         <br/>
                         <button className="btn btn-dark" onClick={handleBack}>back</button>
                     </div>
