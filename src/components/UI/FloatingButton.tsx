@@ -1,8 +1,9 @@
-import { useState } from "react";
+import {useContext, useState} from "react";
 import "./FloatingButton.scss";
 import {Link, useNavigate} from "react-router-dom";
+import {AuthContext} from "../../todoContextStore.tsx";
 
-const FloatingButton = ({onLogout}) => {
+const FloatingButton = () => {
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
 
@@ -14,10 +15,7 @@ const FloatingButton = ({onLogout}) => {
     setChecked(false);
   };
 
-  function handleLogoutClick() {
-      onLogout();
-      navigate('/')
-  }
+  const { handleLogout } = useContext(AuthContext);
 
   let handleClickhome = () => {
     navigate("/");
@@ -39,7 +37,7 @@ const FloatingButton = ({onLogout}) => {
         <ul>
           <span onClick={handleClickhome}>Home</span>
           <span onClick={handleClickAbout}>About</span>
-          <span onClick={handleLogoutClick}>Logout</span>
+          <span onClick={handleLogout}>Logout</span>
         </ul>
       </nav>
     </div>

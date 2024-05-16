@@ -1,6 +1,7 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {AuthContext} from "../../todoContextStore.tsx";
 
-const Login = ({onLogin}) => {
+const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -24,9 +25,12 @@ const Login = ({onLogin}) => {
         setPasswordError(value.length < 6);
     };
 
+    const {handleLogin} = useContext(AuthContext);
+
     function handleLoginClick() {
         if (!emailError && !passwordError && email && password) {
-            onLogin();
+            handleLogin();
+
         }
 
     }
