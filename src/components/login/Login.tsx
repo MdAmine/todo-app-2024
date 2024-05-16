@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../service/auth.service";
+import { AuthContext } from "../../context-api/context";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const authContext = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
     const user = { email, password };
-    loginUser(user);
+    authContext.login(user);
     navigate("/todos");
   };
 

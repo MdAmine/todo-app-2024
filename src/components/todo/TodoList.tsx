@@ -22,7 +22,7 @@ const TodoList = () => {
       setTodos(data);
     } catch (error) {
       console.error("Error fetching todos:", error);
-      alert("Failed to fetch todos");
+      console.log("Failed to fetch todos");
     }
   }, [searchTerm, filterTerm]);
 
@@ -39,7 +39,7 @@ const TodoList = () => {
       })
       .catch((error) => {
         console.error("Error adding todo:", error);
-        alert("Failed to add todo");
+        console.log("Failed to add todo");
       });
   };
 
@@ -48,16 +48,20 @@ const TodoList = () => {
       .then(() => {
         fetchTodos();
       })
-      .catch((error) => alert("Failed to delete todo"));
+      .catch((error) => console.log("Failed to delete todo"));
   };
 
   const onCompleteTodo = async (id) => {
     await getTodoById(id)
-      .then((todo) => {
+      .then(async (todo) => {
+        console.log("todo before edit :", todo);
         const updatedTodo = { ...todo, complete: !todo.complete };
-        updateTodo(updatedTodo).then(() => fetchTodos());
+        await updateTodo(updatedTodo).then(() => {
+          fetchTodos();
+          console.log("todo after edit :", updatedTodo);
+        });
       })
-      .catch((error) => alert("Failed to update todo"));
+      .catch((error) => console.log("Failed to update todo"));
   };
 
   const onEditTodo = async (id) => {
@@ -68,7 +72,7 @@ const TodoList = () => {
         const updatedTodo = { ...todo, title: updatedTitle };
         updateTodo(updatedTodo).then(() => fetchTodos());
       })
-      .catch((error) => alert("Failed to update todo"));
+      .catch((error) => console.log("Failed to update todo"));
   };
 
   const onSearchTodo = (keyword) => {

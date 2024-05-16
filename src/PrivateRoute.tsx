@@ -1,5 +1,6 @@
+import { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { isAuthenticated } from "./service/auth.service";
+import { AuthContext } from "./context-api/context";
 
 const UnauthorizedRedirect = () => {
   alert("You need to log in first.");
@@ -7,7 +8,9 @@ const UnauthorizedRedirect = () => {
 };
 
 const PrivateRoute = ({ Component }) => {
-  const isLoggedIn = isAuthenticated();
+  const authContext = useContext(AuthContext);
+
+  const isLoggedIn = authContext.isAuthenticated();
 
   return isLoggedIn ? <Component /> : <UnauthorizedRedirect />;
 };
