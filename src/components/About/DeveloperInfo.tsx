@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import FloatingButton from '../UI/FloatingButton';
+import { AuthContext } from '../../context/authContext';
 
 const DeveloperInfo = () => {
   const [developerInfo, setDeveloperInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { logout } = useContext(AuthContext);
 
   useEffect(() => {
     fetchDeveloperInfo();
@@ -41,7 +43,7 @@ const DeveloperInfo = () => {
           <h1>Developer Info</h1>
           <p>ID : {developerInfo.id}</p>
           <p>Username :{developerInfo.login}</p>
-          <button style={{ marginTop: '20px', padding: '10px 20px', backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px' }}>Logout</button>
+          <button style={{ marginTop: '20px', padding: '10px 20px', backgroundColor: 'blue', color: 'white', border: 'none', borderRadius: '5px' }} onClick={logout} >Logout</button>
         </div>
       </div>
     );

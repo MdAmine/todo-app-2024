@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import  { useContext, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import FloatingButton from "./components/UI/FloatingButton";
 import "./App.css";
@@ -8,12 +8,14 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import TodoItemDetail from "./components/Todo/TodoItem/TodoItemDetail";
 import initTodoItems from "./Utils";
 import About from "./components/About/About";
+import { AuthContext } from "./context/authContext";
 
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [TodoItems] = useState(initTodoItems);
+  let { login,logout } = useContext(AuthContext); 
 
   useEffect(()=>{
     if(localStorage.getItem("isLoggedIn")==="true"){
@@ -21,16 +23,18 @@ function App() {
     }
   },[])
 
-  const handleLogin = () => {
+  login = () => {
     setIsLoggedIn(true);
-    localStorage.setItem("isLoggedIn","true");
+    localStorage.setItem("isLoggedIn", "true");
   };
-  const handleLogout = () =>{
+
+  logout = () => {
     setIsLoggedIn(false);
-    localStorage.setItem("isLoggedIn","fasle");
-  }
+    localStorage.setItem("isLoggedIn", "false");
+  };
 
   return (
+    <AuthContext.Provider value={{isLoggedIn, login, logout}}>
     <BrowserRouter>
       <div className="container">
         {isLoggedIn ?
@@ -43,12 +47,13 @@ function App() {
         <Route path="/about" element={<About/>}/>
       </Routes>
       :
-      <Login onLogin={handleLogin} />
+      <Login onLogin={login} />
       }
         
-        <FloatingButton logout={handleLogout}/>
+        <FloatingButton logout={logout}/>
       </div>
     </BrowserRouter>
+    </AuthContext.Provider>
   );
 }
 
