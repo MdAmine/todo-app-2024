@@ -2,8 +2,8 @@ import {beforeEach, describe, expect, it, vi} from "vitest";
 import {render, waitFor} from "@testing-library/react";
 import DeveloperInfo from "./DeveloperInfo.tsx";
 import {GithubUser} from "../../types";
-import {AuthContext} from "../../routes/RouterOutlet.tsx";
 import {BrowserRouter} from "react-router-dom";
+import {AuthContext} from "../../context/AuthContextProvider.tsx";
 
 describe('Developer info test', () => {
   const user: GithubUser = {

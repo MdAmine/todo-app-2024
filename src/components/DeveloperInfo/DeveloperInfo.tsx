@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {GithubUser} from "../../types";
-import {AuthContext} from "../../routes/RouterOutlet.tsx";
 import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../../context/AuthContextProvider.tsx";
 
 function DeveloperInfo() {
   const [user, setUser] = useState<GithubUser | null>(null)

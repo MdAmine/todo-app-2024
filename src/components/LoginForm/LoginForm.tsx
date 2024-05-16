@@ -1,5 +1,5 @@
 import {FormEvent, useContext, useRef, useState} from "react";
-import {AuthContext} from "../../routes/RouterOutlet.tsx";
+import {AuthContext} from "../../context/AuthContextProvider.tsx";
 
 function LoginForm() {
   const emailInput = useRef<HTMLInputElement | null>(null)

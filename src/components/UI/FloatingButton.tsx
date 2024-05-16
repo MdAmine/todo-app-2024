@@ -2,7 +2,7 @@ import {useContext, useState} from "react";
 
 import "./FloatingButton.scss";
 import {Link, useNavigate} from "react-router-dom";
-import {AuthContext} from "../../routes/RouterOutlet.tsx";
+import {AuthContext} from "../../context/AuthContextProvider.tsx";
 
 const FloatingButton = () => {
   const [checked, setChecked] = useState(false);

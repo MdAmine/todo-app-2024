@@ -1,8 +1,8 @@
 import {beforeEach, describe, expect, it, vi} from "vitest";
 import {render} from "@testing-library/react";
 import App from "./App.tsx";
-import {AuthContext} from "./routes/RouterOutlet.tsx";
 import userEvent from "@testing-library/user-event";
+import {AuthContext} from "./context/AuthContextProvider.tsx";
 
 describe('App test', () => {
   const setLoggedIn = vi.fn()

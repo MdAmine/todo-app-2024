@@ -1,32 +1,14 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import App from "../App.tsx";
 import About from "../components/About/About.tsx";
-import {createContext, useEffect, useState} from "react";
-import {AuthContextProps} from "../types";
 import Layout from "../components/Layout/Layout.tsx";
 import TodoItemView from "../components/TodoItemView/TodoItemView.tsx";
+import AuthContextProvider from "../context/AuthContextProvider.tsx";
 
-export const AuthContext = createContext<AuthContextProps | null>(null);
 
 function RouterOutlet() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-
-  useEffect(() => {
-    setIsLoggedIn(localStorage.getItem('isLoggedIn') == 'true')
-  }, []);
-
-  const setLoggedIn = () => {
-    localStorage.setItem('isLoggedIn', 'true')
-    setIsLoggedIn(true)
-  }
-
-  const setLoggedOut = () => {
-    localStorage.removeItem('isLoggedIn')
-    setIsLoggedIn(false)
-  }
-
   return (
-    <AuthContext.Provider value={{isLoggedIn, setLoggedIn, setLoggedOut}}>
+    <AuthContextProvider>
       <BrowserRouter>
         <Routes>
           <Route path='' element={<Layout/>}>
@@ -36,7 +18,7 @@ function RouterOutlet() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </AuthContext.Provider>
+    </AuthContextProvider>
   )
 }
 
