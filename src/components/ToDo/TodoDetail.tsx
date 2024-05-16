@@ -1,12 +1,15 @@
-import { useParams } from "react-router-dom";
-import { todoItems } from "../../Utils";
+import { useNavigate, useParams } from "react-router-dom";
+import { useTodosContext } from "../../context/TodoContext";
 
 export const TodoDetail = () => {
     const { id } = useParams();
+    const { todos } = useTodosContext();
+    const navigate = useNavigate();
+
     if (!id) {
         return 0;
     }
-    const todo = todoItems.find(t => t.id.toString() === id);
+    const todo = todos.find(t => t.id.toString() === id);
 
 
     return (
@@ -21,8 +24,8 @@ export const TodoDetail = () => {
                 <p>Priority : {todo?.priority}</p>
                 <p>Complete : {todo?.complete ? "Yes" : "No"}</p>
             </div>
-
-            
+            <br /><br />
+            <button className="btn btn-light" onClick={()=>navigate(-1)}>back</button>
         </div>
     )
 }

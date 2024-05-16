@@ -3,7 +3,6 @@ import FloatingButton from "./components/UI/FloatingButton";
 import "./App.css";
 import ToDo from "./components/ToDo/ToDo";
 import { Login } from "./components/Login/Login";
-import { useState } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { TodoDetail } from "./components/ToDo/TodoDetail";

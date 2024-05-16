@@ -15,7 +15,6 @@ export default function AddToDo({ onAdd}) {
         if (newTodo.trim()) {
         onAdd(newTodo);
         setNewTodo("");
-
         console.log(todoItems);
         }
     };

@@ -5,12 +5,15 @@ import AddToDo from "./AddToDo";
 import { TodoItem } from "./TodoItem";
 import './todo.css';
 import { useAuth } from "../../context/AuthContext";
+import { useTodosContext } from "../../context/TodoContext";
 
 export default function ToDo() {
 
     const [searchQuery, setSearchQuery] = useState("");
     const [priority, setPriority] = useState();
-    const [todos, setTodos] = useState(todoItems);
+    //const [todos, setTodos] = useState(todoItems);
+    const {todos, setTodos} = useTodosContext();
+     
     const [listPriority, setListPriority] = useState([]);
 
     const { login , isLogged } = useAuth();
