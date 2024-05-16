@@ -1,10 +1,11 @@
 import { useState } from "react";
 
 import "./FloatingButton.scss";
+import { Link, useNavigate } from "react-router-dom";
 
 const FloatingButton = (props) => {
   const [checked, setChecked] = useState(false);
-
+  const navigation=useNavigate()
   const handleClick = () => {
     setChecked(!checked);
   };
@@ -14,7 +15,8 @@ const FloatingButton = (props) => {
   };
 
   return (
-    <div className="buttonContainer" onBlur={setUnchecked}>
+    <>
+      <div className="buttonContainer" onBlur={setUnchecked}>
       <input
         type="checkbox"
         id="toggle"
@@ -24,12 +26,16 @@ const FloatingButton = (props) => {
       <label className="button" htmlFor="toggle"></label>
       <nav className="nav">
         <ul>
-          <span>Todo List</span>
-          <span>About</span>
+        <span onClick={()=>navigation('/todo')}>To do List</span>
+        <span onClick={()=>navigation('/about')}>About</span>
           <span onClick={props.handleCallback}>Logout</span>
         </ul>
       </nav>
     </div>
+
+    </>
+  
+  
   );
 };
 export default FloatingButton;

@@ -15,19 +15,16 @@ function ToDo() {
             todo: "Practice sport",
             complete: false,
             priority:'P1'
-
         },
         {
             id: 3,
             todo: "Clean house",
             complete: false,
             priority:'P3'
-
         }
     ]);
     const [searchQuery, setSearchQuery] = useState('');
     const [priority,setPriority]=useState('All');
-
     const generateId = () => Math.floor(Math.random() * 100) + 0;
 
     function addItem(value) {
@@ -38,7 +35,6 @@ function ToDo() {
             priority:priority
         };
         setElements([...elements, newItem]);
-        console.log(newItem)
     }
 
     function deleteItem(id) {
@@ -62,10 +58,9 @@ function ToDo() {
     if (priority !== 'All') {
         filteredElements = filteredElements.filter(item => item.priority === priority);
     }
-     
+     localStorage.setItem('tasks',JSON.stringify(elements));
     return (
         <>
-
             <header className="text-center text-light my-4">
                 <h1 className="mb-5">Todo List</h1>
                 <input
@@ -79,11 +74,11 @@ function ToDo() {
             </header>
             <div className="text-center">
             <div className="btn-group" role="group" aria-label="Basic example">
-                <button type="button" className="btn btn-dark btn-lg" onClick={()=>setPriority('All')}>All</button>
-                <button type="button" className="btn btn-outline-danger btn-lg" onClick={()=>{setPriority('P1')}}>P1</button>
-                <button type="button" className="btn btn-outline-warning btn-lg" onClick={()=>setPriority('P2')}>P2</button>
-                <button type="button" className="btn btn-outline-primary btn-lg" onClick={()=>setPriority('P3')}>P3</button>
-                <button type="button" className="btn btn-outline-success btn-lg" onClick={()=>setPriority('P4')}>P4</button>
+                <button type="button"className={`btn btn-outline-dark btn-lg ${(priority==='All')?'active':''}`} onClick={()=>setPriority('All')}>All</button>
+                <button type="button" className={`btn btn-outline-danger btn-lg ${(priority==='P1')?'active':''}`} onClick={()=>setPriority('P1')}>P1</button>
+                <button type="button" className={`btn btn-outline-warning btn-lg ${(priority==='P2')?'active':''}`} onClick={()=>setPriority('P2')}>P2</button>
+                <button type="button" className={`btn btn-outline-primary btn-lg  ${(priority==='P3')?'active':''}`} onClick={()=>setPriority('P3')}>P3</button>
+                <button type="button" className={`btn btn-outline-success btn-lg  ${(priority==='P4')?'active':''}`} onClick={()=>setPriority('P4')}>P4</button>
             </div>
             </div>
             <br/>  

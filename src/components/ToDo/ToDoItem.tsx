@@ -1,12 +1,29 @@
 import { useState } from "react";
-import { faCheck, faClose, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faClose, faEye, faPenToSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Route, Routes, useNavigate } from "react-router";
 
+export function getSeverity(priority){
+    switch (priority) {
+        case 'P1':
+            return 'danger'
+        case 'P2':
+            return 'warning'
+        case 'P3':
+            return 'primary'
+        case 'P4':
+            return 'success'
+        default:
+            break;
+    }
+}
 function ToDoItem(props) {
     const [isEditing, setIsEditing] = useState(false);
     const [updatedValue, setUpdatedValue] = useState(props.itemTitle);
     const [isChecked, setIsChecked] = useState(false); 
-
+   
+    const navigate = useNavigate();
+   
     function handleUpdate() {
         setIsEditing(true);
     }
@@ -28,20 +45,7 @@ function ToDoItem(props) {
     function toggleChecked() {
         setIsChecked(!isChecked);
     }
-    function getSeverity(priority){
-        switch (priority) {
-            case 'P1':
-                return 'danger'
-            case 'P2':
-                return 'warning'
-            case 'P3':
-                return 'primary'
-            case 'P4':
-                return 'success'
-            default:
-                break;
-        }
-    }
+  
 
     return (
         <li className={`list-group-item d-flex justify-content-between align-items-center ${isChecked ? 'bg-success' : ''}`}>
@@ -88,6 +92,12 @@ function ToDoItem(props) {
                             onClick={() => props.handleDelete(props.id)
                             }
                             data-testid={`delete-button-${props.id}`}
+                        />
+                           <FontAwesomeIcon
+                            icon={faEye}
+                            className="pointer"
+                            onClick={() =>navigate('/details/'+props.id)
+                            }
                         />
                     </div>
                 </>

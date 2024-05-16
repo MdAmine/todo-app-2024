@@ -1,6 +1,9 @@
 import { render, fireEvent } from '@testing-library/react';
 import AddToDo from './AddToDo';
-
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useNavigate: jest.fn()
+}));
 test('renders AddToDo component', () => {
   const { getByLabelText, getByPlaceholderText } = render(<AddToDo />);
   const labelElement = getByLabelText('Add a new todo:');

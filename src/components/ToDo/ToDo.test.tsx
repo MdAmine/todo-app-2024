@@ -1,6 +1,9 @@
 import { render, fireEvent } from '@testing-library/react';
 import ToDo from './ToDo';
-
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useNavigate: jest.fn()
+}));
 test('renders ToDo component', () => {
   const { getByText, getByPlaceholderText } = render(<ToDo />);
   const headerElement = getByText('Todo List');
