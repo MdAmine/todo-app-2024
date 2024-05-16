@@ -5,7 +5,7 @@ import {Todo} from "../../types/todo.ts";
 import {TodoAdd} from "./TodoAdd.tsx";
 import {Priority} from "../../types/priority.ts";
 
-export const Todos = () => {
+const Todos = () => {
     const storedTodos = localStorage.getItem('todos');
     const [todos, setTodos] = useState<Todo[]>(storedTodos ? JSON.parse(storedTodos) : todomocks);
     const [searchTerm, setSearchTerm] = useState('');
@@ -108,3 +108,5 @@ export const Todos = () => {
         </div>
     )
 }
+
+export default Todos

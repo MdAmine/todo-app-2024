@@ -1,12 +1,13 @@
 import React, {useCallback, useState} from "react";
 import {LoginProps} from "../types/loginProps.ts";
 import {validateEmail} from "../utils";
+import {useNavigate} from "react-router-dom";
 
 const Login = ({loginHandler}: LoginProps) => {
     const [user, setUser] = useState({email: '', password: ''});
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-
+    let navigate = useNavigate();
 
     const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const {id, value} = e.target;
@@ -30,6 +31,7 @@ const Login = ({loginHandler}: LoginProps) => {
             setPasswordError('Password must be at least 6 characters');
             return;
         }
+        navigate('/todos');
         loginHandler();
     }, [user, loginHandler]);
 

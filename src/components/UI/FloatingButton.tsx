@@ -1,6 +1,7 @@
 import {useState} from "react";
 
 import "./FloatingButton.scss";
+import {useNavigate} from "react-router-dom";
 
 interface FloatingButtonProps {
     logoutHandler: () => void;
@@ -8,6 +9,7 @@ interface FloatingButtonProps {
 
 const FloatingButton = ({logoutHandler}: FloatingButtonProps) => {
     const [checked, setChecked] = useState(false);
+    let navigate = useNavigate();
 
     const handleClick = () => {
         setChecked(!checked);
@@ -18,6 +20,7 @@ const FloatingButton = ({logoutHandler}: FloatingButtonProps) => {
     };
 
     const onLogout = () => {
+        navigate('/login');
         logoutHandler();
     }
 
@@ -32,8 +35,8 @@ const FloatingButton = ({logoutHandler}: FloatingButtonProps) => {
             <label className="button" htmlFor="toggle"></label>
             <nav className="nav">
                 <ul>
-                    <span>Todos</span>
-                    <span>About</span>
+                    <span onClick={() => navigate("/todos")}>Todos</span>
+                    <span onClick={() => navigate("/about")}>About</span>
                     <span onClick={onLogout}>Logout</span>
                 </ul>
             </nav>
