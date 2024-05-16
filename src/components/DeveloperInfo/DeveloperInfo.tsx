@@ -35,12 +35,12 @@ function DeveloperInfo() {
 
   return (
     <div className='container d-flex gap-3'>
-      <img src={user.avatarUrl} alt='Avatar' width={150}/>
+      <img src={user.avatarUrl} alt='Avatar' width={150} aria-label='user-avatar-url'/>
       <div>
-        <p>{user.login} / {user.name}</p>
-        <p>{user.bio}</p>
+        <p aria-label='user-login-name'>{user.login} / {user.name}</p>
+        <p aria-label='user-bio'>{user.bio}</p>
         <p>
-          <a href={user.htmlUrl} target='_blank'>Profile</a>
+          <a href={user.htmlUrl} target='_blank' aria-label='user-profile'>Profile</a>
         </p>
         <button className='btn btn-secondary' onClick={logout}>Logout</button>
       </div>
