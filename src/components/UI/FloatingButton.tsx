@@ -9,7 +9,7 @@ interface FloatingButtonProps {
 
 const FloatingButton = ({logoutHandler}: FloatingButtonProps) => {
     const [checked, setChecked] = useState(false);
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleClick = () => {
         setChecked(!checked);
