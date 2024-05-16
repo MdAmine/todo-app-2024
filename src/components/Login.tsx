@@ -1,13 +1,14 @@
-import React, {useCallback, useState} from "react";
-import {LoginProps} from "../types/loginProps.ts";
+import React, {useCallback, useContext, useState} from "react";
 import {validateEmail} from "../utils";
 import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../context/authContext.ts";
 
-const Login = ({loginHandler}: LoginProps) => {
+const Login = () => {
     const [user, setUser] = useState({email: '', password: ''});
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    let navigate = useNavigate();
+    const navigate = useNavigate();
+    const {loginHandler} = useContext(AuthContext)!;
 
     const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const {id, value} = e.target;

@@ -1,14 +1,13 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 
 import "./FloatingButton.scss";
 import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../../context/authContext.ts";
 
-interface FloatingButtonProps {
-    logoutHandler: () => void;
-}
 
-const FloatingButton = ({logoutHandler}: FloatingButtonProps) => {
+const FloatingButton = () => {
     const [checked, setChecked] = useState(false);
+    const {logoutHandler} = useContext(AuthContext)!;
     const navigate = useNavigate();
 
     const handleClick = () => {

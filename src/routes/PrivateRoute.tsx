@@ -1,14 +1,13 @@
-import {JSX, useEffect, useState} from "react";
+import {JSX, useContext, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../context/authContext.ts";
 
 function PrivateRoute({children}: { children: JSX.Element[] | JSX.Element }) {
-    const defaultLogged = localStorage.getItem('isLogged');
-    const [isLoggedIn, setIsLoggedIn] = useState(defaultLogged === "true");
-    let navigate = useNavigate();
+    const navigate = useNavigate();
+    const {isLoggedIn} = useContext(AuthContext)!;
 
     useEffect(() => {
         if (!isLoggedIn) {
-            setIsLoggedIn(false);
             navigate('/login');
         }
 

@@ -1,17 +1,11 @@
-import {faCheck, faPenToSquare, faTrashAlt, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faPenToSquare, faTrashAlt, faXmark, faEye} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {Todo} from "../../types/todo.ts";
 import PriorityBadge from "../PriorityBadge.tsx";
-
-export interface TodoItemProps {
-    todo: Todo;
-    key: number;
-    onDeleted: (id: number) => void;
-    onCompleted: (id: number) => void;
-    onEdit: (todo: Todo) => void;
-}
+import {useNavigate} from "react-router-dom";
+import {TodoItemProps} from "../../types/todoItemProps.ts";
 
 export const TodoItem = (props: TodoItemProps) => {
+    const navigate = useNavigate();
 
     const deleteTodoHandler = () => {
         console.log(props.todo.id);
@@ -41,6 +35,15 @@ export const TodoItem = (props: TodoItemProps) => {
       </span>
             <div>
                 <FontAwesomeIcon
+                    data-testid="detail-icon"
+                    style={{
+                        marginRight: "0.3em",
+                    }}
+                    icon={faEye}
+                    className="pointer"
+                    onClick={() => navigate(`/todos/${props.todo.id}`)}
+                />
+                <FontAwesomeIcon
                     data-testid="completed-icon"
                     style={{
                         marginRight: "0.3em",
@@ -49,7 +52,6 @@ export const TodoItem = (props: TodoItemProps) => {
                     className="pointer"
                     onClick={completeTodoHandler}
                 />
-
                 <FontAwesomeIcon
                     data-testid="edit-icon"
                     style={{
