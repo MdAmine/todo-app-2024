@@ -6,6 +6,7 @@ import FloatingButton from './components/UI/FloatingButton';
 import About from './components/About/About';
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import Detail from './components/Todo/Detail';
+import LoginContext from './components/Todo/LoginContext';
 
 
 
@@ -32,28 +33,9 @@ function App() {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
   };
-  // <BrowserRouter>
-  //          <Routes>
-
-  //     {!isLoggedIn && <Login onLogin={handleLogin} />}
-  //     {isLoggedIn && (
-  //       <>
-  //         <Todolist />
-  //         <FloatingButton onLogout={handleLogout} />
-  //         <Routes>
-  //       <Route path="/todolist" element={<Todolist />} />
-  //       <Route path="/about" element={<About />} />
-  //       <Route path="/login" element={<Login />} />
-  //     </Routes>
-         
-  //       </>
-        
-        
-  //     )}
-  //     </Routes>
-
-  //          </BrowserRouter>
+ 
  return (
+  <LoginContext.Provider value={{ isLoggedIn, handleLogin, handleLogout }}>
     <BrowserRouter>
       <div className="container">
         <Routes>
@@ -76,6 +58,8 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
+        </LoginContext.Provider>
+
   );
 
   

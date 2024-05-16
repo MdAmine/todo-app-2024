@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./FloatingButton.scss";
+import LoginContext from "../Todo/LoginContext";
 
 const FloatingButton = ({ onLogout }) => {
   const [checked, setChecked] = useState(false);
@@ -15,6 +16,7 @@ const FloatingButton = ({ onLogout }) => {
 
   return (
     <>
+    <LoginContext.Provider   value={{ onLogout }}>
       <div className="buttonContainer" onBlur={setUnchecked}>
         <input
           type="checkbox"
@@ -35,7 +37,8 @@ const FloatingButton = ({ onLogout }) => {
           </ul>
         </nav>
       </div>
-    </>
+      </LoginContext.Provider>
+      </>
   );
 };
 export default FloatingButton;

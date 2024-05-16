@@ -18,7 +18,7 @@ const TodoAdd = (props) => {
 
     return (
         <div className="container">
-            <form className="add text-center my-4" onSubmit={handleSubmit}>
+            <form className="add text-center my-4" onSubmit={handleSubmit} data-testid="add">
                 <label htmlFor="add" className="add text-light">
                     Add a new todo:
                 </label>
