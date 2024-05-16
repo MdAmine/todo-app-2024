@@ -34,7 +34,7 @@ function App() {
                     {isLoggedIn ?
                         <>
                             <Routes>
-                                <Route path="/" element={<Todo todoItems={todoItems} setTodoItems={todoItems}/>}/>
+                                <Route path="/" element={<Todo todoItems={todoItems} setTodoItems={setTodoItems}/>}/>
                                 <Route path="/about" element={<About/>}/>
                                 <Route path="/:id" element={<TodoDetails todoItems={todoItems}/>}/>
                             </Routes>

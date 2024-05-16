@@ -44,6 +44,7 @@ const Todo = ({todoItems, setTodoItems}) => {
         setSearch(e.target.value);
     }
     const addTodoItem = (title) => {
+        console.log(title);
         setTodoItems(prevItems => [
             ...prevItems,
             {id: generateId(), title: title, completed: false, status: statusFilter}
