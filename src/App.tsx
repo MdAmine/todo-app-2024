@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-import { createContext, useState } from 'react';
+import { createContext } from 'react';
 import { useAuth } from './hooks/useAuth';
 import AppRoutes from './AppRoutes';
-import { todoItems as initialTodoItems } from './Utils';
+import { useTodos } from './hooks/useTodos';
 
 export const AuthContext = createContext({
   login: () => {},
@@ -13,7 +13,7 @@ export const AuthContext = createContext({
 
 function App() {
   const { isLoggedIn, login, logout } = useAuth();
-  const [todos, setTodos] = useState(initialTodoItems);
+  const {todos, setTodos} = useTodos();
 
   return (
     <AuthContext.Provider value={{ login, logout, isLoggedIn }}>
