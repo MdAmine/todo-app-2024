@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import AuthContext from "../context/LoginContext";
 
 export default function About() {
     const apiUrl="https://api.github.com/users/wessal2001";
@@ -9,6 +10,7 @@ export default function About() {
         github_profile:''
 
     });
+    let auth=useContext(AuthContext)
     const navigation=useNavigate();
     useEffect(() => {
         fetchUsers();
@@ -47,7 +49,9 @@ export default function About() {
             <p>Login: {userInfo.login}</p>
             <p>Github profile: {userInfo.github_profile}</p>
             <img src={userInfo.avatar_url} alt="Avatar" /><br/><br/>
-            {/* <button className="btn btn-dark text-center" onClick={()=>navigation(-1)}>Back</button> */}
+           <button className="btn btn-dark text-center" onClick={() => navigation(-1)}>Back</button><br /><br />
+           <button className="btn btn-dark text-center" onClick={auth.logout}>Logout</button>
+
     </div>
       </>
     );
