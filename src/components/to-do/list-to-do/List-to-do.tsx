@@ -1,8 +1,8 @@
 import AddToDo from "../add-to-do/Add-To-Do.tsx";
 import ToDoItem from "../To-do-item/To-do-item.tsx";
 import {useEffect, useState} from "react";
-import Priority from "../priority-item/Priority-item.tsx";
 import {useNavigate} from "react-router-dom";
+import Priority from "../priority-item/Priority-item.tsx";
 
 function ListToDo() {
     const genereteId = () => Math.floor(Math.random() * 1000000);
