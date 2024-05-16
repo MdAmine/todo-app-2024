@@ -1,44 +1,33 @@
-import { useEffect, useState } from "react";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Login from "./components/Login/Login";
 import TodoList from "./components/Todo/TodoList";
+import About from "../src/components/CallApi/About";
+import FloatingButton from "./components/UI/FloatingButton";
+import {AuthProvider, useAuth} from "./components/AuthContext/AuthContext";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-import FloatingButton from "./components/UI/FloatingButton";
-
-
 
 const App = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        const storedLoggedInStatus = localStorage.getItem("isLoggedIn");
-        if (storedLoggedInStatus === "true") {
-            setIsLoggedIn(true);
-        }
-    }, []);
-
-    const handleLogin = () => {
-        setIsLoggedIn(true);
-        localStorage.setItem("isLoggedIn", "true");
-    };
-
-    const handleLogout = () => {
-        setIsLoggedIn(false);
-        localStorage.removeItem("isLoggedIn");
-    };
+    const {isLoggedIn} = useAuth();
 
     return (
-        <>
         <div className="container">
-            {!isLoggedIn ? (
-                <Login onLogin={handleLogin} />
-            ) : (
-                <TodoList onLogout={handleLogout} />
-            )}
-            <FloatingButton />
+            <Routes>
+                <Route path="/about" element={<About/>}/>
+                <Route path="/" element={isLoggedIn ? <TodoList/> : <Login/>}/>
+                <Route path="/todo-list" element={<TodoList/>}/>
+            </Routes>
+            {isLoggedIn && <FloatingButton/>}
         </div>
-        </>
     );
 };
 
-export default App;
+const AppWrapper = () => (
+    <Router>
+        <AuthProvider>
+            <App/>
+        </AuthProvider>
+    </Router>
+);
+
+export default AppWrapper;

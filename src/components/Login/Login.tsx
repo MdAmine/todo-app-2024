@@ -1,17 +1,20 @@
-import { useState } from "react";
+import {useState} from "react";import "bootstrap/dist/css/bootstrap.css";
+import {useAuth} from "../AuthContext/AuthContext";
 
-interface LoginProps {
-    onLogin: () => void;
-}
-const Login: React.FC<LoginProps> = ({ onLogin}) => {
+const Login: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const {login} = useAuth();
 
-    const handleSubmit = (e:any) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
-        localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
-        onLogin();
+        if (email !== "" && password !== "") {
+            localStorage.setItem("email", email);
+            localStorage.setItem("password", password);
+            login();
+        } else {
+            alert("Please enter email and password");
+        }
     };
 
     return (
@@ -24,7 +27,6 @@ const Login: React.FC<LoginProps> = ({ onLogin}) => {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-
             />
             <input
                 type="password"
@@ -39,6 +41,6 @@ const Login: React.FC<LoginProps> = ({ onLogin}) => {
             </button>
         </form>
     );
-}
+};
 
 export default Login;

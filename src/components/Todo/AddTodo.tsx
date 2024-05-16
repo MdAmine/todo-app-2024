@@ -1,38 +1,37 @@
-// AddTodo.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 
 interface AddTodoProps {
-    onAddTodo: (newTodo: string) => void;
+    onAddTodo: (todo: string) => void;
 }
 
 const AddTodo: React.FC<AddTodoProps> = ({ onAddTodo }) => {
     const [todoInput, setTodoInput] = useState("");
 
     const handleAddTodo = () => {
-        if (todoInput.trim() !== "") {
             onAddTodo(todoInput);
             setTodoInput("");
-        }
     };
 
     return (
         <form className="add text-center my-4">
-            <label htmlFor="add" className="add text-light">
+            <label htmlFor="Add a new todo:" className="add text-light">
                 Add a new todo:
             </label>
             <input
                 type="text"
                 className="form-control m-auto"
-                name="add"
-                id="add"
+                name="addTodo"
+                placeholder="Add a new todo"
+                style={{ backgroundColor: "white", color: "black" }}
                 value={todoInput}
                 onChange={(e) => setTodoInput(e.target.value)}
             />
-            <button className="btn btn-primary" type="button" onClick={handleAddTodo}>
+            <br />
+            <br />
+            <button className="btn btn-primary" type="button" role="button" onClick={handleAddTodo}>
                 Add
             </button>
         </form>
     );
 };
-
 export default AddTodo;
