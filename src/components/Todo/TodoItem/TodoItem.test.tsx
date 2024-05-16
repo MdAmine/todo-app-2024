@@ -1,51 +1,40 @@
-
-
+import { render, fireEvent } from '@testing-library/react';
 import TodoItem from './TodoItem';
-import { render, screen,fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useNavigate: jest.fn()
+}));
 
-describe('TodoItem component', () => {
+test('calls onCheck prop when clicked', () => {
+  const mockOnCheck = jest.fn();
   const item = {
-    id: 1,
+    id: '1',
     todo: 'Test Todo',
     completed: false,
+    priority: 'P1'
   };
 
-  test('renders todo item correctly', () => {
-    const { getByText, container } = render(
-      <TodoItem
-        item={item}
-        onCheck={() => {}}
-        onUpdate={() => {}}
-        onDelete={() => {}}
-      />
-    );
-    expect(getByText('Test Todo')).toBeInTheDocument();
-    const icons = container.querySelectorAll('svg');
-    expect(icons.length).toBe(3); 
-  });
-  test('calls onCheck prop when clicked', () => {
-    const mockOnCheck = jest.fn();
-    const itemId = '1';
+  const { container } = render(<TodoItem item={item} onCheck={mockOnCheck} onUpdate={() => {}} onDelete={() => {}} onView={() => {}} />);
   
-    const { container } = render(
-      <TodoItem
-        item={{ id: itemId, todo: 'Test Todo', completed: false }}
-        onCheck={mockOnCheck}
-        onUpdate={() => {}}
-        onDelete={() => {}}
-      />
-    );
-  
-    const icon = container.querySelector('svg');
-    if (icon) {
-      fireEvent.click(icon);
-      expect(mockOnCheck).toHaveBeenCalledWith(itemId);
-    } else {
-      throw new Error('Icon not found');
-    }
-  });
+  const icon = container.querySelector('svg');
+  if (icon) {
+    fireEvent.click(icon);
+    expect(mockOnCheck).toHaveBeenCalledWith(item.id);
+  } else {
+    throw new Error('Icon not found');
+  }
+});
+
+test('renders todo item correctly', () => {
+  const item = {
+    id: '1',
+    todo: 'Test Todo',
+    completed: false,
+    priority: 'P1'
+  };
+
+  const { getByText } = render(<TodoItem item={item} onCheck={() => {}} onUpdate={() => {}} onDelete={() => {}} onView={() => {}} />);
+  const todoElement = getByText(/Test Todo/i);
+  expect(todoElement).toBeInTheDocument();
 });

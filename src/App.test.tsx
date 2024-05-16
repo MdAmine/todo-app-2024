@@ -1,20 +1,28 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from './App';
-
+import { BrowserRouter } from 'react-router-dom';
 
 describe('App', () => {
+    afterEach(() => {
+        localStorage.clear();
+    });
+
     test('renders login component when not logged in', () => {
-        const { getAllByText } = render(<App />);
-        getAllByText(/login/i).forEach(item => {
-            expect(item).toBeInTheDocument();
-        });
+        render(
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        );
+        expect(screen.getByText(/login/i)).toBeInTheDocument();
     });
 
     test('renders todo component when logged in', () => {
         localStorage.setItem('isLoggedIn', 'true');
-        const { getAllByText } = render(<App />);
-        getAllByText(/todo/i).forEach(item => {
-            expect(item).toBeInTheDocument();
-        });
+        render(
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        );
+        expect(screen.getByText(/todo/i)).toBeInTheDocument();
     });
 });

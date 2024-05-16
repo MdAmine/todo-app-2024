@@ -51,7 +51,7 @@ const TodoItem = (props) => {
                 </>
               );
             }
-export const getPriorityClass = (priority: string) => {
+export const getPriorityClass = (priority) => {
   switch (priority) {
     case 'P1':
       return 'danger';
