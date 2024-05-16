@@ -4,7 +4,6 @@ import './TodoItem.css';
 import { useNavigate } from "react-router";
 
 export function TodoItem({ todo, children, onDelete, onEdit, onCheck }) {
-
     const navigate = useNavigate();
 
     const handleDelete = () => {
@@ -22,24 +21,20 @@ export function TodoItem({ todo, children, onDelete, onEdit, onCheck }) {
         onCheck(todo.id);
     };
 
-
-    const handleShow = (todo) => {
-        navigate("/todo/" + todo.id, { state: { todo } });
-    }
+    const handleShow = () => {
+        navigate(`/todo/${todo.id}`, { state: { todo } });
+    };
 
     const getPriorityBadge = (priority) => {
-        switch (priority) {
-            case 'P1':
-                return <span className="badge bg-danger">P1</span>;
-            case 'P2':
-                return <span className="badge bg-warning">P2</span>;
-            case 'P3':
-                return <span className="badge bg-primary">P3</span>;
-            case 'P4':
-                return <span className="badge bg-success">P4</span>;
-            default:
-                return <span className="badge bg-secondary">No Priority</span>;
-        }
+        const badgeClasses = {
+            P1: "badge bg-danger",
+            P2: "badge bg-warning",
+            P3: "badge bg-primary",
+            P4: "badge bg-success"
+        };
+        return <span className={badgeClasses[priority] || "badge bg-secondary"}>
+            {priority || "No Priority"}
+        </span>;
     };
 
     return (
@@ -50,29 +45,19 @@ export function TodoItem({ todo, children, onDelete, onEdit, onCheck }) {
                     <span className="todo-title ms-2">{children}</span>
                 </div>
                 <div className="todo-actions">
-                    {todo.completed ? (
-                        <FontAwesomeIcon
-                            title="unCheck"
-                            icon={faBan}
-                            className="pointer"
-                            onClick={handleCheck}
-                            style={{ marginRight: "0.3em" }}
-                        />
-                    ) : (
-                        <FontAwesomeIcon
-                            title="check"
-                            icon={faCheck}
-                            className="pointer"
-                            onClick={handleCheck}
-                            style={{ marginRight: "0.3em" }}
-                        />
-                    )}
+                    <FontAwesomeIcon
+                        title={todo.completed ? "unCheck" : "check"}
+                        icon={todo.completed ? faBan : faCheck}
+                        className="pointer"
+                        onClick={handleCheck}
+                        style={{ marginRight: "0.3em" }}
+                    />
                     <FontAwesomeIcon
                         title="show"
                         icon={faEye}
                         className="pointer"
                         style={{ marginRight: "0.3em" }}
-                        onClick={() => handleShow(todo)} 
+                        onClick={handleShow}
                     />
                     <FontAwesomeIcon
                         title="edit"

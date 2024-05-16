@@ -1,9 +1,9 @@
 import { TodoList } from "../components/Todo/TodoList";
 
-export default function Home({todos, setTodosHome }) {
+const Home = ({ todos, setTodosHome }) => {
   return (
-    <>
-      <TodoList setTodosHome={setTodosHome} todosHome={todos} />
-    </>
+    <TodoList setTodosHome={setTodosHome} todosHome={todos} />
   );
-}
+};
+
+export default Home;

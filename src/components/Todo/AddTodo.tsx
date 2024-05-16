@@ -10,21 +10,18 @@ export function AddTodo({ onAdd, priority }) {
     };
 
     const addTodo = () => {
-        if (title.trim() === '') return;
+        const trimmedTitle = title.trim();
+        if (trimmedTitle === '') return;
 
-        let prio = priority;
-
-        if(priority === 'All'){
-            prio = 'P1'
-        }
+        const todoPriority = priority === 'All' ? 'P1' : priority;
 
         const newTodo = {
             id: generateId(),
-            title,
+            title: trimmedTitle,
             completed: false,
-            priority: prio
+            priority: todoPriority
         };
-        
+
         onAdd(newTodo);
         setTitle('');
     };

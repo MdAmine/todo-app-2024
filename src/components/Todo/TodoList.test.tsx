@@ -5,11 +5,11 @@ import { todoItems as initialTodoItems } from '../../Utils.tsx';
 
 describe('TodoList Component', () => {
   let todosHome;
-  let setTodosHome;
+  let setTodosHomeMock;
 
   beforeEach(() => {
     todosHome = [...initialTodoItems];
-    setTodosHome = jest.fn((newTodos) => {
+    setTodosHomeMock = jest.fn((newTodos) => {
       todosHome = newTodos;
     });
     jest.spyOn(window, 'prompt').mockImplementation(() => 'Updated Todo');
@@ -25,7 +25,7 @@ describe('TodoList Component', () => {
   const renderTodoList = () => {
     return render(
       <Router>
-        <TodoList todosHome={todosHome} setTodosHome={setTodosHome} />
+        <TodoList todosHome={todosHome} setTodosHome={setTodosHomeMock} />
       </Router>
     );
   };
@@ -33,13 +33,14 @@ describe('TodoList Component', () => {
   it('should check a todo item', () => {
     renderTodoList();
 
-    const firstTodoCheck = getElementsByTitle('check')[0];
-    expect(getElementsByTitle('check').length).toBe(3);
-    expect(getElementsByTitle('unCheck').length).toBe(1);
+    const checkButtons = getElementsByTitle('check');
+    const unCheckButtons = getElementsByTitle('unCheck');
+    expect(checkButtons.length).toBe(3);
+    expect(unCheckButtons.length).toBe(1);
 
-    fireEvent.click(firstTodoCheck);
+    fireEvent.click(checkButtons[0]);
 
-    expect(setTodosHome).toHaveBeenCalled();
+    expect(setTodosHomeMock).toHaveBeenCalled();
     expect(getElementsByTitle('check').length).toBe(2);
     expect(getElementsByTitle('unCheck').length).toBe(2);
   });
@@ -47,14 +48,13 @@ describe('TodoList Component', () => {
   it('should uncheck a todo item', () => {
     renderTodoList();
 
-    const firstTodoCheckbox = getElementsByTitle('unCheck')[0];
+    const unCheckButton = getElementsByTitle('unCheck')[0];
     expect(getElementsByTitle('check').length).toBe(3);
     expect(getElementsByTitle('unCheck').length).toBe(1);
 
-    fireEvent.click(firstTodoCheckbox);
+    fireEvent.click(unCheckButton);
 
-    expect(setTodosHome).toHaveBeenCalled();
-
+    expect(setTodosHomeMock).toHaveBeenCalled();
     expect(getElementsByTitle('check').length).toBe(4);
     expect(screen.queryByTitle('unCheck')).not.toBeInTheDocument();
   });
@@ -62,32 +62,30 @@ describe('TodoList Component', () => {
   it('should delete a todo item', () => {
     renderTodoList();
 
-    const firstTodoDeleteButton = getElementsByTitle('delete')[0];
+    const deleteButton = getElementsByTitle('delete')[0];
+    fireEvent.click(deleteButton);
 
-    fireEvent.click(firstTodoDeleteButton);
-
-    expect(setTodosHome).toHaveBeenCalled();
+    expect(setTodosHomeMock).toHaveBeenCalled();
   });
 
   it('should add a new todo item', () => {
     renderTodoList();
 
     const inputField = screen.getByPlaceholderText('Enter your todo');
-
     fireEvent.change(inputField, { target: { value: 'New Todo' } });
     fireEvent.keyDown(inputField, { key: 'Enter', code: 'Enter' });
 
-    expect(setTodosHome).toHaveBeenCalled();
+    expect(setTodosHomeMock).toHaveBeenCalled();
   });
 
   it('should edit a todo item', () => {
     renderTodoList();
 
-    const firstTodoEditButton = getElementsByTitle('edit')[0];
-    fireEvent.click(firstTodoEditButton);
+    const editButton = getElementsByTitle('edit')[0];
+    fireEvent.click(editButton);
 
     expect(window.prompt).toHaveBeenCalledWith('Edit todo', initialTodoItems[0].title);
-    expect(setTodosHome).toHaveBeenCalled();
+    expect(setTodosHomeMock).toHaveBeenCalled();
   });
 
   it('should search for todo items', () => {

@@ -2,13 +2,12 @@ import { useContext } from "react";
 import { Login } from "../components/Login/Login";
 import { AuthContext } from "../App";
 
-export default function Authentication() {
-
-  const authContext = useContext(AuthContext);
+const Authentication = () => {
+  const { login } = useContext(AuthContext);
 
   return (
-    <>
-      <Login onLogin={authContext.login} />
-    </>
+    <Login onLogin={login} />
   );
-}
+};
+
+export default Authentication;

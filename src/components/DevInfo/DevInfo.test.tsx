@@ -1,7 +1,11 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import DevInfo from "./DevInfo";
 
-it('Fetch Github Api', async () => {
+afterEach(() => {
+  jest.resetAllMocks();
+});
+
+it('Fetches and displays GitHub user info correctly', async () => {
   window.fetch = jest.fn();
   window.fetch.mockResolvedValueOnce({
     json: async () => ({
@@ -12,11 +16,13 @@ it('Fetch Github Api', async () => {
     }),
   });
 
-  render(<DevInfo onLogout={undefined} />);
+  render(<DevInfo onLogout={jest.fn()} />);
 
-  await waitFor(() => expect(screen.getByText('karim')).toBeInTheDocument());
-  await waitFor(() => expect(screen.getByText('Software Engineer')).toBeInTheDocument());
-  await waitFor(() => expect(screen.getByText('Profile:')).toBeInTheDocument());
-  await waitFor(() => expect(screen.getByRole('img', { name: 'karim' })).toHaveAttribute('src', 'https://avatars.githubusercontent.com/u/45210332?v=4'));
-  await waitFor(() => expect(screen.getByRole('link', { name: 'https://github.com/ELBOUROUMIABDELKARIM' })).toHaveAttribute('href', 'https://github.com/ELBOUROUMIABDELKARIM'));
+  await waitFor(() => {
+    expect(screen.getByText('karim')).toBeInTheDocument();
+    expect(screen.getByText('Software Engineer')).toBeInTheDocument();
+    expect(screen.getByText('Profile:')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'karim' })).toHaveAttribute('src', 'https://avatars.githubusercontent.com/u/45210332?v=4');
+    expect(screen.getByRole('link', { name: 'https://github.com/ELBOUROUMIABDELKARIM' })).toHaveAttribute('href', 'https://github.com/ELBOUROUMIABDELKARIM');
   });
+});
