@@ -1,6 +1,8 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {AuthContext} from "../../context/Context.tsx";
 
-const FetchApi = (props) => {
+const FetchApi = () => {
+    const { logout } = useContext(AuthContext);
     const [data, setData] = useState([]);
     useEffect(() => {
         fetchData();
@@ -19,7 +21,7 @@ const FetchApi = (props) => {
                     <div className="mt-3 text-center">
                         <h4><b>{data.name}</b></h4>
                         <p><span>Profile: </span><a href={data.html_url}>{data.html_url}</a></p>
-                        <button className="btn btn-danger" onClick={props.logout}>Logout</button>
+                        <button className="btn btn-danger" onClick={logout}>Logout</button>
                     </div>
                 </div>
             </div>

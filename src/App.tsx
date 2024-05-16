@@ -8,6 +8,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import About from "./components/about/About.tsx";
 import TodoDetails from "./components/todo/todo-details/TodoDetails.tsx";
 import initialTodoItems from "./components/Utils.tsx";
+import {AuthContext} from "./context/Context.tsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -27,24 +28,26 @@ function App() {
         localStorage.setItem("isLoggedIn", "false");
     };
     return (
-        <BrowserRouter>
-            <div className="container">
-                {isLoggedIn ?
-                    <>
-                        <Routes>
-                            <Route path="/" element={<Todo todoItems={todoItems} setTodoItems={todoItems}/>}/>
-                            <Route path="/about" element={<About logout={logout}/>}/>
-                            <Route path="/:id" element={<TodoDetails todoItems={todoItems}/>}/>
-                        </Routes>
-                    </>
-                    :
-                    <>
-                        <Login onLogin={login}/>
-                    </>
-                }
-                <FloatingButton onLogout={logout}/>
-            </div>
-        </BrowserRouter>
+        <AuthContext.Provider value={{isLoggedIn, login, logout}}>
+            <BrowserRouter>
+                <div className="container">
+                    {isLoggedIn ?
+                        <>
+                            <Routes>
+                                <Route path="/" element={<Todo todoItems={todoItems} setTodoItems={todoItems}/>}/>
+                                <Route path="/about" element={<About/>}/>
+                                <Route path="/:id" element={<TodoDetails todoItems={todoItems}/>}/>
+                            </Routes>
+                        </>
+                        :
+                        <>
+                            <Login onLogin={login}/>
+                        </>
+                    }
+                    <FloatingButton onLogout={logout}/>
+                </div>
+            </BrowserRouter>
+        </AuthContext.Provider>
     )
         ;
 }
