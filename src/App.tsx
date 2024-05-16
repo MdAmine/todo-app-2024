@@ -4,11 +4,13 @@ import "./App.css";
 import Login from "./components/Login/Login";
 import Todo from "./components/Todo/Todo";
 import { useEffect, useState } from "react";
-import { Router, Route, Routes, BrowserRouter } from "react-router-dom";
+import { Router, Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import TodoItem from "./components/Todo/TodoItem/TodoItem";
 import Detail from "./components/Detail/Detail";
 import FetchedData from "./components/About/fetchedData";
 import About from "./components/About/About";
+import React from "react";
+import LoginContext from "./components/LoginContext";
 
 const App=() => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,33 +30,43 @@ const App=() => {
   const logoutHandler = () => {
     localStorage.setItem("isLoggedIn", false);
     setIsLoggedIn(false);
+    console.log(isLoggedIn);
   };
-  
+
   
   return (
-    <BrowserRouter>
-      <div className="container">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              !isLoggedIn ? (
-                <Login loggedIn={loginHandler} />
-              ) : (
-                <>
-                  <Todo />
-                  <FloatingButton logoutHandler={logoutHandler} />
-                </>
-              )
-            }
-          />
-          <Route path="/detail/:id/:todo/:complete/:priority" element={<Detail />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
-  );
+    <LoginContext.Provider value={{ isLoggedIn, loginHandler, logoutHandler }}>
+      <BrowserRouter>
+        <div className="container">
+          <Routes>
+          !isLoggedIn
+            <Route
+              path="/"
+              element={
+                   !isLoggedIn ? (
+                        <Login />) : (
+                              <>
+                                <Todo />
+                                <FloatingButton />
+                              </>
+                            )
+                      }
+            />
+            {isLoggedIn && (
+              <> 
+                <Route
+                  path="/detail/:id/:todo/:complete/:priority"
+                  element={<Detail />}
+                />                
+                <Route path="/login" element={<Login />} />
+                <Route path="/about" element={<About />} />
+              </>
+            )}
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </LoginContext.Provider>
+  ); 
 }
 
 export default App;

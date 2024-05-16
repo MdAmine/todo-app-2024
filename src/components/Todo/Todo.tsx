@@ -43,17 +43,12 @@ const Todo= () => {
     function handlePriorityChange(priority) {
         setSelectedPriority(priority);
     };
-
-    function getDetails(){
-
-    };
     const filteredTodos = todos.filter(item => {
         const matchesQuery = typeof item.todo === "string" && item.todo.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesPriority = selectedPriority === "All" || item.priority === selectedPriority;
         return matchesQuery && matchesPriority;
     });
-    
-    
+     
     return(
         <>
          <header className="text-center text-light my-4">

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import LoginContext from "../LoginContext";
 
 const FetchedData = ({ username }) => {
   const [user, setUser] = useState(null);
   const [repos, setRepos] = useState([]);
+  const {logoutHandler } = React.useContext(LoginContext);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -13,7 +15,6 @@ const FetchedData = ({ username }) => {
           axios.get(`https://api.github.com/users/${username}`),
           axios.get(`https://api.github.com/users/${username}/repos`)
         ]);
-
         setUser(userData.data);
         setRepos(repoData.data);
       } catch (error) {
@@ -26,7 +27,7 @@ const FetchedData = ({ username }) => {
 
   return (
     <div>
-              <h2>GitHub Repositories for {username}</h2>
+        <h2>GitHub Repositories for {username}</h2>
 
       {user && (
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -40,14 +41,12 @@ const FetchedData = ({ username }) => {
           </li>
         ))}
       </ul>
-      <Link to="/login">Logout</Link>
           </div>
         </div>
-      )}
-
-      
+      )} 
+            <button onClick={logoutHandler} className="btn btn-dark">Logout</button>
+     
     </div>
   );
 };
-
 export default FetchedData;

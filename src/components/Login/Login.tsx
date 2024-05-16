@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import LoginContext from "../LoginContext";
 
-const Login=(props) => {
-    const {loggedIn}=props;
+const Login=() => {
+  
+   // const {loggedIn}=props;
+   const { loginHandler,isLoggedIn } = useContext(LoginContext);
+
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -29,7 +33,8 @@ const Login=(props) => {
       e.preventDefault();
   
       if (validateForm()) {
-        loggedIn(true);
+        //loggedIn(true);
+        loginHandler(true);
       }
     };
     return (
