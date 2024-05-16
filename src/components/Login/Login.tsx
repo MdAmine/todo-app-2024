@@ -1,12 +1,15 @@
-import {useState } from "react";
+import {useContext, useState } from "react";
 import { useNavigate } from "react-router";
+import AuthContext from "../context/LoginContext";
 
-function Login(props) {
+function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [messageEmail, setMessageEmail] = useState('');
     const [messagePassword, setMessagePassword] = useState('');
     const navigation=useNavigate()
+    let auth=useContext(AuthContext)
+
     function verifyEmail(event) {
         const inputValue = event.target.value;
         setEmail(inputValue);
@@ -30,7 +33,7 @@ function Login(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        props.handleCallback();
+        auth.login();
     }
 
     return (

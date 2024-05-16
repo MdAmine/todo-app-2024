@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import "./FloatingButton.scss";
 import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../context/LoginContext";
 
-const FloatingButton = (props) => {
+const FloatingButton = () => {
   const [checked, setChecked] = useState(false);
   const navigation=useNavigate()
   const handleClick = () => {
     setChecked(!checked);
   };
+  let auth=useContext(AuthContext)
 
   const setUnchecked = () => {
     setChecked(false);
@@ -28,7 +30,7 @@ const FloatingButton = (props) => {
         <ul>
         <span onClick={()=>navigation('/todo')}>To do List</span>
         <span onClick={()=>navigation('/about')}>About</span>
-          <span onClick={props.handleCallback}>Logout</span>
+          <span onClick={auth.logout}>Logout</span>
         </ul>
       </nav>
     </div>

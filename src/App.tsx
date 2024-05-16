@@ -50,7 +50,7 @@ function App() {
         }}
     >
       <div className="container"> 
-      <FloatingButton handleCallback={auth.logout}/>
+      <FloatingButton/>
       <Routes>
         <Route path="about" element={<About/>}></Route>
         <Route path="/todo" element={<ToDo/>}/>
