@@ -72,7 +72,7 @@ function App() {
           />
           <Route path="/todo/:id/:todo/:completed/:priority" element={<Detail />} />
           <Route path="/todolist" element={<Todolist />} />
-
+          <Route path="/About" element={<About />} />
         </Routes>
       </div>
     </BrowserRouter>
