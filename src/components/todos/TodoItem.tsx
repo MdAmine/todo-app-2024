@@ -1,6 +1,6 @@
 import {faCheck, faPenToSquare, faTrashAlt, faXmark, faEye} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import PriorityBadge from "../PriorityBadge.tsx";
+import PriorityBadge from "../UI/PriorityBadge.tsx";
 import {useNavigate} from "react-router-dom";
 import {TodoItemProps} from "../../types/todoItemProps.ts";
 
@@ -32,8 +32,6 @@ export const TodoItem = (props: TodoItemProps) => {
         >
             <span>
         <PriorityBadge priority={props.todo.priority}/>&nbsp;{props.todo.title}
-      </span>
-            <div>
                 <FontAwesomeIcon
                     data-testid="detail-icon"
                     style={{
@@ -43,6 +41,8 @@ export const TodoItem = (props: TodoItemProps) => {
                     className="pointer"
                     onClick={() => navigate(`/todos/${props.todo.id}`)}
                 />
+      </span>
+            <div>
                 <FontAwesomeIcon
                     data-testid="completed-icon"
                     style={{

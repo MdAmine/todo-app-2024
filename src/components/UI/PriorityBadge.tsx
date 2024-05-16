@@ -1,4 +1,4 @@
-import {Priority} from "../types/priority.ts";
+import {Priority} from "../../types/priority.ts";
 
 const PriorityBadge = ({priority}: { priority: Priority }) => {
     switch (priority) {

@@ -1,9 +1,9 @@
-import {TodoItem} from "./TodoItem.tsx";
-import {todomocks} from "../../mocks/todomocks.ts";
+import {TodoItem} from "../components/todos/TodoItem.tsx";
+import {todomocks} from "../mocks/todomocks.ts";
 import React, {useCallback, useEffect, useMemo, useState} from "react";
-import {Todo} from "../../types/todo.ts";
-import {TodoAdd} from "./TodoAdd.tsx";
-import {Priority} from "../../types/priority.ts";
+import {Todo} from "../types/todo.ts";
+import {TodoAdd} from "../components/todos/TodoAdd.tsx";
+import {Priority} from "../types/priority.ts";
 
 const Todos = () => {
     const storedTodos = localStorage.getItem('todos');

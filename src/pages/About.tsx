@@ -1,4 +1,4 @@
-import {DeveloperInfo} from "../DeveloperInfo.tsx";
+import {DeveloperInfo} from "../components/about/DeveloperInfo.tsx";
 
 const About = () => {
     return (<div className='container text-white'>

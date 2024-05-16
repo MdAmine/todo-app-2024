@@ -1,12 +1,12 @@
 import {lazy, Suspense} from "react";
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
-import Login from "../components/Login.tsx";
+import Login from "../pages/Login.tsx";
 import FloatingButton from "../components/UI/FloatingButton.tsx";
 import PrivateRoute from "./PrivateRoute.tsx";
-import About from "../components/about/About.tsx";
-import TodoDetail from "../components/todos/TodoDetail.tsx";
+import About from "../pages/About.tsx";
+import TodoDetail from "../pages/TodoDetail.tsx";
 
-const Todos = lazy(() => import('../components/todos/Todos.tsx'));
+const Todos = lazy(() => import('../pages/Todos.tsx'));
 
 const RouterOutlet = () => {
 

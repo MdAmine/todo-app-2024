@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {Todo} from "../../types/todo.ts";
-import PriorityBadge from "../PriorityBadge.tsx";
+import {Todo} from "../types/todo.ts";
+import PriorityBadge from "../components/UI/PriorityBadge.tsx";
 
 const TodoDetail = () => {
     const {id} = useParams();

@@ -13,6 +13,7 @@ function App() {
     }
     const logoutHandler = () => {
         setIsLoggedIn(false);
+        localStorage.removeItem("todos")
     }
     useEffect(() => {
         localStorage.setItem('isLogged', String(isLoggedIn));

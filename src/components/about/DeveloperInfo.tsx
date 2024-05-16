@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {User} from "../types/user.ts";
+import {User} from "../../types/user.ts";
 import {useNavigate} from "react-router-dom";
 
 export const DeveloperInfo = () => {
