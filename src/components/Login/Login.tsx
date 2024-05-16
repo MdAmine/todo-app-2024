@@ -1,5 +1,4 @@
 import {useContext, useState } from "react";
-import { useNavigate } from "react-router";
 import AuthContext from "../context/LoginContext";
 
 function Login() {
@@ -7,7 +6,6 @@ function Login() {
     const [password, setPassword] = useState('');
     const [messageEmail, setMessageEmail] = useState('');
     const [messagePassword, setMessagePassword] = useState('');
-    const navigation=useNavigate()
     let auth=useContext(AuthContext)
 
     function verifyEmail(event) {
