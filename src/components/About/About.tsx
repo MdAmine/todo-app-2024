@@ -1,6 +1,6 @@
 import DevInfo from "./DevInfo/DevInfo";
 
-function About({ setIsLoggedIn }) {
+function About() {
   return (
     <div className="container">
       <header className="text-center text-light my-4">
@@ -14,7 +14,7 @@ function About({ setIsLoggedIn }) {
         </ul>
       </header>
 
-      <DevInfo setIsLoggedIn={setIsLoggedIn} />
+      <DevInfo />
     </div>
   );
 }

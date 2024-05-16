@@ -1,11 +1,13 @@
-import { useState } from "react";
-
+import React, { useState, useContext } from "react";
 import "./FloatingButton.scss";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../Context/context";
 
-const FloatingButton = ({ isLoggedIn, setIsLoggedIn }) => {
+const FloatingButton = () => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
+
   const handleClick = () => {
     setChecked(!checked);
   };
@@ -13,16 +15,20 @@ const FloatingButton = ({ isLoggedIn, setIsLoggedIn }) => {
   const setUnchecked = () => {
     setChecked(false);
   };
+
   const logoutHandler = () => {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
   };
+
   const aboutNavigate = () => {
     navigate("/About");
   };
+
   const todoNavigate = () => {
     navigate("/");
   };
+
   return (
     <div className="buttonContainer" onBlur={setUnchecked}>
       <input
@@ -42,4 +48,5 @@ const FloatingButton = ({ isLoggedIn, setIsLoggedIn }) => {
     </div>
   );
 };
+
 export default FloatingButton;

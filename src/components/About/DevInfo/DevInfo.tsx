@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-function DevInfo({ setIsLoggedIn }) {
+import AuthContext from "../../Context/context";
+function DevInfo() {
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);

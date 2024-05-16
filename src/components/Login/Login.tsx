@@ -1,8 +1,11 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./Login.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../Context/context";
 
-function Login({ setIsLoggedIn }) {
+function Login() {
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState(false);
