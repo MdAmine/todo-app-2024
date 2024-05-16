@@ -1,15 +1,22 @@
 import {FormEvent, useRef} from "react";
 import {Todo} from "../../types/todo.ts";
+import {Priority} from "../../types/priority.ts";
 
-export const TodoAdd = ({onAdd}: { onAdd: (todo: Todo) => void }) => {
+interface TodoAddProps {
+    onAdd: (todo: Todo) => void
+    priority: Priority
+}
+
+export const TodoAdd = (props: TodoAddProps) => {
 
     const input = useRef<HTMLInputElement | null>(null)
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault()
-        onAdd({
+        props.onAdd({
             id: Math.floor(Math.random() * 1001),
             title: input.current!.value,
-            completed: false
+            completed: false,
+            priority: props.priority
         })
         input.current!.value = ''
     }

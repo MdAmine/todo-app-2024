@@ -1,6 +1,7 @@
 import {faCheck, faPenToSquare, faTrashAlt, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Todo} from "../../types/todo.ts";
+import PriorityBadge from "../PriorityBadge.tsx";
 
 export interface TodoItemProps {
     todo: Todo;
@@ -35,7 +36,9 @@ export const TodoItem = (props: TodoItemProps) => {
         <li
             className={`list-group-item d-flex justify-content-between align-items-center ${(props.todo.completed) ? null : 'item-complete'}`}
         >
-            <span>{props.todo.title}</span>
+            <span>
+        <PriorityBadge priority={props.todo.priority}/>&nbsp;{props.todo.title}
+      </span>
             <div>
                 <FontAwesomeIcon
                     data-testid="completed-icon"

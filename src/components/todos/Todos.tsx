@@ -3,11 +3,13 @@ import {todomocks} from "../../mocks/todomocks.ts";
 import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {Todo} from "../../types/todo.ts";
 import {TodoAdd} from "./TodoAdd.tsx";
+import {Priority} from "../../types/priority.ts";
 
 export const Todos = () => {
     const storedTodos = localStorage.getItem('todos');
     const [todos, setTodos] = useState<Todo[]>(storedTodos ? JSON.parse(storedTodos) : todomocks);
     const [searchTerm, setSearchTerm] = useState('');
+    const [priority, setPriority] = useState<Priority>(Priority.ALL)
 
     const searchTodoHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value.toLowerCase());
@@ -41,9 +43,18 @@ export const Todos = () => {
         localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos]);
 
-    const filteredTodos = useMemo(() => todos.filter((todo) => todo.title
-        .toLowerCase()
-        .includes(searchTerm)), [todos, searchTerm]);
+    const filteredTodos = useMemo<Todo[]>(() => {
+        if (priority === Priority.ALL) {
+            return todos.filter(todo =>
+                todo.title.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        } else {
+            return todos.filter(todo =>
+                todo.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                todo.priority === priority
+            );
+        }
+    }, [todos, searchTerm, priority]);
 
     return (
         <div>
@@ -57,14 +68,42 @@ export const Todos = () => {
                     onChange={searchTodoHandler}
                 />
             </header>
-
+            <div className='d-flex justify-content-center mb-3'>
+                <div className="btn-group">
+                    <button type="button"
+                            className={`btn btn-outline-dark ${(priority === Priority.ALL ? 'active' : null)}`}
+                            onClick={() => setPriority(Priority.ALL)}>
+                        ALL
+                    </button>
+                    <button type="button"
+                            className={`btn btn-outline-danger ${(priority === Priority.P1 ? 'active' : null)}`}
+                            onClick={() => setPriority(Priority.P1)}>
+                        P1
+                    </button>
+                    <button type="button"
+                            className={`btn btn-outline-warning ${(priority === Priority.P2 ? 'active' : null)}`}
+                            onClick={() => setPriority(Priority.P2)}>
+                        P2
+                    </button>
+                    <button type="button"
+                            className={`btn btn-outline-info ${(priority === Priority.P3 ? 'active' : null)}`}
+                            onClick={() => setPriority(Priority.P3)}>
+                        P3
+                    </button>
+                    <button type="button"
+                            className={`btn btn-outline-success ${(priority === Priority.P4 ? 'active' : null)}`}
+                            onClick={() => setPriority(Priority.P4)}>
+                        P4
+                    </button>
+                </div>
+            </div>
             <ul className="list-group todos mx-auto text-light">
                 {filteredTodos.map((todo) => (
                     <TodoItem todo={todo} key={todo.id} onDeleted={onDeleted} onCompleted={onCompleted}
                               onEdit={onEdit}/>
                 ))}
             </ul>
-            <TodoAdd onAdd={onAdd}/>
+            <TodoAdd priority={priority} onAdd={onAdd}/>
 
         </div>
     )
