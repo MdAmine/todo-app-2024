@@ -7,10 +7,10 @@ import { useState } from "react";
 import FloatingButton from "./components/UI/FloatingButton";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./components/About/About";
-
+import AuthContext from "./context/AuthContext";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === "true"
+    localStorage.getItem("isLoggedIn") === "false"
   );
 
   const handleLogin = () => {
@@ -24,27 +24,40 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <div className="container">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              !isLoggedIn ? (
-                <Login handleLogin={handleLogin} />
-              ) : (
-                <>
-                  <Todo />
-                  <FloatingButton handleLogout={handleLogout} />
-                </>
-              )
-            }
-          />
-          <Route path="/detail/:id" element={<Detail />} />
-          <Route path="about" element={<About handleLogout={handleLogout} />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <>
+      <AuthContext.Provider
+        value={{
+          isLoggedIn,
+          handleLogin,
+          handleLogout,
+        }}
+      >
+        <BrowserRouter>
+          <div className="container">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  !isLoggedIn ? (
+                    <Login handleLogin={handleLogin} />
+                  ) : (
+                    <>
+                      <Todo />
+                      <FloatingButton handleLogout={handleLogout} />
+                    </>
+                  )
+                }
+              />
+              <Route path="/detail/:id" element={<Detail />} />
+              <Route
+                path="about"
+                element={<About handleLogout={handleLogout} />}
+              />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </AuthContext.Provider>
+    </>
   );
 }
 

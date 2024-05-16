@@ -13,7 +13,7 @@ const Priority: React.FC<PriorityProps> = ({ setFilterType }) => {
   };
 
   return (
-    <div className="d-inline-flex justify-content-center mb-2 ml-12">
+    <div className="d-inline-flex justify-content-center mb-2 mr-12">
       <button
         type="button"
         className={`btn btn-outline-secondary me-2 ${

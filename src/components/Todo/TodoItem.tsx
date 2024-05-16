@@ -1,8 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCalendarCheck,
   faCheck,
   faCheckSquare,
+  faEye,
   faPenToSquare,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -46,51 +48,65 @@ const TodoItem: React.FC<TodoDoneProps> = ({
       {todo && (
         <div className={`mx-auto text-light`}>
           {todo.map((task) => (
-            <div
-              key={task.id}
-              className="d-flex justify-content-between align-items-center mx-auto text-light"
-            >
-              <div className="btn-group me-2">
-                <button
-                  type="button"
-                  className={`btn ${getPriorityButtonClass(task.priority)}`}
-                  disabled
+            <div key={task.id}>
+              <ul className="list-group todos mx-auto text-light">
+                <li
+                  className={`list-group-item d-flex justify-content-between align-items-center`}
                 >
-                  {task.priority}
-                </button>
-              </div>
-              <div className="data">
-                <div className="today">
-                  <Link
-                    to={`/detail/${task.id}`}
-                    style={{ color: "white", textDecoration: "none" }}
+                  <button
+                    type="button"
+                    className={`btn ${getPriorityButtonClass(task.priority)}`}
+                    disabled
+                    style={{ fontSize: "12px", padding: "4px 8px" }}
                   >
-                    <h4>{task.title}</h4>
-                  </Link>
-                </div>
-              </div>
-              <div>
-                <FontAwesomeIcon
-                  style={{ marginRight: "0.3em" }}
-                  icon={task.isCompleted ? faCheckSquare : faCheck}
-                  className="pointer"
-                  onClick={() => handleCheck(task.id)}
-                />
+                    {task.priority}
+                  </button>
+                  <div className="data">
+                    <div className="today">
+                      <Link
+                        to={`/detail/${task.id}`}
+                        style={{ color: "white", textDecoration: "none" }}
+                      >
+                        <span>{task.title}</span>
+                      </Link>
+                    </div>
+                  </div>
+                  <div>
+                    <FontAwesomeIcon
+                      style={{ marginRight: "0.3em" }}
+                      icon={task.isCompleted ? faCalendarCheck : faCheck}
+                      className="pointer"
+                      onClick={() => handleCheck(task.id)}
+                    />
 
-                <FontAwesomeIcon
-                  style={{
-                    marginRight: "0.3em",
-                  }}
-                  icon={faPenToSquare}
-                  className="pointer"
-                  onClick={() => promptForNewTitle(task.id, task.title)}
-                />
-                <FontAwesomeIcon
-                  icon={faTrashAlt}
-                  className="pointer"
-                  onClick={() => handleDeleteTask(task.id)}
-                />
-              </div>
+                    <FontAwesomeIcon
+                      style={{
+                        marginRight: "0.3em",
+                      }}
+                      icon={faPenToSquare}
+                      className="pointer"
+                      onClick={() => promptForNewTitle(task.id, task.title)}
+                    />
+                    <Link
+                      to={`/detail/${task.id}`}
+                      style={{ color: "white", textDecoration: "none" }}
+                    >
+                      <FontAwesomeIcon
+                        style={{
+                          marginRight: "0.3em",
+                        }}
+                        icon={faEye}
+                        className="pointer"
+                      />
+                    </Link>
+                    <FontAwesomeIcon
+                      icon={faTrashAlt}
+                      className="pointer"
+                      onClick={() => handleDeleteTask(task.id)}
+                    />
+                  </div>
+                </li>
+              </ul>
             </div>
           ))}
         </div>

@@ -115,17 +115,19 @@ function Todo() {
     <div>
       <div className="container">
         <header className="text-center text-light my-4">
-          <h1 className="mb-5">Todo List</h1>
+          <h1 className="mb-3">Todo List</h1>
           <input
             type="text"
-            className="form-control m-auto"
+            className="form-control"
             name="search"
             placeholder="Search todos"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </header>
-        <Priority setFilterType={setFilterType} />
+        <div className="d-flex justify-content-center align-items-center flex-column">
+          <Priority setFilterType={setFilterType} />
+        </div>
         <TodoDone
           todo={filteredTodo}
           handleDeleteTask={handleDeleteTask}
