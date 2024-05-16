@@ -1,10 +1,11 @@
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({email: "", password: ""});
-
+    const navigate = useNavigate();
     const handleLogin = (event) => {
         event.preventDefault();
         let isValid = true;
@@ -21,6 +22,7 @@ const Login = (props) => {
         setErrors(errors);
         if (isValid) {
             props.onLogin();
+            navigate("/");
         }
     };
 

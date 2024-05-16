@@ -1,9 +1,8 @@
 import {render} from '@testing-library/react';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faCheck, faPenToSquare, faTimes, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
-import TodoItem from './TodoItem';
+import TodoItem from './TodoItem.tsx';
 
-// Add the icons to the library so they can be used in your tests
 library.add(faCheck, faPenToSquare, faTimes, faTrashAlt);
 
 test('should not have isChecked state when the check icon is not clicked', () => {
