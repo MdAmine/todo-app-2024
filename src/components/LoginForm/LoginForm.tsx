@@ -25,6 +25,7 @@ function LoginForm() {
         className={`form-control mb-2`}
         id="email"
         placeholder="Email"
+        aria-label='email-input'
       />
       <input
         ref={passwordInput}
@@ -32,9 +33,10 @@ function LoginForm() {
         className={`form-control mb-3`}
         id="password"
         placeholder="Enter your Password"
+        aria-label='password-input'
       />
       {error && (<div className='mb-2' style={{color: 'red'}}>{error}</div>)}
-      <button type="submit" className="btn btn-dark">
+      <button type="submit" className="btn btn-dark" aria-label='login-btn'>
         Login
       </button>
     </form>

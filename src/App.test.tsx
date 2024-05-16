@@ -2,6 +2,7 @@ import {beforeEach, describe, expect, it, vi} from "vitest";
 import {render} from "@testing-library/react";
 import App from "./App.tsx";
 import {AuthContext} from "./routes/RouterOutlet.tsx";
+import userEvent from "@testing-library/user-event";
 
 describe('App test', () => {
   const setLoggedIn = vi.fn()
@@ -9,7 +10,7 @@ describe('App test', () => {
 
   const renderComponent = (isLoggedIn: boolean) => render(
     <AuthContext.Provider value={{isLoggedIn, setLoggedIn, setLoggedOut}}>
-        <App/>
+      <App/>
     </AuthContext.Provider>
   )
 
@@ -31,5 +32,20 @@ describe('App test', () => {
 
     expect(rendered.getByLabelText('todos-list')).toBeInTheDocument()
     expect(rendered.queryByLabelText('login-form')).toBeNull()
+  })
+
+  it('should trigger logged in when user click login', async () => {
+    const rendered = renderComponent(false)
+
+    const emailInput = rendered.getByLabelText('email-input')
+    const passwordInput = rendered.getByLabelText('password-input')
+    const loginBtn = rendered.getByLabelText('login-btn')
+    const user = userEvent.setup()
+
+    await user.type(emailInput, 'test@test')
+    await user.type(passwordInput, '123')
+    await user.click(loginBtn)
+
+    expect(setLoggedIn).toHaveBeenCalledOnce()
   })
 })
