@@ -12,14 +12,11 @@ import { useAuth } from "./context/AuthContext";
 function App() {
   const { isLogged, handleLogin, handleLogout } = useAuth();
 
-  
-
-
   return (
     <>
       <div className="container">
 
-        {isLogged && <FloatingButton handleLogout={handleLogout} />}
+        {isLogged && <FloatingButton />}
 
             <Routes>
               <Route path="/login" element={<Login onLogin={handleLogin}/>} />
