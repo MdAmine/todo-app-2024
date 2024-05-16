@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import FloatingButton from "./components/UI/FloatingButton";
 import "./App.css";
 import ListToDo from "./components/TODO/ListToDo/ListToDo";
 import Login from "./components/Login/Login";
-import TodoDetail from "./components/TODO/DetailToDo/DetailToDo";
-import { initialTodos } from "./utils";
 import DetailToDo from "./components/TODO/DetailToDo/DetailToDo";
 import About from "./components/About/About";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [todoItems, setTodoItems] = useState(initialTodos);
+
   return (
     <div className="container">
       <Routes>
@@ -28,7 +26,7 @@ function App() {
                 />
               </>
             ) : (
-              <Login setIsLoggedIn={setIsLoggedIn} />
+              <Login data-testid="login" setIsLoggedIn={setIsLoggedIn} />
             )
           }
         />
@@ -38,7 +36,7 @@ function App() {
             isLoggedIn ? (
               <>
                 {" "}
-                <DetailToDo todoItems={todoItems} />
+                <DetailToDo />
                 <FloatingButton
                   isLoggedIn={isLoggedIn}
                   setIsLoggedIn={setIsLoggedIn}

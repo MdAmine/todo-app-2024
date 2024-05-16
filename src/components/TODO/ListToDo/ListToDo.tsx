@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ItemToDo from "../ItemToDo/ItemToDo";
 import AddToDo from "../AddToDo/AddToDo";
 import { initialTodos } from "../../../utils.tsx";
 function ListToDo() {
-  const [todoItems, setTodoItems] = useState(initialTodos);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterByPriority, setFilterByPriority] = useState(null);
   const [activeFilter, setActiveFilter] = useState(null);
+
+  const [todoItems, setTodoItems] = useState(
+    JSON.parse(localStorage.getItem("todos")) || initialTodos
+  );
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todoItems));
+  }, [todoItems]);
   const handleAddTodo = (newTodo) => {
     let priority;
 
@@ -41,7 +47,13 @@ function ListToDo() {
   const handleDeleteTodo = (id) => {
     setTodoItems(todoItems.filter((item) => item.id !== id));
   };
-
+  const handleToggleComplete = (id) => {
+    setTodoItems(
+      todoItems.map((item) =>
+        item.id === id ? { ...item, complete: !item.complete } : item
+      )
+    );
+  };
   const filteredTodoItems = todoItems.filter((item) =>
     item.todo.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -102,6 +114,7 @@ function ListToDo() {
             props={item}
             onDelete={handleDeleteTodo}
             onModify={(modifiedTodo) => handleModifyTodo(item.id, modifiedTodo)}
+            onToggleComplete={() => handleToggleComplete(item.id)}
           />
         ))}
       </div>
