@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 
-const Login =(props) =>{
-  const {onLogin}=props;
+const Login = (props) => {
+  const { onLogin } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleLogin = (e) => {
     e.preventDefault();
-    if (email.trim() !== '' && password.trim() !== '') {
-      onLogin(true);
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(email)) {
+      setErrorMessage('Please enter a valid email address.');
+    } else if (password.trim() === '') {
+      setErrorMessage('Please enter your password.');
     } else {
-      alert('Please fill in both email and password fields.');
+      setErrorMessage('');
+      onLogin(true);
     }
   };
 
@@ -33,6 +38,7 @@ const Login =(props) =>{
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {errorMessage && <p className="text-danger">{errorMessage}</p>}
           <button type="button" className="btn btn-dark" onClick={handleLogin}>
             Login
           </button>
@@ -40,6 +46,6 @@ const Login =(props) =>{
       </div>
     </div>
   );
-}
+};
 
 export default Login;

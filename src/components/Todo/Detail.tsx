@@ -18,8 +18,9 @@ const Detail = () => {
                     <p>Todo: {todo}</p>
                     <p>Complete: {completed}</p>
                     <span className={`badge bg-${priorityColors[priority]} me-2`}>{priority}</span>
+                    
                     <div className="mt-3">
-                        <Link to="/todolist">
+                        <Link to="/">
                             <button className="btn btn-dark">Retour</button>
                         </Link>
                     </div>

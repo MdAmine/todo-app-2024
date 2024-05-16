@@ -1,83 +1,68 @@
-
+import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEye, faPenToSquare, faTimes, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { Link, Navigate, Route, Routes } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 const TodoItm = (props) => {
-   
-    const handleDelete = () => {
-        props.onDelete(props.item.id);
+    const { item, onDelete, onUpdate, updateTodoState } = props;
+
+    const handleToggleComplete = () => {
+        updateTodoState(item.id, !item.completed);
     };
-  
 
     const handleUpdate = () => {
-        const newTodo = prompt("Update todo item:", props.item.todo);
+        const newTodo = prompt("Update todo item:", item.todo);
         if (newTodo !== null && newTodo.trim() !== "") {
-            props.onUpdate(props.item.id, newTodo);
+            onUpdate(item.id, newTodo);
         }
     };
+
+    const handleDelete = () => {
+        onDelete(item.id);
+    };
+
     const priorityColors = {
         P1: 'danger',
         P2: 'warning',
         P3: 'primary',
         P4: 'success'
     };
-    const handleToggleComplete = () => {
-        props.updateTodoState(props.item.id, props.item.completed= !props.item.completed );
-        console.log(props.item.completed);
-    }
-  
-    
+
     return (
         <ul className="list-group todos mx-auto text-light">
-            
-                <li
-                    className={`list-group-item d-flex justify-content-between align-items-center`}
-                >
-                      <span>
-                    <span className={`badge bg-${priorityColors[props.item.priority]} me-2`}>{props.item.priority}</span>
-                    {props.item.todo}
+            <li className={`list-group-item d-flex justify-content-between align-items-center`}>
+                <span>
+                    <span className={`badge bg-${priorityColors[item.priority]} me-2`}>{item.priority}</span>
+                    {item.todo}
                 </span>
-                    <div>
+                <div>
+                    <FontAwesomeIcon
+                        style={{ marginRight: "0.3em" }}
+                        icon={item.completed ? faCheck : faTimes}
+                        className="pointer"
+                        onClick={handleToggleComplete}
+                    />
+                    <Link to={`/todo/${item.id}/${item.todo}/${item.completed}/${item.priority}`}>
                         <FontAwesomeIcon
-                            style={{
-                                marginRight: "0.3em",
-                            }}
-                            icon={props.item.completed ? faCheck : faTimes}    
+                            style={{ marginRight: "0.3em", color: "white" }}
+                            icon={faEye}
                             className="pointer"
-                            onClick={handleToggleComplete}
-                        />
-                         
-                    <Link to={`/todo/${props.item.id}/${props.item.todo}/${props.item.completed}/${props.item.priority}`}>
-                        <FontAwesomeIcon 
-                        style={{
-                            marginRight: "0.3em",
-                        }}
-                            icon={faEye} 
-                            className="pointer" 
                         />
                     </Link>
-                        <FontAwesomeIcon
-                            style={{
-                                marginRight: "0.3em",
-                            }}
-                            icon={faPenToSquare}
-                            className="pointer"
-                             onClick={handleUpdate}
-
-                        />
-                        <FontAwesomeIcon 
-                            icon={faTrashAlt} 
-                            className="pointer" 
-                            onClick={handleDelete}
-                        />
-                        
-                    </div>
-                </li>
-            
+                    <FontAwesomeIcon
+                        style={{ marginRight: "0.3em" }}
+                        icon={faPenToSquare}
+                        className="pointer"
+                        onClick={handleUpdate}
+                    />
+                    <FontAwesomeIcon
+                        icon={faTrashAlt}
+                        className="pointer"
+                        onClick={handleDelete}
+                    />
+                </div>
+            </li>
         </ul>
-        
     );
 }
 

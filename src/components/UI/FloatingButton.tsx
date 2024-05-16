@@ -28,7 +28,7 @@ const FloatingButton = ({ onLogout }) => {
         <nav className="nav">
           <ul>
             <li>
-            <Link className="link" to="/App">TodoList</Link>
+            <Link className="link" to="/">TodoList</Link>
             </li>
             <li>
             <Link className="link" to="/about">About</Link>

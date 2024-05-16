@@ -46,15 +46,20 @@ function App() {
                 <Login onLogin={handleLogin}/>
               ) : (
                 <>
-                  <Todolist />
+                  < Todolist />
                   <FloatingButton onLogout={handleLogout}  />
                 </>
               )
             }
           />
+          {/* page detail de chaque item */}
           <Route path="/todo/:id/:todo/:completed/:priority" element={<Detail />} />
-          <Route path="/todolist" element={<Todolist />} />
+          {/* la page about */}
           <Route path="/About" element={<About />} />
+          {/* contient la liste (Todolist)  */}
+          <Route path="/" element={<App />} />
+
+
         </Routes>
       </div>
     </BrowserRouter>
