@@ -10,20 +10,6 @@ body {
   margin-top: 10%;
 }
 
-
-/* Todo */
-
-input[type="text"],
-input[type="text"]:focus {
-  color: #fff;
-  border: none;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-label.add {
-  margin-bottom: 15px;
-}
-
 li.list-group-item {
   background-color: #423a6f;
   color: #f8f9fa;
@@ -41,3 +27,21 @@ li.list-group-item {
   --bs-list-group-border-color: none;
   margin-bottom: 3px;
 }
+/* Todo */
+
+input[type="text"],
+input[type="text"]:focus {
+  color: #fff;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+input[type="password"],
+input[type="password"]:focus {
+  color: #fff;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+label.add {
+  margin-bottom: 15px;
+}
+
