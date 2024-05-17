@@ -1,114 +1,53 @@
 import "bootstrap/dist/css/bootstrap.css";
-import FloatingButton from "./components/UI/FloatingButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faPenToSquare,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
+import React, {useContext, useEffect} from "react";
+import ListToDo from "./components/to-do/list-to-do/List-to-do.tsx";
+import {Route, Routes} from "react-router-dom";
+import Login from "./components/login/Login.tsx";
+import About from "./components/about/About.tsx";
+import Details from "./components/details/Details.tsx";
+import FloatingButton from "./components/UI/FloatingButton.tsx";
+import {AuthContext} from "./components/context/Context.tsx";
 
 function App() {
-  return (
-    <>
-      <div className="container">
-        <header className="text-center text-light my-4">
-          <h1 className="mb-5">Todo List</h1>
-          <input
-            type="text"
-            className="form-control m-auto"
-            name="search"
-            placeholder="search todos"
-          />
-        </header>
 
-        <ul className="list-group todos mx-auto text-light">
-          <li
-            className={`list-group-item d-flex justify-content-between align-items-center`}
-          >
-            <span>Read Books</span>
-            <div>
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faCheck}
-                className="pointer"
-              />
+    const {loggedIn, setLoggedIn} = useContext(AuthContext);
+    useEffect(() => {
+        const loggedInStatus = localStorage.getItem("isLoggedIn");
+        if (loggedInStatus === "true") {
+            setLoggedIn(true);
+        }
+    }, []);
+    const handleLogin = () => {
+        setLoggedIn(true);
+        localStorage.setItem("isLoggedIn", "true");
+    };
 
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faPenToSquare}
-                className="pointer"
-              />
-              <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-            </div>
-          </li>
-        </ul>
-
-        <ul className="list-group todos mx-auto text-light">
-          <li
-            className={`list-group-item d-flex justify-content-between align-items-center`}
-          >
-            <span>Sport</span>
-            <div>
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faCheck}
-                className="pointer"
-              />
-
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faPenToSquare}
-                className="pointer"
-              />
-              <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-            </div>
-          </li>
-        </ul>
-
-        <form className="add text-center my-4">
-          <label htmlFor="add" className="add text-light">
-            Add a new todo:
-          </label>
-          <input
-            type="text"
-            className="form-control m-auto"
-            name="add"
-            id="add"
-          />
-        </form>
-
-        <form className="text-center my-4 text-light">
-          <h1 className="mb-4">Login Form</h1>
-          <input
-            type="text"
-            className={`form-control mb-2`}
-            id="email"
-            placeholder="Email"
-          />
-          <input
-            type="text"
-            className={`form-control mb-3`}
-            id="password"
-            placeholder="Enter your Password"
-          />
-          <button type="submit" className="btn btn-dark">
-            Login
-          </button>
-        </form>
-
-        <FloatingButton />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        loggedIn ? (
+                            <>
+                                <ListToDo/>
+                            </>
+                        ) : (
+                            <Login onLogin={handleLogin}/>
+                        )
+                    }
+                />
+                {loggedIn && (
+                    <>
+                        <Route path="/about" element={<About/>}/>
+                        <Route path="/details/:id" element={<Details/>}/>
+                    </>
+                )}
+            </Routes>
+            {loggedIn && <FloatingButton/>}
+        </>
+    );
 }
 
 export default App;
