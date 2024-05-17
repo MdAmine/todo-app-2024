@@ -1,114 +1,74 @@
+import React, { useState, useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.css";
-import FloatingButton from "./components/UI/FloatingButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faPenToSquare,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
-import "./App.css";
+import Login from "./components/Login/Login";
+import Todolist from "./components/Todo/Todolist";
+import FloatingButton from './components/UI/FloatingButton';
+import About from './components/About/About';
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+import Detail from './components/Todo/Detail';
+import LoginContext from './components/Todo/LoginContext';
+
+
 
 function App() {
-  return (
-    <>
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+    if (storedIsLoggedIn === "true") {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(isLoggedIn); 
+  }, [isLoggedIn]);
+
+  const handleLogin = () => {
+    localStorage.setItem("isLoggedIn", "true"); 
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+  };
+ 
+ return (
+  <LoginContext.Provider value={{ isLoggedIn, handleLogin, handleLogout }}>
+    <BrowserRouter>
       <div className="container">
-        <header className="text-center text-light my-4">
-          <h1 className="mb-5">Todo List</h1>
-          <input
-            type="text"
-            className="form-control m-auto"
-            name="search"
-            placeholder="search todos"
+        <Routes>
+          <Route
+            path="/"
+            element={
+              !isLoggedIn ? (
+                <Login onLogin={handleLogin}/>
+              ) : (
+                <>
+                  < Todolist />
+                  <FloatingButton onLogout={handleLogout}  />
+                </>
+              )
+            }
           />
-        </header>
+          {/* page detail de chaque item */}
+          <Route path="/todo/:id/:todo/:completed/:priority" element={<Detail />} />
+          {/* la page about */}
+          <Route path="/About" element={<About />} />
+          {/* contient la liste (Todolist)  */}
+          <Route path="/" element={<App />} />
 
-        <ul className="list-group todos mx-auto text-light">
-          <li
-            className={`list-group-item d-flex justify-content-between align-items-center`}
-          >
-            <span>Read Books</span>
-            <div>
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faCheck}
-                className="pointer"
-              />
 
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faPenToSquare}
-                className="pointer"
-              />
-              <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-            </div>
-          </li>
-        </ul>
-
-        <ul className="list-group todos mx-auto text-light">
-          <li
-            className={`list-group-item d-flex justify-content-between align-items-center`}
-          >
-            <span>Sport</span>
-            <div>
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faCheck}
-                className="pointer"
-              />
-
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faPenToSquare}
-                className="pointer"
-              />
-              <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-            </div>
-          </li>
-        </ul>
-
-        <form className="add text-center my-4">
-          <label htmlFor="add" className="add text-light">
-            Add a new todo:
-          </label>
-          <input
-            type="text"
-            className="form-control m-auto"
-            name="add"
-            id="add"
-          />
-        </form>
-
-        <form className="text-center my-4 text-light">
-          <h1 className="mb-4">Login Form</h1>
-          <input
-            type="text"
-            className={`form-control mb-2`}
-            id="email"
-            placeholder="Email"
-          />
-          <input
-            type="text"
-            className={`form-control mb-3`}
-            id="password"
-            placeholder="Enter your Password"
-          />
-          <button type="submit" className="btn btn-dark">
-            Login
-          </button>
-        </form>
-
-        <FloatingButton />
+        </Routes>
       </div>
-    </>
+    </BrowserRouter>
+        </LoginContext.Provider>
+
   );
+
+  
+  
 }
 
 export default App;

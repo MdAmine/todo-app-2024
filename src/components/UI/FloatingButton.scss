@@ -10,6 +10,15 @@ $light-purple: #c784dd;
   top: 3em;
   right: 2em;
 }
+.link {
+  text-decoration: none; /* Supprimer le soulignement */
+  color: #000; /* Couleur du texte, facultatif */
+}
+
+.link:hover {
+  /* Styles facultatifs pour le survol */
+}
+
 
 #toggle {
   -webkit-appearance: none;
