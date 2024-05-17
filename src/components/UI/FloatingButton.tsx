@@ -1,8 +1,12 @@
 import { useState } from "react";
 
 import "./FloatingButton.scss";
+import { Link } from "react-router-dom";
 
-const FloatingButton = () => {
+interface FloatingButtonProps {
+  handleLogout: () => void;
+}
+const FloatingButton: React.FC<FloatingButtonProps> = ({ handleLogout }) => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -25,8 +29,11 @@ const FloatingButton = () => {
       <nav className="nav">
         <ul>
           <span>Todo List</span>
-          <span>About</span>
-          <span>Logout</span>
+          <Link to={`/about`}>
+            <span>About</span>
+          </Link>
+
+          <span onClick={handleLogout}>Logout</span>
         </ul>
       </nav>
     </div>
