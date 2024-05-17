@@ -1,114 +1,43 @@
 import "bootstrap/dist/css/bootstrap.css";
-import FloatingButton from "./components/UI/FloatingButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faPenToSquare,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
+import About from "./components/about/About";
+import Home from "./components/home/Home";
+import Login from "./components/login/Login";
+import TodoDetails from "./components/todo/TodoDetails";
+import TodoList from "./components/todo/TodoList";
+import FloatingButton from "./components/UI/FloatingButton";
+import { AuthProvider } from "./context-api/context";
+import PrivateRoute from "./PrivateRoute";
 
-function App() {
+const App = () => {
   return (
     <>
-      <div className="container">
-        <header className="text-center text-light my-4">
-          <h1 className="mb-5">Todo List</h1>
-          <input
-            type="text"
-            className="form-control m-auto"
-            name="search"
-            placeholder="search todos"
-          />
-        </header>
-
-        <ul className="list-group todos mx-auto text-light">
-          <li
-            className={`list-group-item d-flex justify-content-between align-items-center`}
-          >
-            <span>Read Books</span>
-            <div>
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faCheck}
-                className="pointer"
+      <AuthProvider>
+        <Router>
+          <div className="container">
+            <FloatingButton />
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<PrivateRoute Component={Home} />} />
+              <Route
+                path="/todos"
+                element={<PrivateRoute Component={TodoList} />}
               />
-
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faPenToSquare}
-                className="pointer"
+              <Route
+                path="/todos/:id"
+                element={<PrivateRoute Component={TodoDetails} />}
               />
-              <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-            </div>
-          </li>
-        </ul>
-
-        <ul className="list-group todos mx-auto text-light">
-          <li
-            className={`list-group-item d-flex justify-content-between align-items-center`}
-          >
-            <span>Sport</span>
-            <div>
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faCheck}
-                className="pointer"
+              <Route
+                path="/about"
+                element={<PrivateRoute Component={About} />}
               />
-
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faPenToSquare}
-                className="pointer"
-              />
-              <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-            </div>
-          </li>
-        </ul>
-
-        <form className="add text-center my-4">
-          <label htmlFor="add" className="add text-light">
-            Add a new todo:
-          </label>
-          <input
-            type="text"
-            className="form-control m-auto"
-            name="add"
-            id="add"
-          />
-        </form>
-
-        <form className="text-center my-4 text-light">
-          <h1 className="mb-4">Login Form</h1>
-          <input
-            type="text"
-            className={`form-control mb-2`}
-            id="email"
-            placeholder="Email"
-          />
-          <input
-            type="text"
-            className={`form-control mb-3`}
-            id="password"
-            placeholder="Enter your Password"
-          />
-          <button type="submit" className="btn btn-dark">
-            Login
-          </button>
-        </form>
-
-        <FloatingButton />
-      </div>
+            </Routes>
+          </div>
+        </Router>
+      </AuthProvider>
     </>
   );
-}
+};
 
 export default App;

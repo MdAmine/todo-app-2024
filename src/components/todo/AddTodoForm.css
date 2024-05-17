@@ -1,0 +1,13 @@
+.add {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.add label {
+  color: #fff;
+}
+
+.add input {
+  display: block;
+  margin: 0 auto;
+}
