@@ -80,6 +80,21 @@ $light-purple: #c784dd;
       color: $light-purple;
     }
   }
+  .span {
+    text-align: center;
+    margin: 10px 0;
+    color: $purple;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+      color: $light-purple;
+    }
+  }
 }
 
 #toggle.checked ~ .nav {

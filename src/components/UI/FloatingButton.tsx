@@ -1,9 +1,12 @@
 import { useState } from "react";
 
 import "./FloatingButton.scss";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const FloatingButton = () => {
   const [checked, setChecked] = useState(false);
+  const { handleLogout } = useAuth();
 
   const handleClick = () => {
     setChecked(!checked);
@@ -24,9 +27,9 @@ const FloatingButton = () => {
       <label className="button" htmlFor="toggle"></label>
       <nav className="nav">
         <ul>
-          <span>Todo List</span>
-          <span>About</span>
-          <span>Logout</span>
+          <Link className="span" to='todo'>Todo List</Link>
+          <Link className="span" to='about'>About</Link>
+          <span onClick={handleLogout}>Logout</span>
         </ul>
       </nav>
     </div>
