@@ -1,8 +1,9 @@
 import { useState } from "react";
 
 import "./FloatingButton.scss";
+import {Link} from "react-router-dom";
 
-const FloatingButton = () => {
+const FloatingButton = (props) => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -13,7 +14,7 @@ const FloatingButton = () => {
     setChecked(false);
   };
 
-  return (
+    return (
     <div className="buttonContainer" onBlur={setUnchecked}>
       <input
         type="checkbox"
@@ -24,9 +25,9 @@ const FloatingButton = () => {
       <label className="button" htmlFor="toggle"></label>
       <nav className="nav">
         <ul>
-          <span>Todo List</span>
-          <span>About</span>
-          <span>Logout</span>
+          <span><Link to="/">Todo List</Link></span>
+          <span><Link to="/about">About</Link></span>
+          <span onClick={props.onLogout}>Logout</span>
         </ul>
       </nav>
     </div>

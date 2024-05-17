@@ -1,114 +1,55 @@
 import "bootstrap/dist/css/bootstrap.css";
 import FloatingButton from "./components/UI/FloatingButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faPenToSquare,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
+import Todo from "./components/todo/Todo.tsx";
+import Login from "./components/login/Login.tsx";
+import {useEffect, useState} from "react";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import About from "./components/about/About.tsx";
+import TodoDetails from "./components/todo/todo-details/TodoDetails.tsx";
+import initialTodoItems from "./components/Utils.tsx";
+import {AuthContext} from "./context/Context.tsx";
 
 function App() {
-  return (
-    <>
-      <div className="container">
-        <header className="text-center text-light my-4">
-          <h1 className="mb-5">Todo List</h1>
-          <input
-            type="text"
-            className="form-control m-auto"
-            name="search"
-            placeholder="search todos"
-          />
-        </header>
-
-        <ul className="list-group todos mx-auto text-light">
-          <li
-            className={`list-group-item d-flex justify-content-between align-items-center`}
-          >
-            <span>Read Books</span>
-            <div>
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faCheck}
-                className="pointer"
-              />
-
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faPenToSquare}
-                className="pointer"
-              />
-              <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-            </div>
-          </li>
-        </ul>
-
-        <ul className="list-group todos mx-auto text-light">
-          <li
-            className={`list-group-item d-flex justify-content-between align-items-center`}
-          >
-            <span>Sport</span>
-            <div>
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faCheck}
-                className="pointer"
-              />
-
-              <FontAwesomeIcon
-                style={{
-                  marginRight: "0.3em",
-                }}
-                icon={faPenToSquare}
-                className="pointer"
-              />
-              <FontAwesomeIcon icon={faTrashAlt} className="pointer" />
-            </div>
-          </li>
-        </ul>
-
-        <form className="add text-center my-4">
-          <label htmlFor="add" className="add text-light">
-            Add a new todo:
-          </label>
-          <input
-            type="text"
-            className="form-control m-auto"
-            name="add"
-            id="add"
-          />
-        </form>
-
-        <form className="text-center my-4 text-light">
-          <h1 className="mb-4">Login Form</h1>
-          <input
-            type="text"
-            className={`form-control mb-2`}
-            id="email"
-            placeholder="Email"
-          />
-          <input
-            type="text"
-            className={`form-control mb-3`}
-            id="password"
-            placeholder="Enter your Password"
-          />
-          <button type="submit" className="btn btn-dark">
-            Login
-          </button>
-        </form>
-
-        <FloatingButton />
-      </div>
-    </>
-  );
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [todoItems, setTodoItems] = useState(initialTodoItems);
+    useEffect(() => {
+        const loggedIn = localStorage.getItem("isLoggedIn");
+        if (loggedIn === "true") {
+            setIsLoggedIn(true);
+        }
+    }, []);
+    const login = () => {
+        setIsLoggedIn(true);
+        localStorage.setItem("isLoggedIn", "true")
+    }
+    const logout = () => {
+        setIsLoggedIn(false);
+        localStorage.setItem("isLoggedIn", "false");
+    };
+    return (
+        <AuthContext.Provider value={{isLoggedIn, login, logout}}>
+            <BrowserRouter>
+                <div className="container">
+                    {isLoggedIn ?
+                        <>
+                            <Routes>
+                                <Route path="/" element={<Todo todoItems={todoItems} setTodoItems={setTodoItems}/>}/>
+                                <Route path="/about" element={<About/>}/>
+                                <Route path="/:id" element={<TodoDetails todoItems={todoItems}/>}/>
+                            </Routes>
+                        </>
+                        :
+                        <>
+                            <Login onLogin={login}/>
+                        </>
+                    }
+                    <FloatingButton onLogout={logout}/>
+                </div>
+            </BrowserRouter>
+        </AuthContext.Provider>
+    )
+        ;
 }
 
 export default App;
