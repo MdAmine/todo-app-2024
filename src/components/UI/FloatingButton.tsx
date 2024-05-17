@@ -1,8 +1,15 @@
 import { useState } from "react";
 
 import "./FloatingButton.scss";
+import Login from "../Login/Login";
+import { Link } from "react-router-dom";
+import React from "react";
+import LoginContext from "../LoginContext";
 
 const FloatingButton = () => {
+ //const {logoutHandler}=props;
+ const { isLoggedIn, loginHandler, logoutHandler } = React.useContext(LoginContext);
+
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -12,7 +19,7 @@ const FloatingButton = () => {
   const setUnchecked = () => {
     setChecked(false);
   };
-
+ 
   return (
     <div className="buttonContainer" onBlur={setUnchecked}>
       <input
@@ -25,9 +32,8 @@ const FloatingButton = () => {
       <nav className="nav">
         <ul>
           <span>Todo List</span>
-          <span>About</span>
-          <span>Logout</span>
-        </ul>
+          <Link to="/about"><span>About</span></Link>
+          <span onClick={logoutHandler}>Logout</span> </ul>
       </nav>
     </div>
   );
