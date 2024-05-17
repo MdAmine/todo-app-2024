@@ -10,34 +10,22 @@ body {
   margin-top: 10%;
 }
 
+.about{
+  color: white;
+  margin-top: -50px;
 
-/* Todo */
-
-input[type="text"],
-input[type="text"]:focus {
-  color: #fff;
-  border: none;
-  background-color: rgba(0, 0, 0, 0.2);
 }
 
-label.add {
-  margin-bottom: 15px;
+.col p {
+  margin-bottom: 16px;
 }
 
-li.list-group-item {
-  background-color: #423a6f;
-  color: #f8f9fa;
+.about h2{
+  margin-bottom: 1.5rem;
 }
 
-.pointer {
-  cursor: pointer;
-}
-
-.item-complete {
-  background-color: #3c3b45 !important;
-}
-
-.todos {
-  --bs-list-group-border-color: none;
-  margin-bottom: 3px;
+.about .custom-hr {
+  width: 100%;
+  border: 1px solid rgb(255, 255, 255);
+  margin-top: 20px;
 }
